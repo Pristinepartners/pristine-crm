@@ -1182,7 +1182,7 @@ function CSVImportModal({
           {step === 'map' && (
             <button
               onClick={handleImport}
-              disabled={loading || !Object.values(columnMapping).includes('name')}
+              disabled={loading || !(Object.values(columnMapping).includes('name') || Object.values(columnMapping).includes('first_name') || Object.values(columnMapping).includes('last_name'))}
               className="flex-1 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 transition disabled:opacity-50"
             >
               {loading ? 'Importing...' : 'Import Contacts'}
