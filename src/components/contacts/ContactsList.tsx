@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { format } from 'date-fns'
-import { Plus, Search, User, Phone, Mail, Building, Download, Upload, Users, Filter, Linkedin, X, Tag as TagIcon } from 'lucide-react'
+import { Plus, Search, User, Phone, Mail, Building, Download, Upload, Users, Filter, Linkedin, X, Tag as TagIcon, Trash2, MapPin } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import type { Contact, Owner, Pipeline, Tag } from '@/lib/supabase/types'
 import { QuickLogActivityButton } from '@/components/forms/QuickLogActivityButton'
@@ -112,6 +112,35 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
     }
   }
 
+  const [deleting, setDeleting] = useState(false)
+
+  const handleBulkDelete = async () => {
+    const count = selectedContacts.size
+    if (!confirm(`Are you sure you want to delete ${count} contact${count !== 1 ? 's' : ''}? This cannot be undone.`)) return
+
+    setDeleting(true)
+    const ids = Array.from(selectedContacts)
+
+    // Also delete related opportunities and activities
+    await supabase.from('opportunities').delete().in('contact_id', ids)
+    await supabase.from('activities').delete().in('contact_id', ids)
+    await supabase.from('appointments').delete().in('contact_id', ids)
+    await supabase.from('contact_tags').delete().in('contact_id', ids)
+
+    const { error } = await supabase.from('contacts').delete().in('id', ids)
+
+    if (error) {
+      alert(`Error deleting contacts: ${error.message}`)
+      setDeleting(false)
+      return
+    }
+
+    setContacts(prev => prev.filter(c => !selectedContacts.has(c.id)))
+    setSelectedContacts(new Set())
+    setDeleting(false)
+    router.refresh()
+  }
+
   const handleExportCSV = () => {
     const headers = ['Name', 'Email', 'Phone', 'Business', 'Owner', 'Lead Score', 'Source', 'LinkedIn', 'Created']
     const csvData = contacts.map(c => [
@@ -188,6 +217,14 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
               className="px-3 py-1.5 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
             >
               Clear selection
+            </button>
+            <button
+              onClick={handleBulkDelete}
+              disabled={deleting}
+              className="flex items-center gap-2 px-3 py-1.5 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700 transition disabled:opacity-50"
+            >
+              <Trash2 className="w-4 h-4" />
+              {deleting ? 'Deleting...' : `Delete (${selectedContacts.size})`}
             </button>
             {pipelines.length > 0 && (
               <button
@@ -337,6 +374,12 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
                 Contact Info
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-[var(--color-text-secondary)] uppercase tracking-wider">
+                Address
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-[var(--color-text-secondary)] uppercase tracking-wider">
+                LinkedIn
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-[var(--color-text-secondary)] uppercase tracking-wider">
                 Owner
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-[var(--color-text-secondary)] uppercase tracking-wider">
@@ -410,13 +453,33 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
                         {contact.phone}
                       </div>
                     )}
-                    {contact.linkedin_url && (
-                      <div className="flex items-center gap-2 text-sm text-[var(--color-primary)]" style={{ color: 'var(--color-primary)' }}>
-                        <Linkedin className="w-4 h-4" />
-                        LinkedIn
-                      </div>
-                    )}
                   </div>
+                </td>
+                <td className="px-6 py-4">
+                  {(contact.address || contact.city) && (
+                    <div className="flex items-start gap-2 text-sm text-[var(--color-text-secondary)]">
+                      <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                      <div>
+                        {contact.address && <div>{contact.address}</div>}
+                        {contact.city && <div>{contact.city}{contact.postal_code ? `, ${contact.postal_code}` : ''}</div>}
+                      </div>
+                    </div>
+                  )}
+                </td>
+                <td className="px-6 py-4">
+                  {contact.linkedin_url && (
+                    <a
+                      href={contact.linkedin_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="flex items-center gap-2 text-sm hover:opacity-80"
+                      style={{ color: 'var(--color-primary)' }}
+                    >
+                      <Linkedin className="w-4 h-4" />
+                      Profile
+                    </a>
+                  )}
                 </td>
                 <td className="px-6 py-4">
                   <span
@@ -824,7 +887,9 @@ function CSVImportModal({
 
   const fieldOptions = [
     { value: '', label: 'Skip this column' },
-    { value: 'name', label: 'Name *' },
+    { value: 'name', label: 'Full Name *' },
+    { value: 'first_name', label: 'First Name *' },
+    { value: 'last_name', label: 'Last Name *' },
     { value: 'email', label: 'Email' },
     { value: 'phone', label: 'Phone' },
     { value: 'business_name', label: 'Business Name' },
@@ -870,16 +935,27 @@ function CSVImportModal({
         setPreview(parsed.slice(1, 6))
 
         // Auto-map columns based on header names
+        // Handles GHL exports with separate first/last name columns
         const autoMapping: Record<string, string> = {}
+        const headerLower = parsed[0].map(h => h.toLowerCase().trim())
+        const hasFirstLast = headerLower.some(h => h === 'first name' || h === 'firstname' || h === 'first_name') &&
+          headerLower.some(h => h === 'last name' || h === 'lastname' || h === 'last_name')
+
         parsed[0].forEach((header, index) => {
           const h = header.toLowerCase().trim()
-          if (h.includes('name') && !h.includes('business')) autoMapping[index.toString()] = 'name'
-          else if (h.includes('email') || h.includes('e-mail')) autoMapping[index.toString()] = 'email'
+          // Name handling - detect first/last name split (GHL format)
+          if (hasFirstLast && (h === 'first name' || h === 'firstname' || h === 'first_name')) {
+            autoMapping[index.toString()] = 'first_name'
+          } else if (hasFirstLast && (h === 'last name' || h === 'lastname' || h === 'last_name')) {
+            autoMapping[index.toString()] = 'last_name'
+          } else if (!hasFirstLast && (h === 'name' || h === 'full name' || h === 'fullname' || h === 'contact name' || h === 'contactname')) {
+            autoMapping[index.toString()] = 'name'
+          } else if (h.includes('email') || h.includes('e-mail')) autoMapping[index.toString()] = 'email'
           else if (h.includes('phone') || h.includes('tel')) autoMapping[index.toString()] = 'phone'
-          else if (h.includes('business') || h.includes('company')) autoMapping[index.toString()] = 'business_name'
-          else if (h.includes('address') && !h.includes('email')) autoMapping[index.toString()] = 'address'
-          else if (h.includes('city')) autoMapping[index.toString()] = 'city'
-          else if (h.includes('postal') || h.includes('zip')) autoMapping[index.toString()] = 'postal_code'
+          else if (h.includes('business') || h.includes('company') || h === 'company name' || h === 'companyname') autoMapping[index.toString()] = 'business_name'
+          else if ((h.includes('address') || h === 'street') && !h.includes('email')) autoMapping[index.toString()] = 'address'
+          else if (h === 'city' || h === 'town') autoMapping[index.toString()] = 'city'
+          else if (h.includes('postal') || h.includes('zip') || h === 'postalcode') autoMapping[index.toString()] = 'postal_code'
           else if (h.includes('website') || (h.includes('url') && !h.includes('linkedin'))) autoMapping[index.toString()] = 'website'
           else if (h.includes('linkedin')) autoMapping[index.toString()] = 'linkedin_url'
           else if (h.includes('source')) autoMapping[index.toString()] = 'source'
@@ -895,10 +971,14 @@ function CSVImportModal({
   const handleImport = async () => {
     if (!file) return
 
-    // Check if name column is mapped
-    const hasNameMapping = Object.values(columnMapping).includes('name')
+    // Check if name column is mapped (either full name or first+last name)
+    const mappedValues = Object.values(columnMapping)
+    const hasFullName = mappedValues.includes('name')
+    const hasFirstName = mappedValues.includes('first_name')
+    const hasLastName = mappedValues.includes('last_name')
+    const hasNameMapping = hasFullName || hasFirstName || hasLastName
     if (!hasNameMapping) {
-      alert('Please map at least the Name column')
+      alert('Please map a Name column (Full Name, or First Name / Last Name)')
       return
     }
 
@@ -934,11 +1014,23 @@ function CSVImportModal({
             owner: defaultOwner,
             organization_id: crypto.randomUUID(),
           }
+          let firstName = ''
+          let lastName = ''
           Object.entries(columnMapping).forEach(([colIndex, field]) => {
             if (field && row[parseInt(colIndex)]) {
-              contact[field] = row[parseInt(colIndex)]
+              if (field === 'first_name') {
+                firstName = row[parseInt(colIndex)].trim()
+              } else if (field === 'last_name') {
+                lastName = row[parseInt(colIndex)].trim()
+              } else {
+                contact[field] = row[parseInt(colIndex)]
+              }
             }
           })
+          // Combine first + last name if mapped separately
+          if (firstName || lastName) {
+            contact.name = [firstName, lastName].filter(Boolean).join(' ')
+          }
           return contact
         })
         .filter(c => c.name)
