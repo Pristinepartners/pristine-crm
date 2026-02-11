@@ -27,13 +27,13 @@ export function KanbanFilters({ pipelineId, initialOwner, initialFollowUp, baseP
   return (
     <div className="flex flex-wrap gap-4">
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
           Owner
         </label>
         <select
           value={initialOwner || ''}
           onChange={(e) => updateFilters('owner', e.target.value || null)}
-          className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+          className="px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
         >
           <option value="">All owners</option>
           <option value="alex">Alex</option>
@@ -42,14 +42,14 @@ export function KanbanFilters({ pipelineId, initialOwner, initialFollowUp, baseP
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
+        <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
           Follow-up before
         </label>
         <input
           type="date"
           value={initialFollowUp || ''}
           onChange={(e) => updateFilters('followUp', e.target.value || null)}
-          className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+          className="px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
         />
       </div>
 
@@ -57,7 +57,7 @@ export function KanbanFilters({ pipelineId, initialOwner, initialFollowUp, baseP
         <div className="flex items-end">
           <button
             onClick={() => router.push(`${basePath}/${pipelineId}`)}
-            className="px-3 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition"
+            className="px-3 py-2 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:bg-stone-100 rounded-lg transition"
           >
             Clear filters
           </button>

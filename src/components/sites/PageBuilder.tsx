@@ -176,34 +176,34 @@ export function PageBuilder({ type, item }: PageBuilderProps) {
   const selectedEl = elements.find(el => el.id === selectedElement)
 
   return (
-    <div className="h-screen flex flex-col bg-gray-100">
+    <div className="h-screen flex flex-col bg-stone-100">
       {/* Top Bar */}
-      <div className="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
+      <div className="bg-white border-b border-[var(--color-border)] px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Link
             href="/sites"
-            className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition"
+            className="p-2 text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:bg-stone-100 rounded-lg transition"
           >
             <ArrowLeft className="w-5 h-5" />
           </Link>
           <div>
-            <h1 className="font-semibold text-gray-900">{item.name}</h1>
-            <p className="text-xs text-gray-500">/{item.slug}</p>
+            <h1 className="font-semibold text-[var(--color-text)]">{item.name}</h1>
+            <p className="text-xs text-[var(--color-text-secondary)]">/{item.slug}</p>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
           {/* View Mode Toggle */}
-          <div className="flex bg-gray-100 rounded-lg p-1">
+          <div className="flex bg-stone-100 rounded-lg p-1">
             <button
               onClick={() => setViewMode('desktop')}
-              className={`p-2 rounded ${viewMode === 'desktop' ? 'bg-white shadow-sm' : 'text-gray-500'}`}
+              className={`p-2 rounded ${viewMode === 'desktop' ? 'bg-white shadow-sm' : 'text-[var(--color-text-secondary)]'}`}
             >
               <Monitor className="w-4 h-4" />
             </button>
             <button
               onClick={() => setViewMode('mobile')}
-              className={`p-2 rounded ${viewMode === 'mobile' ? 'bg-white shadow-sm' : 'text-gray-500'}`}
+              className={`p-2 rounded ${viewMode === 'mobile' ? 'bg-white shadow-sm' : 'text-[var(--color-text-secondary)]'}`}
             >
               <Smartphone className="w-4 h-4" />
             </button>
@@ -211,7 +211,7 @@ export function PageBuilder({ type, item }: PageBuilderProps) {
 
           <button
             onClick={() => window.open(`/preview/${type}/${item.slug}`, '_blank')}
-            className="flex items-center gap-2 px-3 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition"
+            className="flex items-center gap-2 px-3 py-2 text-[var(--color-text)] hover:bg-stone-100 rounded-lg transition"
           >
             <Eye className="w-4 h-4" />
             Preview
@@ -220,7 +220,7 @@ export function PageBuilder({ type, item }: PageBuilderProps) {
           <button
             onClick={handleSave}
             disabled={saving}
-            className="flex items-center gap-2 px-3 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition disabled:opacity-50"
+            className="flex items-center gap-2 px-3 py-2 border border-[var(--color-border-strong)] text-[var(--color-text)] rounded-lg hover:bg-stone-50 transition disabled:opacity-50"
           >
             <Save className="w-4 h-4" />
             Save
@@ -229,7 +229,7 @@ export function PageBuilder({ type, item }: PageBuilderProps) {
           <button
             onClick={handlePublish}
             disabled={saving}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+            className="flex items-center gap-2 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 transition disabled:opacity-50"
           >
             Publish
           </button>
@@ -238,9 +238,9 @@ export function PageBuilder({ type, item }: PageBuilderProps) {
 
       <div className="flex-1 flex overflow-hidden">
         {/* Left Panel - Elements */}
-        <div className={`w-64 bg-white border-r border-gray-200 flex flex-col ${showLeftPanel ? '' : 'hidden'}`}>
-          <div className="p-4 border-b border-gray-200">
-            <h2 className="font-semibold text-gray-900">Elements</h2>
+        <div className={`w-64 bg-white border-r border-[var(--color-border)] flex flex-col ${showLeftPanel ? '' : 'hidden'}`}>
+          <div className="p-4 border-b border-[var(--color-border)]">
+            <h2 className="font-semibold text-[var(--color-text)]">Elements</h2>
           </div>
           <div className="flex-1 overflow-y-auto p-4">
             <div className="grid grid-cols-2 gap-2">
@@ -248,10 +248,10 @@ export function PageBuilder({ type, item }: PageBuilderProps) {
                 <button
                   key={elType}
                   onClick={() => addElement(elType)}
-                  className="flex flex-col items-center gap-2 p-3 border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-blue-300 transition"
+                  className="flex flex-col items-center gap-2 p-3 border border-[var(--color-border)] rounded-lg hover:bg-stone-50 hover:border-amber-300 transition"
                 >
-                  <Icon className="w-5 h-5 text-gray-600" />
-                  <span className="text-xs text-gray-600">{label}</span>
+                  <Icon className="w-5 h-5 text-[var(--color-text-secondary)]" />
+                  <span className="text-xs text-[var(--color-text-secondary)]">{label}</span>
                 </button>
               ))}
             </div>
@@ -267,9 +267,9 @@ export function PageBuilder({ type, item }: PageBuilderProps) {
           >
             <div className="p-8">
               {elements.length === 0 ? (
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center">
-                  <p className="text-gray-500 mb-2">Your page is empty</p>
-                  <p className="text-sm text-gray-400">Add elements from the left panel</p>
+                <div className="border-2 border-dashed border-[var(--color-border-strong)] rounded-lg p-12 text-center">
+                  <p className="text-[var(--color-text-secondary)] mb-2">Your page is empty</p>
+                  <p className="text-sm text-[var(--color-text-muted)]">Add elements from the left panel</p>
                 </div>
               ) : (
                 <div className="space-y-4">
@@ -278,7 +278,7 @@ export function PageBuilder({ type, item }: PageBuilderProps) {
                       key={element.id}
                       onClick={() => setSelectedElement(element.id)}
                       className={`relative group cursor-pointer ${
-                        selectedElement === element.id ? 'ring-2 ring-blue-500 ring-offset-2' : ''
+                        selectedElement === element.id ? 'ring-2 ring-[var(--color-primary)] ring-offset-2' : ''
                       }`}
                     >
                       {/* Element Controls */}
@@ -319,12 +319,12 @@ export function PageBuilder({ type, item }: PageBuilderProps) {
 
         {/* Right Panel - Properties */}
         {selectedEl && (
-          <div className="w-80 bg-white border-l border-gray-200 flex flex-col">
-            <div className="p-4 border-b border-gray-200 flex items-center justify-between">
-              <h2 className="font-semibold text-gray-900">Properties</h2>
+          <div className="w-80 bg-white border-l border-[var(--color-border)] flex flex-col">
+            <div className="p-4 border-b border-[var(--color-border)] flex items-center justify-between">
+              <h2 className="font-semibold text-[var(--color-text)]">Properties</h2>
               <button
                 onClick={() => setSelectedElement(null)}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)]"
               >
                 ✕
               </button>
@@ -356,7 +356,7 @@ function ElementRenderer({ element }: { element: Element }) {
         <img src={element.content.src} alt={element.content.alt} style={style} />
       ) : (
         <div style={{ ...style, backgroundColor: '#F3F4F6', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '200px' }}>
-          <Image className="w-8 h-8 text-gray-400" />
+          <Image className="w-8 h-8 text-[var(--color-text-muted)]" />
         </div>
       )
     case 'button':
@@ -374,15 +374,15 @@ function ElementRenderer({ element }: { element: Element }) {
         <div style={style}>
           {element.content.fields?.map((field: any, i: number) => (
             <div key={i} className="mb-3">
-              <label className="block text-sm font-medium text-gray-700 mb-1">{field.label}</label>
+              <label className="block text-sm font-medium text-[var(--color-text)] mb-1">{field.label}</label>
               <input
                 type={field.type}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg"
                 placeholder={field.label}
               />
             </div>
           ))}
-          <button className="w-full py-2 bg-blue-600 text-white rounded-lg">
+          <button className="w-full py-2 bg-[var(--color-primary)] text-white rounded-lg">
             {element.content.submitText}
           </button>
         </div>
@@ -394,7 +394,7 @@ function ElementRenderer({ element }: { element: Element }) {
         </div>
       ) : (
         <div style={{ ...style, backgroundColor: '#F3F4F6', display: 'flex', alignItems: 'center', justifyContent: 'center', height: '300px' }}>
-          <Play className="w-12 h-12 text-gray-400" />
+          <Play className="w-12 h-12 text-[var(--color-text-muted)]" />
         </div>
       )
     case 'html':
@@ -417,26 +417,26 @@ function ElementProperties({ element, onUpdate }: { element: Element; onUpdate: 
 
   return (
     <div className="space-y-4">
-      <h3 className="text-sm font-medium text-gray-500 uppercase">{element.type}</h3>
+      <h3 className="text-sm font-medium text-[var(--color-text-secondary)] uppercase">{element.type}</h3>
 
       {/* Content Properties */}
       {element.type === 'heading' && (
         <>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Text</label>
+            <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Text</label>
             <input
               type="text"
               value={element.content.text}
               onChange={(e) => updateContent('text', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+              className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Level</label>
+            <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Level</label>
             <select
               value={element.content.level}
               onChange={(e) => updateContent('level', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+              className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm"
             >
               <option value="h1">H1</option>
               <option value="h2">H2</option>
@@ -449,12 +449,12 @@ function ElementProperties({ element, onUpdate }: { element: Element; onUpdate: 
 
       {element.type === 'text' && (
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Text</label>
+          <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Text</label>
           <textarea
             value={element.content.text}
             onChange={(e) => updateContent('text', e.target.value)}
             rows={4}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+            className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm"
           />
         </div>
       )}
@@ -462,22 +462,22 @@ function ElementProperties({ element, onUpdate }: { element: Element; onUpdate: 
       {element.type === 'image' && (
         <>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
+            <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Image URL</label>
             <input
               type="text"
               value={element.content.src}
               onChange={(e) => updateContent('src', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+              className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm"
               placeholder="https://..."
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Alt Text</label>
+            <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Alt Text</label>
             <input
               type="text"
               value={element.content.alt}
               onChange={(e) => updateContent('alt', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+              className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm"
             />
           </div>
         </>
@@ -486,21 +486,21 @@ function ElementProperties({ element, onUpdate }: { element: Element; onUpdate: 
       {element.type === 'button' && (
         <>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Button Text</label>
+            <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Button Text</label>
             <input
               type="text"
               value={element.content.text}
               onChange={(e) => updateContent('text', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+              className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Link URL</label>
+            <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Link URL</label>
             <input
               type="text"
               value={element.content.link}
               onChange={(e) => updateContent('link', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+              className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm"
             />
           </div>
         </>
@@ -508,12 +508,12 @@ function ElementProperties({ element, onUpdate }: { element: Element; onUpdate: 
 
       {element.type === 'video' && (
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Video URL (YouTube/Vimeo)</label>
+          <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Video URL (YouTube/Vimeo)</label>
           <input
             type="text"
             value={element.content.src}
             onChange={(e) => updateContent('src', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+            className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm"
             placeholder="https://youtube.com/embed/..."
           />
         </div>
@@ -521,12 +521,12 @@ function ElementProperties({ element, onUpdate }: { element: Element; onUpdate: 
 
       {element.type === 'spacer' && (
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Height</label>
+          <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Height</label>
           <input
             type="text"
             value={element.content.height}
             onChange={(e) => updateContent('height', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+            className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm"
             placeholder="40px"
           />
         </div>
@@ -534,15 +534,15 @@ function ElementProperties({ element, onUpdate }: { element: Element; onUpdate: 
 
       {element.type === 'html' && (
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Custom HTML Code</label>
+          <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Custom HTML Code</label>
           <textarea
             value={element.content.code}
             onChange={(e) => updateContent('code', e.target.value)}
             rows={12}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm font-mono"
+            className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm font-mono"
             placeholder="<div>Your HTML here</div>"
           />
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-xs text-[var(--color-text-secondary)] mt-1">
             Enter any valid HTML, CSS, or JavaScript code
           </p>
         </div>
@@ -550,42 +550,42 @@ function ElementProperties({ element, onUpdate }: { element: Element; onUpdate: 
 
       {/* Style Properties */}
       <hr className="my-4" />
-      <h3 className="text-sm font-medium text-gray-500 uppercase">Styles</h3>
+      <h3 className="text-sm font-medium text-[var(--color-text-secondary)] uppercase">Styles</h3>
 
       {(element.type === 'heading' || element.type === 'text') && (
         <>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Font Size</label>
+            <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Font Size</label>
             <input
               type="text"
               value={element.styles.fontSize}
               onChange={(e) => updateStyle('fontSize', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+              className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Text Color</label>
+            <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Text Color</label>
             <div className="flex gap-2">
               <input
                 type="color"
                 value={element.styles.color}
                 onChange={(e) => updateStyle('color', e.target.value)}
-                className="w-10 h-10 rounded border border-gray-300"
+                className="w-10 h-10 rounded border border-[var(--color-border-strong)]"
               />
               <input
                 type="text"
                 value={element.styles.color}
                 onChange={(e) => updateStyle('color', e.target.value)}
-                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                className="flex-1 px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm"
               />
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Text Align</label>
+            <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Text Align</label>
             <select
               value={element.styles.textAlign}
               onChange={(e) => updateStyle('textAlign', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+              className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm"
             >
               <option value="left">Left</option>
               <option value="center">Center</option>
@@ -598,46 +598,46 @@ function ElementProperties({ element, onUpdate }: { element: Element; onUpdate: 
       {element.type === 'button' && (
         <>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Background Color</label>
+            <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Background Color</label>
             <div className="flex gap-2">
               <input
                 type="color"
                 value={element.styles.backgroundColor}
                 onChange={(e) => updateStyle('backgroundColor', e.target.value)}
-                className="w-10 h-10 rounded border border-gray-300"
+                className="w-10 h-10 rounded border border-[var(--color-border-strong)]"
               />
               <input
                 type="text"
                 value={element.styles.backgroundColor}
                 onChange={(e) => updateStyle('backgroundColor', e.target.value)}
-                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                className="flex-1 px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm"
               />
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Text Color</label>
+            <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Text Color</label>
             <div className="flex gap-2">
               <input
                 type="color"
                 value={element.styles.color}
                 onChange={(e) => updateStyle('color', e.target.value)}
-                className="w-10 h-10 rounded border border-gray-300"
+                className="w-10 h-10 rounded border border-[var(--color-border-strong)]"
               />
               <input
                 type="text"
                 value={element.styles.color}
                 onChange={(e) => updateStyle('color', e.target.value)}
-                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                className="flex-1 px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm"
               />
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Border Radius</label>
+            <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Border Radius</label>
             <input
               type="text"
               value={element.styles.borderRadius}
               onChange={(e) => updateStyle('borderRadius', e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+              className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm"
             />
           </div>
         </>

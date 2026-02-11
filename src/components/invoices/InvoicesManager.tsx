@@ -26,11 +26,11 @@ interface InvoicesManagerProps {
 }
 
 const statusConfig: Record<string, { label: string; color: string; icon: React.ElementType }> = {
-  draft: { label: 'Draft', color: 'bg-gray-100 text-gray-700', icon: FileText },
-  sent: { label: 'Sent', color: 'bg-blue-100 text-blue-700', icon: Send },
+  draft: { label: 'Draft', color: 'bg-stone-100 text-stone-700', icon: FileText },
+  sent: { label: 'Sent', color: 'bg-amber-50 text-amber-700', icon: Send },
   paid: { label: 'Paid', color: 'bg-green-100 text-green-700', icon: CheckCircle },
   overdue: { label: 'Overdue', color: 'bg-red-100 text-red-700', icon: AlertCircle },
-  cancelled: { label: 'Cancelled', color: 'bg-gray-100 text-gray-500', icon: Clock },
+  cancelled: { label: 'Cancelled', color: 'bg-stone-100 text-[var(--color-text-secondary)]', icon: Clock },
 }
 
 export function InvoicesManager({ invoices, clients }: InvoicesManagerProps) {
@@ -168,12 +168,12 @@ export function InvoicesManager({ invoices, clients }: InvoicesManagerProps) {
     <div className="p-8">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Invoices</h1>
-          <p className="text-gray-500 mt-1">Manage client billing and payments</p>
+          <h1 className="text-2xl font-bold text-[var(--color-text)]">Invoices</h1>
+          <p className="text-[var(--color-text-secondary)] mt-1">Manage client billing and payments</p>
         </div>
         <button
           onClick={() => setShowCreateModal(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+          className="flex items-center gap-2 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-[var(--color-primary-hover)] transition"
         >
           <Plus className="w-4 h-4" />
           Create Invoice
@@ -182,36 +182,36 @@ export function InvoicesManager({ invoices, clients }: InvoicesManagerProps) {
 
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
+        <div className="bg-white rounded-xl p-4 shadow-sm border border-[var(--color-border)]">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-yellow-100 rounded-lg">
               <Clock className="w-5 h-5 text-yellow-600" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Outstanding</p>
-              <p className="text-xl font-bold text-gray-900">${totalOutstanding.toLocaleString('en-US')}</p>
+              <p className="text-sm text-[var(--color-text-secondary)]">Outstanding</p>
+              <p className="text-xl font-bold text-[var(--color-text)]">${totalOutstanding.toLocaleString('en-US')}</p>
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
+        <div className="bg-white rounded-xl p-4 shadow-sm border border-[var(--color-border)]">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-green-100 rounded-lg">
               <DollarSign className="w-5 h-5 text-green-600" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Paid (All Time)</p>
-              <p className="text-xl font-bold text-gray-900">${totalPaid.toLocaleString('en-US')}</p>
+              <p className="text-sm text-[var(--color-text-secondary)]">Paid (All Time)</p>
+              <p className="text-xl font-bold text-[var(--color-text)]">${totalPaid.toLocaleString('en-US')}</p>
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
+        <div className="bg-white rounded-xl p-4 shadow-sm border border-[var(--color-border)]">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-red-100 rounded-lg">
               <AlertCircle className="w-5 h-5 text-red-600" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Overdue</p>
-              <p className="text-xl font-bold text-gray-900">{overdueCount}</p>
+              <p className="text-sm text-[var(--color-text-secondary)]">Overdue</p>
+              <p className="text-xl font-bold text-[var(--color-text)]">{overdueCount}</p>
             </div>
           </div>
         </div>
@@ -220,19 +220,19 @@ export function InvoicesManager({ invoices, clients }: InvoicesManagerProps) {
       {/* Filters */}
       <div className="flex flex-wrap gap-4 mb-6">
         <div className="relative flex-1 min-w-[200px]">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" />
           <input
             type="text"
             placeholder="Search invoices..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+            className="w-full pl-10 pr-4 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
           />
         </div>
         <select
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+          className="px-4 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
         >
           <option value="all">All Statuses</option>
           <option value="draft">Draft</option>
@@ -244,7 +244,7 @@ export function InvoicesManager({ invoices, clients }: InvoicesManagerProps) {
         <select
           value={filterClient}
           onChange={(e) => setFilterClient(e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+          className="px-4 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
         >
           <option value="all">All Clients</option>
           {clients.map(client => (
@@ -257,33 +257,33 @@ export function InvoicesManager({ invoices, clients }: InvoicesManagerProps) {
 
       {/* Invoices Table */}
       {filteredInvoices.length === 0 ? (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
-          <Receipt className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">No invoices found</h3>
-          <p className="text-gray-500 mb-4">Create your first invoice to get started</p>
+        <div className="bg-white rounded-xl shadow-sm border border-[var(--color-border)] p-12 text-center">
+          <Receipt className="w-12 h-12 text-[var(--color-text-muted)] mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-[var(--color-text)] mb-2">No invoices found</h3>
+          <p className="text-[var(--color-text-secondary)] mb-4">Create your first invoice to get started</p>
           <button
             onClick={() => setShowCreateModal(true)}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-[var(--color-primary-hover)] transition"
           >
             <Plus className="w-4 h-4" />
             Create Invoice
           </button>
         </div>
       ) : (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-visible">
+        <div className="bg-white rounded-xl shadow-sm border border-[var(--color-border)] overflow-visible">
           <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-200">
+            <thead className="bg-stone-50 border-b border-[var(--color-border)]">
               <tr>
-                <th className="text-left px-4 py-3 text-sm font-medium text-gray-500">Invoice #</th>
-                <th className="text-left px-4 py-3 text-sm font-medium text-gray-500">Client</th>
-                <th className="text-left px-4 py-3 text-sm font-medium text-gray-500">Amount</th>
-                <th className="text-left px-4 py-3 text-sm font-medium text-gray-500">Status</th>
-                <th className="text-left px-4 py-3 text-sm font-medium text-gray-500">Due Date</th>
-                <th className="text-left px-4 py-3 text-sm font-medium text-gray-500">Created</th>
+                <th className="text-left px-4 py-3 text-sm font-medium text-[var(--color-text-secondary)]">Invoice #</th>
+                <th className="text-left px-4 py-3 text-sm font-medium text-[var(--color-text-secondary)]">Client</th>
+                <th className="text-left px-4 py-3 text-sm font-medium text-[var(--color-text-secondary)]">Amount</th>
+                <th className="text-left px-4 py-3 text-sm font-medium text-[var(--color-text-secondary)]">Status</th>
+                <th className="text-left px-4 py-3 text-sm font-medium text-[var(--color-text-secondary)]">Due Date</th>
+                <th className="text-left px-4 py-3 text-sm font-medium text-[var(--color-text-secondary)]">Created</th>
                 <th className="w-10"></th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-[var(--color-border)]">
               {filteredInvoices.map((invoice) => {
                 const status = statusConfig[invoice.status]
                 const isOverdue = invoice.due_date &&
@@ -291,17 +291,17 @@ export function InvoicesManager({ invoices, clients }: InvoicesManagerProps) {
                   invoice.status === 'sent'
 
                 return (
-                  <tr key={invoice.id} className="hover:bg-gray-50">
+                  <tr key={invoice.id} className="hover:bg-stone-50">
                     <td className="px-4 py-3">
-                      <p className="font-medium text-gray-900">{invoice.invoice_number}</p>
+                      <p className="font-medium text-[var(--color-text)]">{invoice.invoice_number}</p>
                       {invoice.description && (
-                        <p className="text-sm text-gray-500 truncate max-w-[200px]">{invoice.description}</p>
+                        <p className="text-sm text-[var(--color-text-secondary)] truncate max-w-[200px]">{invoice.description}</p>
                       )}
                     </td>
                     <td className="px-4 py-3 text-sm text-gray-600">
                       {getClientName(invoice.client_id)}
                     </td>
-                    <td className="px-4 py-3 text-sm font-medium text-gray-900">
+                    <td className="px-4 py-3 text-sm font-medium text-[var(--color-text)]">
                       ${invoice.amount.toLocaleString('en-US')}
                     </td>
                     <td className="px-4 py-3">
@@ -315,27 +315,27 @@ export function InvoicesManager({ invoices, clients }: InvoicesManagerProps) {
                     <td className="px-4 py-3 text-sm text-gray-600">
                       {invoice.due_date ? new Date(invoice.due_date).toLocaleDateString() : '-'}
                     </td>
-                    <td className="px-4 py-3 text-sm text-gray-500">
+                    <td className="px-4 py-3 text-sm text-[var(--color-text-secondary)]">
                       {new Date(invoice.created_at).toLocaleDateString()}
                     </td>
                     <td className="px-4 py-3">
                       <div className="relative">
                         <button
                           onClick={() => setMenuOpen(menuOpen === invoice.id ? null : invoice.id)}
-                          className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition"
+                          className="p-1.5 text-[var(--color-text-muted)] hover:text-gray-600 hover:bg-stone-100 rounded-lg transition"
                         >
                           <MoreVertical className="w-4 h-4" />
                         </button>
                         {menuOpen === invoice.id && (
                           <>
                             <div className="fixed inset-0 z-10" onClick={() => setMenuOpen(null)} />
-                            <div className="absolute right-0 bottom-full mb-1 w-44 bg-white rounded-lg shadow-lg border border-gray-200 z-20 py-1">
+                            <div className="absolute right-0 bottom-full mb-1 w-44 bg-white rounded-lg shadow-lg border border-[var(--color-border)] z-20 py-1">
                               <button
                                 onClick={() => {
                                   router.push(`/invoices/${invoice.id}`)
                                   setMenuOpen(null)
                                 }}
-                                className="w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                                className="w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-stone-50 flex items-center gap-2"
                               >
                                 <Pencil className="w-4 h-4" />
                                 Edit
@@ -343,7 +343,7 @@ export function InvoicesManager({ invoices, clients }: InvoicesManagerProps) {
                               {invoice.status === 'draft' && (
                                 <button
                                   onClick={() => handleStatusChange(invoice.id, 'sent')}
-                                  className="w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                                  className="w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-stone-50 flex items-center gap-2"
                                 >
                                   <Send className="w-4 h-4" />
                                   Mark as Sent
@@ -352,7 +352,7 @@ export function InvoicesManager({ invoices, clients }: InvoicesManagerProps) {
                               {(invoice.status === 'sent' || invoice.status === 'overdue') && (
                                 <button
                                   onClick={() => handleStatusChange(invoice.id, 'paid')}
-                                  className="w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                                  className="w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-stone-50 flex items-center gap-2"
                                 >
                                   <CheckCircle className="w-4 h-4" />
                                   Mark as Paid
@@ -383,11 +383,11 @@ export function InvoicesManager({ invoices, clients }: InvoicesManagerProps) {
       {showCreateModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl shadow-xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between p-4 border-b border-gray-200">
-              <h2 className="text-lg font-semibold text-gray-900">Create Invoice</h2>
+            <div className="flex items-center justify-between p-4 border-b border-[var(--color-border)]">
+              <h2 className="text-lg font-semibold text-[var(--color-text)]">Create Invoice</h2>
               <button
                 onClick={() => setShowCreateModal(false)}
-                className="p-2 text-gray-400 hover:text-gray-600 rounded-lg transition"
+                className="p-2 text-[var(--color-text-muted)] hover:text-gray-600 rounded-lg transition"
               >
                 ✕
               </button>
@@ -398,7 +398,7 @@ export function InvoicesManager({ invoices, clients }: InvoicesManagerProps) {
                 <select
                   value={formData.client_id}
                   onChange={(e) => setFormData({ ...formData, client_id: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                 >
                   <option value="">Select a client</option>
                   {clients.map(client => (
@@ -418,20 +418,20 @@ export function InvoicesManager({ invoices, clients }: InvoicesManagerProps) {
                         type="text"
                         value={item.description}
                         onChange={(e) => updateLineItem(index, 'description', e.target.value)}
-                        className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                        className="flex-1 px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                         placeholder="Description"
                       />
                       <input
                         type="number"
                         value={item.amount}
                         onChange={(e) => updateLineItem(index, 'amount', e.target.value)}
-                        className="w-28 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                        className="w-28 px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                         placeholder="Amount"
                       />
                       {formData.line_items.length > 1 && (
                         <button
                           onClick={() => removeLineItem(index)}
-                          className="p-2 text-gray-400 hover:text-red-600 transition"
+                          className="p-2 text-[var(--color-text-muted)] hover:text-red-600 transition"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -441,7 +441,7 @@ export function InvoicesManager({ invoices, clients }: InvoicesManagerProps) {
                 </div>
                 <button
                   onClick={addLineItem}
-                  className="mt-2 text-sm text-blue-600 hover:text-blue-700 font-medium"
+                  className="mt-2 text-sm text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] font-medium"
                 >
                   + Add line item
                 </button>
@@ -454,7 +454,7 @@ export function InvoicesManager({ invoices, clients }: InvoicesManagerProps) {
                     type="number"
                     value={formData.amount}
                     onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                     placeholder="1000"
                   />
                 </div>
@@ -464,7 +464,7 @@ export function InvoicesManager({ invoices, clients }: InvoicesManagerProps) {
                     type="date"
                     value={formData.due_date}
                     onChange={(e) => setFormData({ ...formData, due_date: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   />
                 </div>
               </div>
@@ -474,23 +474,23 @@ export function InvoicesManager({ invoices, clients }: InvoicesManagerProps) {
                 <textarea
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   rows={2}
                   placeholder="Invoice description..."
                 />
               </div>
             </div>
-            <div className="flex gap-3 p-4 border-t border-gray-200">
+            <div className="flex gap-3 p-4 border-t border-[var(--color-border)]">
               <button
                 onClick={() => setShowCreateModal(false)}
-                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition"
+                className="flex-1 px-4 py-2 border border-[var(--color-border-strong)] text-gray-700 rounded-lg hover:bg-stone-50 transition"
               >
                 Cancel
               </button>
               <button
                 onClick={handleCreate}
                 disabled={creating || !formData.client_id || !formData.amount}
-                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+                className="flex-1 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-[var(--color-primary-hover)] transition disabled:opacity-50"
               >
                 {creating ? 'Creating...' : 'Create Invoice'}
               </button>

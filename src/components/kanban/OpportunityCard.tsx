@@ -25,7 +25,7 @@ const getLeadScoreBorderColor = (score: LeadScore | null) => {
     case 'cold':
       return 'border-l-blue-500'
     default:
-      return 'border-l-gray-300'
+      return 'border-l-[var(--color-border-strong)]'
   }
 }
 
@@ -51,12 +51,12 @@ export function OpportunityCard({ opportunity, isDragging, onClick, onActivityLo
   return (
     <div
       onClick={handleClick}
-      className={`bg-white rounded-lg p-3 shadow-sm border border-gray-200 border-l-4 ${leadScoreBorder} cursor-pointer hover:shadow-md transition ${
-        isDragging ? 'shadow-lg ring-2 ring-blue-500' : ''
+      className={`bg-white rounded-lg p-3 shadow-sm border border-[var(--color-border)] border-l-4 ${leadScoreBorder} cursor-pointer hover:shadow-md transition ${
+        isDragging ? 'shadow-lg ring-2 ring-[var(--color-primary)]' : ''
       }`}
     >
       <div className="flex items-start justify-between gap-2 mb-2">
-        <div className="font-medium text-gray-900">
+        <div className="font-medium text-[var(--color-text)]">
           {contact?.name || 'Unknown Contact'}
         </div>
         {contact && (
@@ -73,7 +73,7 @@ export function OpportunityCard({ opportunity, isDragging, onClick, onActivityLo
       </div>
 
       {contact?.business_name && (
-        <div className="text-sm text-gray-500 mb-2">
+        <div className="text-sm text-[var(--color-text-secondary)] mb-2">
           {contact.business_name}
         </div>
       )}
@@ -82,7 +82,7 @@ export function OpportunityCard({ opportunity, isDragging, onClick, onActivityLo
         <span
           className={`inline-flex items-center gap-1 px-2 py-1 rounded-full ${
             opportunity.owner === 'alex'
-              ? 'bg-blue-100 text-blue-700'
+              ? 'bg-amber-50 text-amber-700'
               : 'bg-green-100 text-green-700'
           }`}
         >
@@ -102,7 +102,7 @@ export function OpportunityCard({ opportunity, isDragging, onClick, onActivityLo
             className={`inline-flex items-center gap-1 px-2 py-1 rounded-full ${
               isOverdue
                 ? 'bg-red-100 text-red-700'
-                : 'bg-gray-100 text-gray-600'
+                : 'bg-stone-100 text-[var(--color-text-secondary)]'
             }`}
           >
             <Calendar className="w-3 h-3" />
@@ -112,7 +112,7 @@ export function OpportunityCard({ opportunity, isDragging, onClick, onActivityLo
 
         {daysSinceLastContact !== null && (
           <span className={`inline-flex items-center gap-1 px-2 py-1 rounded-full ${
-            daysSinceLastContact > 14 ? 'bg-orange-100 text-orange-700' : 'bg-gray-100 text-gray-500'
+            daysSinceLastContact > 14 ? 'bg-orange-100 text-orange-700' : 'bg-stone-100 text-[var(--color-text-secondary)]'
           }`}>
             <Clock className="w-3 h-3" />
             {daysSinceLastContact}d

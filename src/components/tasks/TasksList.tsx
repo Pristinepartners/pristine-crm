@@ -18,7 +18,7 @@ type ViewMode = 'list' | 'daily' | 'weekly'
 const priorityColors: Record<Priority, string> = {
   high: 'text-red-600 bg-red-50',
   medium: 'text-orange-600 bg-orange-50',
-  low: 'text-blue-600 bg-blue-50',
+  low: 'text-[var(--color-primary)] bg-amber-50',
 }
 
 const priorityLabels: Record<Priority, string> = {
@@ -149,11 +149,11 @@ export function TasksList({ tasks: initialTasks, currentUser }: TasksListProps) 
   }
 
   const getDateColor = (dateStr: string, completed: boolean) => {
-    if (completed) return 'text-gray-400'
+    if (completed) return 'text-[var(--color-text-muted)]'
     const date = parseISO(dateStr)
     if (isPast(date) && !isToday(date)) return 'text-red-600'
-    if (isToday(date)) return 'text-blue-600'
-    return 'text-gray-500'
+    if (isToday(date)) return 'text-[var(--color-primary)]'
+    return 'text-[var(--color-text-secondary)]'
   }
 
   // Get tasks for a specific day
@@ -194,8 +194,8 @@ export function TasksList({ tasks: initialTasks, currentUser }: TasksListProps) 
     <>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Daily Tasks</h1>
-          <p className="text-gray-500 mt-1">
+          <h1 className="text-2xl font-bold text-[var(--color-text)]">Daily Tasks</h1>
+          <p className="text-[var(--color-text-secondary)] mt-1">
             {pendingTasks.length} pending, {completedTasks.length} completed
           </p>
         </div>
@@ -204,7 +204,7 @@ export function TasksList({ tasks: initialTasks, currentUser }: TasksListProps) 
             setNewTaskIsCompanyWide(scope === 'company')
             setShowAddForm(true)
           }}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+          className="flex items-center gap-2 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 transition"
         >
           <Plus className="w-4 h-4" />
           Add Task
@@ -214,13 +214,13 @@ export function TasksList({ tasks: initialTasks, currentUser }: TasksListProps) 
       {/* View Toggle */}
       <div className="flex items-center justify-between mb-4">
         {/* Scope Toggle */}
-        <div className="inline-flex bg-gray-100 rounded-lg p-1">
+        <div className="inline-flex bg-stone-100 rounded-lg p-1">
           <button
             onClick={() => setScope('personal')}
             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition ${
               scope === 'personal'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-white text-[var(--color-text)] shadow-sm'
+                : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text)]'
             }`}
           >
             <User className="w-4 h-4" />
@@ -230,8 +230,8 @@ export function TasksList({ tasks: initialTasks, currentUser }: TasksListProps) 
             onClick={() => setScope('company')}
             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition ${
               scope === 'company'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-white text-[var(--color-text)] shadow-sm'
+                : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text)]'
             }`}
           >
             <Users className="w-4 h-4" />
@@ -240,13 +240,13 @@ export function TasksList({ tasks: initialTasks, currentUser }: TasksListProps) 
         </div>
 
         {/* View Mode Toggle */}
-        <div className="inline-flex bg-gray-100 rounded-lg p-1">
+        <div className="inline-flex bg-stone-100 rounded-lg p-1">
           <button
             onClick={() => setViewMode('list')}
             className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition ${
               viewMode === 'list'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-white text-[var(--color-text)] shadow-sm'
+                : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text)]'
             }`}
           >
             <List className="w-4 h-4" />
@@ -256,8 +256,8 @@ export function TasksList({ tasks: initialTasks, currentUser }: TasksListProps) 
             onClick={() => setViewMode('daily')}
             className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition ${
               viewMode === 'daily'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-white text-[var(--color-text)] shadow-sm'
+                : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text)]'
             }`}
           >
             <Calendar className="w-4 h-4" />
@@ -267,8 +267,8 @@ export function TasksList({ tasks: initialTasks, currentUser }: TasksListProps) 
             onClick={() => setViewMode('weekly')}
             className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition ${
               viewMode === 'weekly'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
+                ? 'bg-white text-[var(--color-text)] shadow-sm'
+                : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text)]'
             }`}
           >
             <CalendarDays className="w-4 h-4" />
@@ -286,8 +286,8 @@ export function TasksList({ tasks: initialTasks, currentUser }: TasksListProps) 
               onClick={() => setFilter(f)}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
                 filter === f
-                  ? 'bg-blue-100 text-blue-700'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  ? 'bg-amber-50 text-amber-700'
+                  : 'bg-stone-100 text-[var(--color-text-secondary)] hover:bg-stone-200'
               }`}
             >
               {f === 'all' ? 'All Tasks' : f === 'today' ? 'Today' : 'Upcoming'}
@@ -298,17 +298,17 @@ export function TasksList({ tasks: initialTasks, currentUser }: TasksListProps) 
 
       {/* Add Task Form */}
       {showAddForm && (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 mb-6">
+        <div className="bg-white rounded-xl shadow-sm border border-[var(--color-border)] p-4 mb-6">
           <form onSubmit={handleAddTask} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
                 Task Title *
               </label>
               <input
                 type="text"
                 value={newTaskTitle}
                 onChange={(e) => setNewTaskTitle(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                 placeholder="What needs to be done?"
                 autoFocus
                 required
@@ -317,37 +317,37 @@ export function TasksList({ tasks: initialTasks, currentUser }: TasksListProps) 
 
             <div className="grid grid-cols-3 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
                   Due Date
                 </label>
                 <input
                   type="date"
                   value={newTaskDate}
                   onChange={(e) => setNewTaskDate(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
                   Time (optional)
                 </label>
                 <input
                   type="time"
                   value={newTaskTime}
                   onChange={(e) => setNewTaskTime(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
                   Priority
                 </label>
                 <select
                   value={newTaskPriority}
                   onChange={(e) => setNewTaskPriority(e.target.value as Priority)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                 >
                   <option value="low">Low</option>
                   <option value="medium">Medium</option>
@@ -357,7 +357,7 @@ export function TasksList({ tasks: initialTasks, currentUser }: TasksListProps) 
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-[var(--color-text)] mb-2">
                 Task Type
               </label>
               <div className="flex gap-3">
@@ -366,8 +366,8 @@ export function TasksList({ tasks: initialTasks, currentUser }: TasksListProps) 
                   onClick={() => setNewTaskIsCompanyWide(false)}
                   className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg border transition ${
                     !newTaskIsCompanyWide
-                      ? 'bg-blue-50 border-blue-500 text-blue-700'
-                      : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+                      ? 'bg-amber-50 border-[var(--color-primary)] text-amber-700'
+                      : 'border-[var(--color-border-strong)] text-[var(--color-text)] hover:bg-stone-50'
                   }`}
                 >
                   <User className="w-4 h-4" />
@@ -378,8 +378,8 @@ export function TasksList({ tasks: initialTasks, currentUser }: TasksListProps) 
                   onClick={() => setNewTaskIsCompanyWide(true)}
                   className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg border transition ${
                     newTaskIsCompanyWide
-                      ? 'bg-blue-50 border-blue-500 text-blue-700'
-                      : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+                      ? 'bg-amber-50 border-[var(--color-primary)] text-amber-700'
+                      : 'border-[var(--color-border-strong)] text-[var(--color-text)] hover:bg-stone-50'
                   }`}
                 >
                   <Users className="w-4 h-4" />
@@ -392,14 +392,14 @@ export function TasksList({ tasks: initialTasks, currentUser }: TasksListProps) 
               <button
                 type="button"
                 onClick={() => setShowAddForm(false)}
-                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition"
+                className="flex-1 px-4 py-2 border border-[var(--color-border-strong)] text-[var(--color-text)] rounded-lg hover:bg-stone-50 transition"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={loading || !newTaskTitle.trim()}
-                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+                className="flex-1 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 transition disabled:opacity-50"
               >
                 {loading ? 'Adding...' : 'Add Task'}
               </button>
@@ -412,18 +412,18 @@ export function TasksList({ tasks: initialTasks, currentUser }: TasksListProps) 
       {viewMode === 'list' && (
         <>
           {/* Pending Tasks */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-6">
-            <div className="p-4 border-b border-gray-200">
-              <h2 className="font-semibold text-gray-900">Pending Tasks</h2>
+          <div className="bg-white rounded-xl shadow-sm border border-[var(--color-border)] overflow-hidden mb-6">
+            <div className="p-4 border-b border-[var(--color-border)]">
+              <h2 className="font-semibold text-[var(--color-text)]">Pending Tasks</h2>
             </div>
 
             {pendingTasks.length === 0 ? (
-              <div className="p-8 text-center text-gray-500">
+              <div className="p-8 text-center text-[var(--color-text-secondary)]">
                 <Check className="w-8 h-8 mx-auto mb-2 text-green-400" />
                 <p>All caught up! No pending tasks.</p>
               </div>
             ) : (
-              <div className="divide-y divide-gray-100">
+              <div className="divide-y divide-[var(--color-border)]">
                 {pendingTasks.map((task) => (
                   <TaskItem
                     key={task.id}
@@ -441,16 +441,16 @@ export function TasksList({ tasks: initialTasks, currentUser }: TasksListProps) 
 
           {/* Completed Tasks */}
           {completedTasks.length > 0 && (
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-              <div className="p-4 border-b border-gray-200">
-                <h2 className="font-semibold text-gray-700">Completed Tasks</h2>
+            <div className="bg-white rounded-xl shadow-sm border border-[var(--color-border)] overflow-hidden">
+              <div className="p-4 border-b border-[var(--color-border)]">
+                <h2 className="font-semibold text-[var(--color-text)]">Completed Tasks</h2>
               </div>
 
-              <div className="divide-y divide-gray-100">
+              <div className="divide-y divide-[var(--color-border)]">
                 {completedTasks.map((task) => (
                   <div
                     key={task.id}
-                    className="flex items-center gap-4 p-4 hover:bg-gray-50 transition opacity-60"
+                    className="flex items-center gap-4 p-4 hover:bg-stone-50 transition opacity-60"
                   >
                     <button
                       onClick={() => handleToggleComplete(task)}
@@ -460,7 +460,7 @@ export function TasksList({ tasks: initialTasks, currentUser }: TasksListProps) 
                     </button>
 
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium text-gray-500 line-through">{task.title}</p>
+                      <p className="font-medium text-[var(--color-text-secondary)] line-through">{task.title}</p>
                       <span className={`flex items-center gap-1 text-xs ${getDateColor(task.due_date, true)} mt-1`}>
                         <Calendar className="w-3 h-3" />
                         {getDateLabel(task.due_date)}
@@ -469,7 +469,7 @@ export function TasksList({ tasks: initialTasks, currentUser }: TasksListProps) 
 
                     <button
                       onClick={() => handleDeleteTask(task.id)}
-                      className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition"
+                      className="p-2 text-[var(--color-text-muted)] hover:text-red-500 hover:bg-red-50 rounded-lg transition"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -483,26 +483,26 @@ export function TasksList({ tasks: initialTasks, currentUser }: TasksListProps) 
 
       {/* Daily View */}
       {viewMode === 'daily' && (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+        <div className="bg-white rounded-xl shadow-sm border border-[var(--color-border)] overflow-hidden">
           {/* Day Navigation */}
           <div className="p-4 border-b flex items-center justify-between">
             <button
               onClick={() => navigateDay(-1)}
-              className="p-2 hover:bg-gray-100 rounded-lg"
+              className="p-2 hover:bg-stone-100 rounded-lg"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <div className="text-center">
-              <h2 className="font-semibold text-gray-900">
+              <h2 className="font-semibold text-[var(--color-text)]">
                 {format(currentDate, 'EEEE, MMMM d, yyyy')}
               </h2>
               {isToday(currentDate) && (
-                <span className="text-sm text-blue-600">Today</span>
+                <span className="text-sm text-[var(--color-primary)]">Today</span>
               )}
             </div>
             <button
               onClick={() => navigateDay(1)}
-              className="p-2 hover:bg-gray-100 rounded-lg"
+              className="p-2 hover:bg-stone-100 rounded-lg"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -510,21 +510,21 @@ export function TasksList({ tasks: initialTasks, currentUser }: TasksListProps) 
 
           {/* Unscheduled Tasks */}
           {getUnscheduledTasksForDay(currentDate).length > 0 && (
-            <div className="p-4 border-b bg-gray-50">
-              <h3 className="text-sm font-medium text-gray-600 mb-2">Unscheduled</h3>
+            <div className="p-4 border-b bg-stone-50">
+              <h3 className="text-sm font-medium text-[var(--color-text-secondary)] mb-2">Unscheduled</h3>
               <div className="space-y-2">
                 {getUnscheduledTasksForDay(currentDate).map(task => (
                   <div
                     key={task.id}
                     className={`p-2 rounded-lg text-sm ${
-                      task.completed ? 'bg-gray-100 line-through text-gray-500' : 'bg-white border'
+                      task.completed ? 'bg-stone-100 line-through text-[var(--color-text-secondary)]' : 'bg-white border'
                     }`}
                   >
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => handleToggleComplete(task)}
                         className={`flex-shrink-0 w-4 h-4 rounded-full border ${
-                          task.completed ? 'bg-green-500 border-green-500' : 'border-gray-300'
+                          task.completed ? 'bg-green-500 border-green-500' : 'border-[var(--color-border-strong)]'
                         } flex items-center justify-center`}
                       >
                         {task.completed && <Check className="w-3 h-3 text-white" />}
@@ -546,7 +546,7 @@ export function TasksList({ tasks: initialTasks, currentUser }: TasksListProps) 
               const hourTasks = getTasksForHour(currentDate, hour)
               return (
                 <div key={hour} className="flex">
-                  <div className="w-20 py-3 px-4 text-sm text-gray-500 text-right border-r">
+                  <div className="w-20 py-3 px-4 text-sm text-[var(--color-text-secondary)] text-right border-r">
                     {format(new Date().setHours(hour, 0), 'h a')}
                   </div>
                   <div className="flex-1 min-h-[60px] p-2">
@@ -555,7 +555,7 @@ export function TasksList({ tasks: initialTasks, currentUser }: TasksListProps) 
                         key={task.id}
                         className={`p-2 rounded-lg text-sm mb-1 ${
                           task.completed
-                            ? 'bg-gray-100 line-through text-gray-500'
+                            ? 'bg-stone-100 line-through text-[var(--color-text-secondary)]'
                             : `${priorityColors[task.priority as Priority]}`
                         }`}
                       >
@@ -585,21 +585,21 @@ export function TasksList({ tasks: initialTasks, currentUser }: TasksListProps) 
 
       {/* Weekly View */}
       {viewMode === 'weekly' && (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+        <div className="bg-white rounded-xl shadow-sm border border-[var(--color-border)] overflow-hidden">
           {/* Week Navigation */}
           <div className="p-4 border-b flex items-center justify-between">
             <button
               onClick={() => navigateWeek(-1)}
-              className="p-2 hover:bg-gray-100 rounded-lg"
+              className="p-2 hover:bg-stone-100 rounded-lg"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
-            <h2 className="font-semibold text-gray-900">
+            <h2 className="font-semibold text-[var(--color-text)]">
               Week of {format(currentWeekStart, 'MMM d, yyyy')}
             </h2>
             <button
               onClick={() => navigateWeek(1)}
-              className="p-2 hover:bg-gray-100 rounded-lg"
+              className="p-2 hover:bg-stone-100 rounded-lg"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -609,16 +609,16 @@ export function TasksList({ tasks: initialTasks, currentUser }: TasksListProps) 
           <div className="overflow-x-auto">
             <div className="grid grid-cols-8 min-w-[800px]">
               {/* Header */}
-              <div className="p-2 border-b border-r bg-gray-50" />
+              <div className="p-2 border-b border-r bg-stone-50" />
               {weekDays.map((day, i) => (
                 <div
                   key={i}
-                  className={`p-2 text-center border-b border-r bg-gray-50 ${
-                    isToday(day) ? 'bg-blue-50' : ''
+                  className={`p-2 text-center border-b border-r bg-stone-50 ${
+                    isToday(day) ? 'bg-amber-50' : ''
                   }`}
                 >
-                  <div className="text-xs text-gray-500">{DAYS_OF_WEEK[day.getDay()]}</div>
-                  <div className={`text-lg font-semibold ${isToday(day) ? 'text-blue-600' : 'text-gray-900'}`}>
+                  <div className="text-xs text-[var(--color-text-secondary)]">{DAYS_OF_WEEK[day.getDay()]}</div>
+                  <div className={`text-lg font-semibold ${isToday(day) ? 'text-[var(--color-primary)]' : 'text-[var(--color-text)]'}`}>
                     {format(day, 'd')}
                   </div>
                 </div>
@@ -627,7 +627,7 @@ export function TasksList({ tasks: initialTasks, currentUser }: TasksListProps) 
               {/* Time Grid */}
               {WORK_HOURS.map(hour => (
                 <>
-                  <div key={`hour-${hour}`} className="p-2 text-right text-sm text-gray-500 border-b border-r">
+                  <div key={`hour-${hour}`} className="p-2 text-right text-sm text-[var(--color-text-secondary)] border-b border-r">
                     {format(new Date().setHours(hour, 0), 'h a')}
                   </div>
                   {weekDays.map((day, dayIndex) => {
@@ -636,7 +636,7 @@ export function TasksList({ tasks: initialTasks, currentUser }: TasksListProps) 
                       <div
                         key={`${hour}-${dayIndex}`}
                         className={`min-h-[50px] border-b border-r p-1 ${
-                          isToday(day) ? 'bg-blue-50/30' : ''
+                          isToday(day) ? 'bg-amber-50/30' : ''
                         }`}
                       >
                         {hourTasks.map(task => (
@@ -644,7 +644,7 @@ export function TasksList({ tasks: initialTasks, currentUser }: TasksListProps) 
                             key={task.id}
                             className={`text-xs p-1 rounded mb-1 truncate cursor-pointer ${
                               task.completed
-                                ? 'bg-gray-100 text-gray-500 line-through'
+                                ? 'bg-stone-100 text-[var(--color-text-secondary)] line-through'
                                 : priorityColors[task.priority as Priority]
                             }`}
                             onClick={() => handleToggleComplete(task)}
@@ -682,23 +682,23 @@ function TaskItem({
   getDateColor: (date: string, completed: boolean) => string
 }) {
   return (
-    <div className="flex items-center gap-4 p-4 hover:bg-gray-50 transition">
+    <div className="flex items-center gap-4 p-4 hover:bg-stone-50 transition">
       <button
         onClick={onToggle}
-        className="flex-shrink-0 w-6 h-6 rounded-full border-2 border-gray-300 hover:border-blue-500 hover:bg-blue-50 transition flex items-center justify-center"
+        className="flex-shrink-0 w-6 h-6 rounded-full border-2 border-[var(--color-border-strong)] hover:border-[var(--color-primary)] hover:bg-amber-50 transition flex items-center justify-center"
       >
-        <Circle className="w-4 h-4 text-gray-300" />
+        <Circle className="w-4 h-4 text-[var(--color-text-muted)]" />
       </button>
 
       <div className="flex-1 min-w-0">
-        <p className="font-medium text-gray-900">{task.title}</p>
+        <p className="font-medium text-[var(--color-text)]">{task.title}</p>
         <div className="flex items-center gap-3 mt-1 flex-wrap">
           <span className={`flex items-center gap-1 text-xs ${getDateColor(task.due_date, false)}`}>
             <Calendar className="w-3 h-3" />
             {getDateLabel(task.due_date)}
           </span>
           {task.scheduled_time && (
-            <span className="flex items-center gap-1 text-xs text-gray-500">
+            <span className="flex items-center gap-1 text-xs text-[var(--color-text-secondary)]">
               <Clock className="w-3 h-3" />
               {task.scheduled_time.slice(0, 5)}
             </span>
@@ -714,7 +714,7 @@ function TaskItem({
             </span>
           )}
           {task.is_company_wide && task.owner !== currentUser && (
-            <span className="text-xs text-gray-400">
+            <span className="text-xs text-[var(--color-text-muted)]">
               by {task.owner.charAt(0).toUpperCase() + task.owner.slice(1)}
             </span>
           )}
@@ -723,7 +723,7 @@ function TaskItem({
 
       <button
         onClick={onDelete}
-        className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition"
+        className="p-2 text-[var(--color-text-muted)] hover:text-red-500 hover:bg-red-50 rounded-lg transition"
       >
         <Trash2 className="w-4 h-4" />
       </button>

@@ -109,12 +109,12 @@ export function AutomationsManager({ automations: initialAutomations, pipelines 
     <>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Automations</h1>
-          <p className="text-gray-500 mt-1">Automate your workflows and save time</p>
+          <h1 className="text-2xl font-bold text-[var(--color-text)]">Automations</h1>
+          <p className="text-[var(--color-text-secondary)] mt-1">Automate your workflows and save time</p>
         </div>
         <button
           onClick={() => setShowCreateModal(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+          className="flex items-center gap-2 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 transition"
         >
           <Plus className="w-4 h-4" />
           Create Automation
@@ -122,15 +122,15 @@ export function AutomationsManager({ automations: initialAutomations, pipelines 
       </div>
 
       {automations.length === 0 ? (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
-          <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Zap className="w-8 h-8 text-blue-600" />
+        <div className="bg-white rounded-xl shadow-sm border border-[var(--color-border)] p-12 text-center">
+          <div className="w-16 h-16 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Zap className="w-8 h-8 text-[var(--color-primary)]" />
           </div>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">No automations yet</h3>
-          <p className="text-gray-500 mb-4">Create your first automation to streamline your workflow</p>
+          <h3 className="text-lg font-medium text-[var(--color-text)] mb-2">No automations yet</h3>
+          <p className="text-[var(--color-text-secondary)] mb-4">Create your first automation to streamline your workflow</p>
           <button
             onClick={() => setShowCreateModal(true)}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 transition"
           >
             <Plus className="w-4 h-4" />
             Create Automation
@@ -143,28 +143,28 @@ export function AutomationsManager({ automations: initialAutomations, pipelines 
             return (
               <div
                 key={automation.id}
-                className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 hover:shadow-md transition"
+                className="bg-white rounded-xl shadow-sm border border-[var(--color-border)] p-4 hover:shadow-md transition"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex items-start gap-4">
                     <div className={`p-3 rounded-lg ${
-                      automation.status === 'active' ? 'bg-green-50' : 'bg-gray-100'
+                      automation.status === 'active' ? 'bg-green-50' : 'bg-stone-100'
                     }`}>
                       <TriggerIcon className={`w-6 h-6 ${
-                        automation.status === 'active' ? 'text-green-600' : 'text-gray-400'
+                        automation.status === 'active' ? 'text-green-600' : 'text-[var(--color-text-muted)]'
                       }`} />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900">{automation.name}</h3>
+                      <h3 className="font-semibold text-[var(--color-text)]">{automation.name}</h3>
                       {automation.description && (
-                        <p className="text-sm text-gray-500 mt-0.5">{automation.description}</p>
+                        <p className="text-sm text-[var(--color-text-secondary)] mt-0.5">{automation.description}</p>
                       )}
                       <div className="flex items-center gap-2 mt-2">
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-[var(--color-text-secondary)]">
                           Trigger: {getTriggerLabel(automation.trigger_type)}
                         </span>
-                        <ChevronRight className="w-3 h-3 text-gray-400" />
-                        <span className="text-xs text-gray-500">
+                        <ChevronRight className="w-3 h-3 text-[var(--color-text-muted)]" />
+                        <span className="text-xs text-[var(--color-text-secondary)]">
                           {automation.actions?.length || 0} action{automation.actions?.length !== 1 ? 's' : ''}
                         </span>
                       </div>
@@ -177,7 +177,7 @@ export function AutomationsManager({ automations: initialAutomations, pipelines 
                       className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-medium transition ${
                         automation.status === 'active'
                           ? 'bg-green-100 text-green-700 hover:bg-green-200'
-                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                          : 'bg-stone-100 text-[var(--color-text-secondary)] hover:bg-gray-200'
                       }`}
                     >
                       {automation.status === 'active' ? (
@@ -196,21 +196,21 @@ export function AutomationsManager({ automations: initialAutomations, pipelines 
                     <div className="relative">
                       <button
                         onClick={() => setMenuOpen(menuOpen === automation.id ? null : automation.id)}
-                        className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition"
+                        className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:bg-stone-100 rounded-lg transition"
                       >
                         <MoreVertical className="w-4 h-4" />
                       </button>
                       {menuOpen === automation.id && (
                         <>
                           <div className="fixed inset-0 z-10" onClick={() => setMenuOpen(null)} />
-                          <div className="absolute right-0 mt-1 w-36 bg-white rounded-lg shadow-lg border border-gray-200 z-20 py-1">
+                          <div className="absolute right-0 mt-1 w-36 bg-white rounded-lg shadow-lg border border-[var(--color-border)] z-20 py-1">
                             <button
                               onClick={() => {
                                 setEditingAutomation(automation)
                                 setShowCreateModal(true)
                                 setMenuOpen(null)
                               }}
-                              className="w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-gray-50"
+                              className="w-full px-3 py-2 text-left text-sm text-[var(--color-text)] hover:bg-stone-50"
                             >
                               Edit
                             </button>
@@ -314,25 +314,25 @@ function AutomationModal({
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] flex flex-col">
-        <div className="flex items-center justify-between p-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900">
+        <div className="flex items-center justify-between p-4 border-b border-[var(--color-border)]">
+          <h2 className="text-lg font-semibold text-[var(--color-text)]">
             {automation ? 'Edit Automation' : 'Create Automation'}
           </h2>
-          <button onClick={onClose} className="p-2 text-gray-400 hover:text-gray-600 rounded-lg">
+          <button onClick={onClose} className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] rounded-lg">
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Steps */}
-        <div className="flex border-b border-gray-200">
+        <div className="flex border-b border-[var(--color-border)]">
           {(['trigger', 'actions', 'review'] as const).map((s, i) => (
             <button
               key={s}
               onClick={() => setStep(s)}
               className={`flex-1 px-4 py-3 text-sm font-medium transition ${
                 step === s
-                  ? 'text-blue-600 border-b-2 border-blue-600'
-                  : 'text-gray-500 hover:text-gray-700'
+                  ? 'text-[var(--color-primary)] border-b-2 border-[var(--color-primary)]'
+                  : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text)]'
               }`}
             >
               {i + 1}. {s.charAt(0).toUpperCase() + s.slice(1)}
@@ -344,29 +344,29 @@ function AutomationModal({
           {step === 'trigger' && (
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Automation Name *</label>
+                <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Automation Name *</label>
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   placeholder="e.g., Welcome Email Sequence"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Description</label>
                 <input
                   type="text"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   placeholder="Optional description"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Select Trigger *</label>
+                <label className="block text-sm font-medium text-[var(--color-text)] mb-2">Select Trigger *</label>
                 <div className="grid grid-cols-2 gap-3">
                   {triggerTypes.map((trigger) => (
                     <button
@@ -375,28 +375,28 @@ function AutomationModal({
                       onClick={() => setTriggerType(trigger.id)}
                       className={`p-3 border rounded-lg text-left transition ${
                         triggerType === trigger.id
-                          ? 'border-blue-500 bg-blue-50'
-                          : 'border-gray-200 hover:border-gray-300'
+                          ? 'border-[var(--color-primary)] bg-amber-50'
+                          : 'border-[var(--color-border)] hover:border-[var(--color-border-strong)]'
                       }`}
                     >
                       <div className="flex items-center gap-2 mb-1">
-                        <trigger.icon className="w-4 h-4 text-gray-600" />
-                        <span className="font-medium text-sm text-gray-900">{trigger.label}</span>
+                        <trigger.icon className="w-4 h-4 text-[var(--color-text-secondary)]" />
+                        <span className="font-medium text-sm text-[var(--color-text)]">{trigger.label}</span>
                       </div>
-                      <p className="text-xs text-gray-500">{trigger.description}</p>
+                      <p className="text-xs text-[var(--color-text-secondary)]">{trigger.description}</p>
                     </button>
                   ))}
                 </div>
               </div>
 
               {triggerType === 'pipeline_stage_changed' && (
-                <div className="grid grid-cols-2 gap-4 p-3 bg-gray-50 rounded-lg">
+                <div className="grid grid-cols-2 gap-4 p-3 bg-stone-50 rounded-lg">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Pipeline</label>
+                    <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Pipeline</label>
                     <select
                       value={triggerConfig.pipeline_id || ''}
                       onChange={(e) => setTriggerConfig({ ...triggerConfig, pipeline_id: e.target.value, stage: '' })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                      className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm"
                     >
                       <option value="">Select pipeline</option>
                       {pipelines.map(p => (
@@ -405,11 +405,11 @@ function AutomationModal({
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Stage</label>
+                    <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Stage</label>
                     <select
                       value={triggerConfig.stage || ''}
                       onChange={(e) => setTriggerConfig({ ...triggerConfig, stage: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                      className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm"
                     >
                       <option value="">Any stage</option>
                       {pipelines.find(p => p.id === triggerConfig.pipeline_id)?.stages.map(s => (
@@ -424,7 +424,7 @@ function AutomationModal({
 
           {step === 'actions' && (
             <div className="space-y-4">
-              <p className="text-sm text-gray-600">Add actions that will run when the trigger fires.</p>
+              <p className="text-sm text-[var(--color-text-secondary)]">Add actions that will run when the trigger fires.</p>
 
               {actions.length > 0 && (
                 <div className="space-y-3">
@@ -432,18 +432,18 @@ function AutomationModal({
                     const actionType = actionTypes.find(a => a.id === action.type)
                     const ActionIcon = actionType?.icon || Zap
                     return (
-                      <div key={index} className="p-3 border border-gray-200 rounded-lg">
+                      <div key={index} className="p-3 border border-[var(--color-border)] rounded-lg">
                         <div className="flex items-center justify-between mb-2">
                           <div className="flex items-center gap-2">
-                            <span className="w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center text-xs font-medium text-gray-600">
+                            <span className="w-6 h-6 bg-stone-100 rounded-full flex items-center justify-center text-xs font-medium text-[var(--color-text-secondary)]">
                               {index + 1}
                             </span>
-                            <ActionIcon className="w-4 h-4 text-gray-600" />
+                            <ActionIcon className="w-4 h-4 text-[var(--color-text-secondary)]" />
                             <span className="font-medium text-sm">{actionType?.label}</span>
                           </div>
                           <button
                             onClick={() => handleRemoveAction(index)}
-                            className="p-1 text-gray-400 hover:text-red-600"
+                            className="p-1 text-[var(--color-text-muted)] hover:text-red-600"
                           >
                             <X className="w-4 h-4" />
                           </button>
@@ -456,14 +456,14 @@ function AutomationModal({
                               placeholder="Email subject"
                               value={action.config.subject || ''}
                               onChange={(e) => handleUpdateActionConfig(index, { ...action.config, subject: e.target.value })}
-                              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                              className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm"
                             />
                             <textarea
                               placeholder="Email body"
                               value={action.config.body || ''}
                               onChange={(e) => handleUpdateActionConfig(index, { ...action.config, body: e.target.value })}
                               rows={3}
-                              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                              className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm"
                             />
                           </div>
                         )}
@@ -474,7 +474,7 @@ function AutomationModal({
                             value={action.config.message || ''}
                             onChange={(e) => handleUpdateActionConfig(index, { ...action.config, message: e.target.value })}
                             rows={2}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                            className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm"
                           />
                         )}
 
@@ -485,12 +485,12 @@ function AutomationModal({
                               placeholder="Duration"
                               value={action.config.duration || ''}
                               onChange={(e) => handleUpdateActionConfig(index, { ...action.config, duration: e.target.value })}
-                              className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                              className="flex-1 px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm"
                             />
                             <select
                               value={action.config.unit || 'minutes'}
                               onChange={(e) => handleUpdateActionConfig(index, { ...action.config, unit: e.target.value })}
-                              className="px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                              className="px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm"
                             >
                               <option value="minutes">Minutes</option>
                               <option value="hours">Hours</option>
@@ -505,7 +505,7 @@ function AutomationModal({
                             placeholder="Tag name"
                             value={action.config.tag || ''}
                             onChange={(e) => handleUpdateActionConfig(index, { ...action.config, tag: e.target.value })}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                            className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm"
                           />
                         )}
 
@@ -515,7 +515,7 @@ function AutomationModal({
                             placeholder="Task title"
                             value={action.config.title || ''}
                             onChange={(e) => handleUpdateActionConfig(index, { ...action.config, title: e.target.value })}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                            className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm"
                           />
                         )}
 
@@ -525,7 +525,7 @@ function AutomationModal({
                             placeholder="Webhook URL"
                             value={action.config.url || ''}
                             onChange={(e) => handleUpdateActionConfig(index, { ...action.config, url: e.target.value })}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                            className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm"
                           />
                         )}
                       </div>
@@ -535,17 +535,17 @@ function AutomationModal({
               )}
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Add Action</label>
+                <label className="block text-sm font-medium text-[var(--color-text)] mb-2">Add Action</label>
                 <div className="grid grid-cols-2 gap-2">
                   {actionTypes.map((action) => (
                     <button
                       key={action.id}
                       type="button"
                       onClick={() => handleAddAction(action.id)}
-                      className="flex items-center gap-2 p-2 border border-gray-200 rounded-lg hover:border-blue-300 hover:bg-blue-50 transition text-left"
+                      className="flex items-center gap-2 p-2 border border-[var(--color-border)] rounded-lg hover:border-amber-300 hover:bg-amber-50 transition text-left"
                     >
-                      <action.icon className="w-4 h-4 text-gray-600" />
-                      <span className="text-sm text-gray-700">{action.label}</span>
+                      <action.icon className="w-4 h-4 text-[var(--color-text-secondary)]" />
+                      <span className="text-sm text-[var(--color-text)]">{action.label}</span>
                     </button>
                   ))}
                 </div>
@@ -555,23 +555,23 @@ function AutomationModal({
 
           {step === 'review' && (
             <div className="space-y-4">
-              <div className="p-4 bg-gray-50 rounded-lg">
-                <h3 className="font-medium text-gray-900 mb-2">{name || 'Untitled Automation'}</h3>
-                {description && <p className="text-sm text-gray-500 mb-3">{description}</p>}
+              <div className="p-4 bg-stone-50 rounded-lg">
+                <h3 className="font-medium text-[var(--color-text)] mb-2">{name || 'Untitled Automation'}</h3>
+                {description && <p className="text-sm text-[var(--color-text-secondary)] mb-3">{description}</p>}
 
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
-                    <span className="text-xs font-medium text-gray-500 uppercase">Trigger:</span>
-                    <span className="text-sm text-gray-700">{getTriggerLabel(triggerType)}</span>
+                    <span className="text-xs font-medium text-[var(--color-text-secondary)] uppercase">Trigger:</span>
+                    <span className="text-sm text-[var(--color-text)]">{getTriggerLabel(triggerType)}</span>
                   </div>
 
                   <div>
-                    <span className="text-xs font-medium text-gray-500 uppercase">Actions:</span>
+                    <span className="text-xs font-medium text-[var(--color-text-secondary)] uppercase">Actions:</span>
                     <div className="mt-1 space-y-1">
                       {actions.map((action, i) => {
                         const actionType = actionTypes.find(a => a.id === action.type)
                         return (
-                          <div key={i} className="text-sm text-gray-700 flex items-center gap-2">
+                          <div key={i} className="text-sm text-[var(--color-text)] flex items-center gap-2">
                             <span className="w-5 h-5 bg-gray-200 rounded-full flex items-center justify-center text-xs">
                               {i + 1}
                             </span>
@@ -580,7 +580,7 @@ function AutomationModal({
                         )
                       })}
                       {actions.length === 0 && (
-                        <p className="text-sm text-gray-400">No actions added</p>
+                        <p className="text-sm text-[var(--color-text-muted)]">No actions added</p>
                       )}
                     </div>
                   </div>
@@ -590,24 +590,24 @@ function AutomationModal({
           )}
         </div>
 
-        <div className="flex gap-3 p-4 border-t border-gray-200">
+        <div className="flex gap-3 p-4 border-t border-[var(--color-border)]">
           {step !== 'trigger' && (
             <button
               onClick={() => setStep(step === 'actions' ? 'trigger' : 'actions')}
-              className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+              className="px-4 py-2 border border-[var(--color-border-strong)] text-[var(--color-text)] rounded-lg hover:bg-stone-50"
             >
               Back
             </button>
           )}
           <div className="flex-1" />
-          <button onClick={onClose} className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">
+          <button onClick={onClose} className="px-4 py-2 border border-[var(--color-border-strong)] text-[var(--color-text)] rounded-lg hover:bg-stone-50">
             Cancel
           </button>
           {step === 'review' ? (
             <button
               onClick={handleSave}
               disabled={saving || !name || !triggerType}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+              className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 disabled:opacity-50"
             >
               {saving ? 'Saving...' : automation ? 'Update' : 'Create'}
             </button>
@@ -615,7 +615,7 @@ function AutomationModal({
             <button
               onClick={() => setStep(step === 'trigger' ? 'actions' : 'review')}
               disabled={step === 'trigger' && (!name || !triggerType)}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+              className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 disabled:opacity-50"
             >
               Next
             </button>

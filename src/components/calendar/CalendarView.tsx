@@ -173,7 +173,7 @@ export function CalendarView({ appointments: initialAppointments, contacts }: Ca
 
   const getStatusBadge = (status: AppointmentStatus) => {
     const styles: Record<AppointmentStatus, string> = {
-      scheduled: 'bg-blue-100 text-blue-700',
+      scheduled: 'bg-amber-50 text-amber-700',
       completed: 'bg-green-100 text-green-700',
       cancelled: 'bg-red-100 text-red-700',
       no_show: 'bg-orange-100 text-orange-700',
@@ -199,12 +199,12 @@ export function CalendarView({ appointments: initialAppointments, contacts }: Ca
     <>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Calendar</h1>
-          <p className="text-gray-500 mt-1">Manage your appointments</p>
+          <h1 className="text-2xl font-bold text-[var(--color-text)]">Calendar</h1>
+          <p className="text-[var(--color-text-secondary)] mt-1">Manage your appointments</p>
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+          className="flex items-center gap-2 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 transition"
         >
           <Plus className="w-4 h-4" />
           New Appointment
@@ -213,61 +213,61 @@ export function CalendarView({ appointments: initialAppointments, contacts }: Ca
 
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-          <div className="text-sm text-gray-500">Today</div>
-          <div className="text-2xl font-bold text-gray-900">{todayCount}</div>
+        <div className="bg-white rounded-xl p-4 shadow-sm border border-[var(--color-border)]">
+          <div className="text-sm text-[var(--color-text-secondary)]">Today</div>
+          <div className="text-2xl font-bold text-[var(--color-text)]">{todayCount}</div>
         </div>
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-          <div className="text-sm text-gray-500">Upcoming</div>
-          <div className="text-2xl font-bold text-blue-600">{upcomingCount}</div>
+        <div className="bg-white rounded-xl p-4 shadow-sm border border-[var(--color-border)]">
+          <div className="text-sm text-[var(--color-text-secondary)]">Upcoming</div>
+          <div className="text-2xl font-bold text-[var(--color-primary)]">{upcomingCount}</div>
         </div>
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-          <div className="text-sm text-gray-500">Completed</div>
+        <div className="bg-white rounded-xl p-4 shadow-sm border border-[var(--color-border)]">
+          <div className="text-sm text-[var(--color-text-secondary)]">Completed</div>
           <div className="text-2xl font-bold text-green-600">{completedCount}</div>
         </div>
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-          <div className="text-sm text-gray-500">No Shows</div>
+        <div className="bg-white rounded-xl p-4 shadow-sm border border-[var(--color-border)]">
+          <div className="text-sm text-[var(--color-text-secondary)]">No Shows</div>
           <div className="text-2xl font-bold text-orange-600">{noShowCount}</div>
         </div>
       </div>
 
       {/* Calendar Grid */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 mb-6">
+      <div className="bg-white rounded-xl shadow-sm border border-[var(--color-border)] p-4 mb-6">
         {/* Calendar Header */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <button
               onClick={goToPrevious}
-              className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition"
+              className="p-2 text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:bg-stone-100 rounded-lg transition"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
-            <h2 className="text-lg font-semibold text-gray-900 min-w-[180px] text-center">
+            <h2 className="text-lg font-semibold text-[var(--color-text)] min-w-[180px] text-center">
               {viewMode === 'month'
                 ? format(currentDate, 'MMMM yyyy')
                 : `Week of ${format(startOfWeek(currentDate), 'MMM d')}`}
             </h2>
             <button
               onClick={goToNext}
-              className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition"
+              className="p-2 text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:bg-stone-100 rounded-lg transition"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
             <button
               onClick={goToToday}
-              className="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition ml-2"
+              className="px-3 py-1.5 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text)] hover:bg-stone-100 rounded-lg transition ml-2"
             >
               Today
             </button>
           </div>
 
-          <div className="flex gap-1 bg-gray-100 rounded-lg p-1">
+          <div className="flex gap-1 bg-stone-100 rounded-lg p-1">
             <button
               onClick={() => setViewMode('month')}
               className={`flex items-center gap-1 px-3 py-1.5 rounded-md text-sm font-medium transition ${
                 viewMode === 'month'
-                  ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900'
+                  ? 'bg-white text-[var(--color-text)] shadow-sm'
+                  : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text)]'
               }`}
             >
               <Grid3X3 className="w-4 h-4" />
@@ -277,8 +277,8 @@ export function CalendarView({ appointments: initialAppointments, contacts }: Ca
               onClick={() => setViewMode('week')}
               className={`flex items-center gap-1 px-3 py-1.5 rounded-md text-sm font-medium transition ${
                 viewMode === 'week'
-                  ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900'
+                  ? 'bg-white text-[var(--color-text)] shadow-sm'
+                  : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text)]'
               }`}
             >
               <CalendarDays className="w-4 h-4" />
@@ -293,14 +293,14 @@ export function CalendarView({ appointments: initialAppointments, contacts }: Ca
             {/* Day Headers */}
             <div className="grid grid-cols-7 mb-2">
               {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-                <div key={day} className="text-center text-sm font-medium text-gray-500 py-2">
+                <div key={day} className="text-center text-sm font-medium text-[var(--color-text-secondary)] py-2">
                   {day}
                 </div>
               ))}
             </div>
 
             {/* Calendar Days */}
-            <div className="grid grid-cols-7 gap-px bg-gray-200">
+            <div className="grid grid-cols-7 gap-px bg-[var(--color-border)]">
               {calendarDays.map((day, index) => {
                 const dayAppointments = getAppointmentsForDay(day)
                 const isCurrentMonth = isSameMonth(day, currentDate)
@@ -313,17 +313,17 @@ export function CalendarView({ appointments: initialAppointments, contacts }: Ca
                     onClick={() => handleDayClick(day)}
                     className={`
                       min-h-[80px] p-2 text-left transition relative bg-white
-                      ${!isCurrentMonth ? 'bg-gray-50' : ''}
-                      ${isSelected ? 'ring-2 ring-blue-500 ring-inset' : ''}
-                      ${isToday(day) ? 'bg-blue-50' : ''}
-                      hover:bg-gray-100
+                      ${!isCurrentMonth ? 'bg-stone-50' : ''}
+                      ${isSelected ? 'ring-2 ring-[var(--color-primary)] ring-inset' : ''}
+                      ${isToday(day) ? 'bg-amber-50' : ''}
+                      hover:bg-stone-100
                     `}
                   >
                     <span
                       className={`
                         inline-flex items-center justify-center w-7 h-7 rounded-full text-sm
-                        ${isToday(day) ? 'bg-blue-600 text-white font-bold' : ''}
-                        ${!isCurrentMonth ? 'text-gray-400' : 'text-gray-900'}
+                        ${isToday(day) ? 'bg-[var(--color-primary)] text-white font-bold' : ''}
+                        ${!isCurrentMonth ? 'text-[var(--color-text-muted)]' : 'text-[var(--color-text)]'}
                       `}
                     >
                       {format(day, 'd')}
@@ -340,14 +340,14 @@ export function CalendarView({ appointments: initialAppointments, contacts }: Ca
                                 ? 'bg-green-100 text-green-700'
                                 : apt.status === 'cancelled'
                                 ? 'bg-red-100 text-red-700'
-                                : 'bg-blue-100 text-blue-700'
+                                : 'bg-amber-50 text-amber-700'
                             }`}
                           >
                             {format(new Date(apt.datetime), 'HH:mm')} {apt.title}
                           </div>
                         ))}
                         {dayAppointments.length > 2 && (
-                          <div className="text-xs text-gray-500 px-1">
+                          <div className="text-xs text-[var(--color-text-secondary)] px-1">
                             +{dayAppointments.length - 2} more
                           </div>
                         )}
@@ -364,23 +364,23 @@ export function CalendarView({ appointments: initialAppointments, contacts }: Ca
         {viewMode === 'week' && (
           <div className="overflow-x-auto">
             {/* Day Headers */}
-            <div className="grid grid-cols-8 border-b border-gray-200">
-              <div className="p-2 text-center text-sm font-medium text-gray-500">
+            <div className="grid grid-cols-8 border-b border-[var(--color-border)]">
+              <div className="p-2 text-center text-sm font-medium text-[var(--color-text-secondary)]">
                 {/* Empty cell for time column */}
               </div>
               {weekDays.map((day, index) => (
                 <div
                   key={index}
-                  className={`p-2 text-center border-l border-gray-200 ${
-                    isToday(day) ? 'bg-blue-50' : ''
+                  className={`p-2 text-center border-l border-[var(--color-border)] ${
+                    isToday(day) ? 'bg-amber-50' : ''
                   }`}
                 >
-                  <div className="text-sm font-medium text-gray-500">
+                  <div className="text-sm font-medium text-[var(--color-text-secondary)]">
                     {format(day, 'EEE')}
                   </div>
                   <div
                     className={`text-lg font-semibold ${
-                      isToday(day) ? 'text-blue-600' : 'text-gray-900'
+                      isToday(day) ? 'text-[var(--color-primary)]' : 'text-[var(--color-text)]'
                     }`}
                   >
                     {format(day, 'd')}
@@ -392,9 +392,9 @@ export function CalendarView({ appointments: initialAppointments, contacts }: Ca
             {/* Time Grid */}
             <div className="relative">
               {WORK_HOURS.map((hour) => (
-                <div key={hour} className="grid grid-cols-8 border-b border-gray-100">
+                <div key={hour} className="grid grid-cols-8 border-b border-[var(--color-border)]">
                   {/* Time Label */}
-                  <div className="p-2 text-right text-xs text-gray-500 pr-3">
+                  <div className="p-2 text-right text-xs text-[var(--color-text-secondary)] pr-3">
                     {format(setHours(new Date(), hour), 'h a')}
                   </div>
 
@@ -407,9 +407,9 @@ export function CalendarView({ appointments: initialAppointments, contacts }: Ca
                       <div
                         key={dayIndex}
                         className={`
-                          min-h-[60px] border-l border-gray-200 p-1 relative
-                          ${isToday(day) ? 'bg-blue-50/30' : ''}
-                          ${isCurrentHour ? 'bg-blue-100/50' : ''}
+                          min-h-[60px] border-l border-[var(--color-border)] p-1 relative
+                          ${isToday(day) ? 'bg-amber-50/30' : ''}
+                          ${isCurrentHour ? 'bg-amber-50/50' : ''}
                         `}
                       >
                         {/* Current time indicator */}
@@ -434,7 +434,7 @@ export function CalendarView({ appointments: initialAppointments, contacts }: Ca
                                 ? 'bg-green-100 text-green-700 border-l-2 border-green-500'
                                 : apt.status === 'cancelled'
                                 ? 'bg-red-100 text-red-700 border-l-2 border-red-500'
-                                : 'bg-blue-100 text-blue-700 border-l-2 border-blue-500'
+                                : 'bg-amber-50 text-amber-700 border-l-2 border-[var(--color-primary)]'
                               }
                             `}
                           >
@@ -456,13 +456,13 @@ export function CalendarView({ appointments: initialAppointments, contacts }: Ca
 
       {/* Selected Date Header */}
       {selectedDate && (
-        <div className="flex items-center justify-between mb-4 p-3 bg-blue-50 rounded-lg">
-          <span className="font-medium text-blue-900">
+        <div className="flex items-center justify-between mb-4 p-3 bg-amber-50 rounded-lg">
+          <span className="font-medium text-amber-900">
             Showing appointments for {format(selectedDate, 'EEEE, MMMM d, yyyy')}
           </span>
           <button
             onClick={() => setSelectedDate(null)}
-            className="text-sm text-blue-600 hover:text-blue-800"
+            className="text-sm text-[var(--color-primary)] hover:opacity-80"
           >
             Clear filter
           </button>
@@ -476,8 +476,8 @@ export function CalendarView({ appointments: initialAppointments, contacts }: Ca
             onClick={() => setFilter('upcoming')}
             className={`px-4 py-2 rounded-lg font-medium transition ${
               filter === 'upcoming'
-                ? 'bg-blue-600 text-white'
-                : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
+                ? 'bg-[var(--color-primary)] text-white'
+                : 'bg-white text-[var(--color-text-secondary)] border border-[var(--color-border)] hover:bg-stone-50'
             }`}
           >
             Upcoming
@@ -486,8 +486,8 @@ export function CalendarView({ appointments: initialAppointments, contacts }: Ca
             onClick={() => setFilter('past')}
             className={`px-4 py-2 rounded-lg font-medium transition ${
               filter === 'past'
-                ? 'bg-blue-600 text-white'
-                : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
+                ? 'bg-[var(--color-primary)] text-white'
+                : 'bg-white text-[var(--color-text-secondary)] border border-[var(--color-border)] hover:bg-stone-50'
             }`}
           >
             Past
@@ -496,8 +496,8 @@ export function CalendarView({ appointments: initialAppointments, contacts }: Ca
             onClick={() => setFilter('all')}
             className={`px-4 py-2 rounded-lg font-medium transition ${
               filter === 'all'
-                ? 'bg-blue-600 text-white'
-                : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
+                ? 'bg-[var(--color-primary)] text-white'
+                : 'bg-white text-[var(--color-text-secondary)] border border-[var(--color-border)] hover:bg-stone-50'
             }`}
           >
             All
@@ -508,12 +508,12 @@ export function CalendarView({ appointments: initialAppointments, contacts }: Ca
       {/* Appointments List */}
       <div className="space-y-6">
         {sortedDates.length === 0 ? (
-          <div className="bg-white rounded-xl p-12 shadow-sm border border-gray-100 text-center">
-            <Calendar className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-            <p className="text-gray-500">No appointments found</p>
+          <div className="bg-white rounded-xl p-12 shadow-sm border border-[var(--color-border)] text-center">
+            <Calendar className="w-12 h-12 mx-auto mb-4 text-[var(--color-text-muted)]" />
+            <p className="text-[var(--color-text-secondary)]">No appointments found</p>
             <button
               onClick={() => setShowAddModal(true)}
-              className="mt-4 text-blue-600 hover:text-blue-700 font-medium"
+              className="mt-4 text-[var(--color-primary)] hover:opacity-80 font-medium"
             >
               Create your first appointment
             </button>
@@ -522,7 +522,7 @@ export function CalendarView({ appointments: initialAppointments, contacts }: Ca
           sortedDates.map((date) => (
             <div key={date}>
               <h2 className={`text-lg font-semibold mb-3 ${
-                isToday(new Date(date)) ? 'text-blue-600' : 'text-gray-900'
+                isToday(new Date(date)) ? 'text-[var(--color-primary)]' : 'text-[var(--color-text)]'
               }`}>
                 {getDateLabel(date)}
               </h2>
@@ -530,29 +530,29 @@ export function CalendarView({ appointments: initialAppointments, contacts }: Ca
                 {groupedAppointments[date].map((apt) => (
                   <div
                     key={apt.id}
-                    className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition"
+                    className="bg-white rounded-xl p-4 shadow-sm border border-[var(--color-border)] hover:shadow-md transition"
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex items-start gap-4">
                         <div className="flex flex-col items-center text-center min-w-[60px]">
-                          <div className="text-2xl font-bold text-gray-900">
+                          <div className="text-2xl font-bold text-[var(--color-text)]">
                             {format(new Date(apt.datetime), 'HH:mm')}
                           </div>
-                          <div className="text-xs text-gray-500">
+                          <div className="text-xs text-[var(--color-text-secondary)]">
                             {format(new Date(apt.datetime), 'a')}
                           </div>
                         </div>
                         <div>
-                          <h3 className="font-semibold text-gray-900">{apt.title}</h3>
+                          <h3 className="font-semibold text-[var(--color-text)]">{apt.title}</h3>
                           <Link
                             href={`/contacts/${apt.contact_id}`}
-                            className="flex items-center gap-1 text-sm text-gray-600 hover:text-blue-600 mt-1"
+                            className="flex items-center gap-1 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-primary)] mt-1"
                           >
                             <User className="w-3 h-3" />
                             {apt.contact?.name || 'Unknown contact'}
                           </Link>
                           {apt.location && (
-                            <div className="flex items-center gap-1 text-sm text-gray-500 mt-1">
+                            <div className="flex items-center gap-1 text-sm text-[var(--color-text-secondary)] mt-1">
                               <MapPin className="w-3 h-3" />
                               {apt.location}
                             </div>
@@ -565,7 +565,7 @@ export function CalendarView({ appointments: initialAppointments, contacts }: Ca
                         </span>
                         <button
                           onClick={(e) => handleAppointmentClick(apt, e)}
-                          className="p-1 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded transition"
+                          className="p-1 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:bg-amber-50 rounded transition"
                           title="Edit"
                         >
                           <Pencil className="w-4 h-4" />
@@ -748,13 +748,13 @@ function AppointmentModal({
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-xl shadow-xl max-w-md w-full">
-        <div className="flex items-center justify-between p-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900">
+        <div className="flex items-center justify-between p-4 border-b border-[var(--color-border)]">
+          <h2 className="text-lg font-semibold text-[var(--color-text)]">
             {isEditing ? 'Edit Appointment' : 'New Appointment'}
           </h2>
           <button
             onClick={onClose}
-            className="p-2 text-gray-400 hover:text-gray-600 rounded-lg transition"
+            className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] rounded-lg transition"
           >
             ✕
           </button>
@@ -762,27 +762,27 @@ function AppointmentModal({
 
         <form onSubmit={handleSubmit} className="p-4 space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
               Title *
             </label>
             <input
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
               placeholder="Sales Call, Demo, Meeting..."
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
               Contact *
             </label>
             <select
               value={contactId}
               onChange={(e) => setContactId(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
               required
             >
               <option value="">Select a contact</option>
@@ -796,40 +796,40 @@ function AppointmentModal({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
               Date & Time *
             </label>
             <input
               type="datetime-local"
               value={datetime}
               onChange={(e) => setDatetime(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
               Location
             </label>
             <input
               type="text"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
               placeholder="Zoom, Office, Phone..."
             />
           </div>
 
           {isEditing && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
                 Status
               </label>
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value as AppointmentStatus)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
               >
                 <option value="scheduled">Scheduled</option>
                 <option value="completed">Completed</option>
@@ -853,14 +853,14 @@ function AppointmentModal({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition"
+              className="flex-1 px-4 py-2 border border-[var(--color-border-strong)] text-[var(--color-text)] rounded-lg hover:bg-stone-50 transition"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+              className="flex-1 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 transition disabled:opacity-50"
             >
               {loading ? 'Saving...' : isEditing ? 'Save Changes' : 'Create'}
             </button>

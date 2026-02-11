@@ -58,24 +58,24 @@ const getLeadScoreColor = (score: LeadScore | null) => {
     case 'warm':
       return 'bg-orange-100 text-orange-700'
     case 'cold':
-      return 'bg-blue-100 text-blue-700'
+      return 'bg-amber-50 text-amber-700'
     default:
-      return 'bg-gray-100 text-gray-700'
+      return 'bg-stone-100 text-[var(--color-text)]'
   }
 }
 
 const getOutcomeColor = (outcome: string) => {
   const colors: Record<string, string> = {
     Answered: 'bg-green-100 text-green-700',
-    'No Answer': 'bg-gray-100 text-gray-700',
+    'No Answer': 'bg-stone-100 text-[var(--color-text)]',
     Voicemail: 'bg-yellow-100 text-yellow-700',
     'Not Interested': 'bg-red-100 text-red-700',
-    Callback: 'bg-blue-100 text-blue-700',
+    Callback: 'bg-amber-50 text-amber-700',
     'Meeting Booked': 'bg-purple-100 text-purple-700',
     'Left Message': 'bg-orange-100 text-orange-700',
     'Wrong Number': 'bg-red-100 text-red-700',
   }
-  return colors[outcome] || 'bg-gray-100 text-gray-700'
+  return colors[outcome] || 'bg-stone-100 text-[var(--color-text)]'
 }
 
 export function OpportunitySidebar({
@@ -326,22 +326,22 @@ export function OpportunitySidebar({
       {/* Sidebar */}
       <div className="fixed right-0 top-0 h-full w-full max-w-lg bg-white shadow-xl z-50 flex flex-col animate-slide-in">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200">
+        <div className="flex items-center justify-between p-4 border-b border-[var(--color-border)]">
           <div>
-            <h2 className="text-lg font-semibold text-gray-900">{contact.name}</h2>
-            <p className="text-sm text-gray-500">{pipelineName} - {opportunity.stage}</p>
+            <h2 className="text-lg font-semibold text-[var(--color-text)]">{contact.name}</h2>
+            <p className="text-sm text-[var(--color-text-secondary)]">{pipelineName} - {opportunity.stage}</p>
           </div>
           <div className="flex items-center gap-1">
             <button
               onClick={handleDeleteOpportunity}
-              className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition"
+              className="p-2 text-[var(--color-text-muted)] hover:text-red-600 hover:bg-red-50 rounded-lg transition"
               title="Remove from pipeline"
             >
               <Trash2 className="w-5 h-5" />
             </button>
             <button
               onClick={onClose}
-              className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition"
+              className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:bg-stone-100 rounded-lg transition"
             >
               <X className="w-5 h-5" />
             </button>
@@ -351,17 +351,17 @@ export function OpportunitySidebar({
         {/* Content */}
         <div className="flex-1 overflow-y-auto">
           {/* Contact Info */}
-          <div className="p-4 border-b border-gray-200">
+          <div className="p-4 border-b border-[var(--color-border)]">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
-                <User className="w-6 h-6 text-gray-400" />
+              <div className="w-12 h-12 bg-stone-100 rounded-full flex items-center justify-center">
+                <User className="w-6 h-6 text-[var(--color-text-muted)]" />
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-2">
                   <span
                     className={`inline-flex px-2 py-0.5 rounded-full text-xs font-medium ${
                       opportunity.owner === 'alex'
-                        ? 'bg-blue-100 text-blue-700'
+                        ? 'bg-amber-50 text-amber-700'
                         : 'bg-green-100 text-green-700'
                     }`}
                   >
@@ -373,7 +373,7 @@ export function OpportunitySidebar({
                     </span>
                   )}
                   {daysSinceLastContact !== null && (
-                    <span className="text-xs text-gray-500">
+                    <span className="text-xs text-[var(--color-text-secondary)]">
                       {daysSinceLastContact}d since contact
                     </span>
                   )}
@@ -383,20 +383,20 @@ export function OpportunitySidebar({
 
             <div className="space-y-2 text-sm">
               {contact.business_name && (
-                <div className="flex items-center gap-2 text-gray-600">
-                  <Building className="w-4 h-4 text-gray-400" />
+                <div className="flex items-center gap-2 text-[var(--color-text-secondary)]">
+                  <Building className="w-4 h-4 text-[var(--color-text-muted)]" />
                   {contact.business_name}
                 </div>
               )}
               {contact.phone && (
-                <div className="flex items-center gap-2 text-gray-600">
-                  <Phone className="w-4 h-4 text-gray-400" />
-                  <a href={`tel:${contact.phone}`} className="hover:text-blue-600">
+                <div className="flex items-center gap-2 text-[var(--color-text-secondary)]">
+                  <Phone className="w-4 h-4 text-[var(--color-text-muted)]" />
+                  <a href={`tel:${contact.phone}`} className="hover:text-[var(--color-primary)]">
                     {contact.phone}
                   </a>
                   <button
                     onClick={handleCopyPhone}
-                    className="p-1 text-gray-400 hover:text-gray-600 rounded"
+                    className="p-1 text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] rounded"
                     title="Copy phone"
                   >
                     <Copy className="w-3 h-3" />
@@ -404,16 +404,16 @@ export function OpportunitySidebar({
                 </div>
               )}
               {contact.email && (
-                <div className="flex items-center gap-2 text-gray-600">
-                  <Mail className="w-4 h-4 text-gray-400" />
-                  <a href={`mailto:${contact.email}`} className="hover:text-blue-600">
+                <div className="flex items-center gap-2 text-[var(--color-text-secondary)]">
+                  <Mail className="w-4 h-4 text-[var(--color-text-muted)]" />
+                  <a href={`mailto:${contact.email}`} className="hover:text-[var(--color-primary)]">
                     {contact.email}
                   </a>
                 </div>
               )}
               {(contact.address || contact.city) && (
-                <div className="flex items-center gap-2 text-gray-600">
-                  <MapPin className="w-4 h-4 text-gray-400" />
+                <div className="flex items-center gap-2 text-[var(--color-text-secondary)]">
+                  <MapPin className="w-4 h-4 text-[var(--color-text-muted)]" />
                   <span>
                     {contact.address}
                     {contact.address && contact.city && ', '}
@@ -437,7 +437,7 @@ export function OpportunitySidebar({
                   </button>
                   <button
                     onClick={handleCopyPhone}
-                    className="flex items-center gap-1 px-3 py-1.5 text-xs bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition"
+                    className="flex items-center gap-1 px-3 py-1.5 text-xs bg-stone-100 text-[var(--color-text)] rounded-lg hover:bg-stone-100 transition"
                   >
                     <Copy className="w-3 h-3" />
                     Copy Phone
@@ -447,7 +447,7 @@ export function OpportunitySidebar({
               {contact.email && (
                 <a
                   href={`mailto:${contact.email}`}
-                  className="flex items-center gap-1 px-3 py-1.5 text-xs bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition"
+                  className="flex items-center gap-1 px-3 py-1.5 text-xs bg-stone-100 text-[var(--color-text)] rounded-lg hover:bg-stone-100 transition"
                 >
                   <Mail className="w-3 h-3" />
                   Email
@@ -455,14 +455,14 @@ export function OpportunitySidebar({
               )}
               <button
                 onClick={() => setShowScheduleAppointment(true)}
-                className="flex items-center gap-1 px-3 py-1.5 text-xs bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                className="flex items-center gap-1 px-3 py-1.5 text-xs bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 transition"
               >
                 <Calendar className="w-3 h-3" />
                 Schedule Appointment
               </button>
               <a
                 href={`/contacts/${contact.id}`}
-                className="flex items-center gap-1 px-3 py-1.5 text-xs bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition"
+                className="flex items-center gap-1 px-3 py-1.5 text-xs bg-stone-100 text-[var(--color-text)] rounded-lg hover:bg-stone-100 transition"
               >
                 <ExternalLink className="w-3 h-3" />
                 Full Profile
@@ -472,7 +472,7 @@ export function OpportunitySidebar({
 
           {/* Call Script Panel */}
           {showCallScript && (
-            <div className="p-4 border-b border-gray-200 bg-green-50">
+            <div className="p-4 border-b border-[var(--color-border)] bg-green-50">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
                   <FileText className="w-5 h-5 text-green-600" />
@@ -502,7 +502,7 @@ export function OpportunitySidebar({
                   </select>
 
                   {selectedScript && (
-                    <div className="p-3 bg-white rounded-lg border border-green-200 text-sm text-gray-700 whitespace-pre-wrap max-h-64 overflow-y-auto">
+                    <div className="p-3 bg-white rounded-lg border border-green-200 text-sm text-[var(--color-text)] whitespace-pre-wrap max-h-64 overflow-y-auto">
                       {selectedScript.content.replace(/\{name\}/g, contact.name).replace(/\{business\}/g, contact.business_name || 'your business')}
                     </div>
                   )}
@@ -528,12 +528,12 @@ export function OpportunitySidebar({
 
           {/* Schedule Appointment Form */}
           {showScheduleAppointment && (
-            <div className="p-4 border-b border-gray-200 bg-blue-50">
+            <div className="p-4 border-b border-[var(--color-border)] bg-amber-50">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="font-medium text-blue-900">Schedule Appointment</h3>
+                <h3 className="font-medium" style={{ color: 'var(--color-primary)' }}>Schedule Appointment</h3>
                 <button
                   onClick={() => setShowScheduleAppointment(false)}
-                  className="text-blue-600 hover:text-blue-700 text-sm"
+                  className="text-[var(--color-primary)] hover:opacity-90 text-sm"
                 >
                   Cancel
                 </button>
@@ -541,45 +541,45 @@ export function OpportunitySidebar({
 
               <form onSubmit={handleScheduleAppointment} className="space-y-3">
                 <div>
-                  <label className="block text-sm text-gray-600 mb-1">Title *</label>
+                  <label className="block text-sm text-[var(--color-text-secondary)] mb-1">Title *</label>
                   <input
                     type="text"
                     value={appointmentForm.title}
                     onChange={(e) => setAppointmentForm({ ...appointmentForm, title: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                     placeholder="Sales Call, Demo, Meeting..."
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm text-gray-600 mb-1">Date & Time *</label>
+                  <label className="block text-sm text-[var(--color-text-secondary)] mb-1">Date & Time *</label>
                   <input
                     type="datetime-local"
                     value={appointmentForm.datetime}
                     onChange={(e) => setAppointmentForm({ ...appointmentForm, datetime: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm text-gray-600 mb-1">Location</label>
+                  <label className="block text-sm text-[var(--color-text-secondary)] mb-1">Location</label>
                   <input
                     type="text"
                     value={appointmentForm.location}
                     onChange={(e) => setAppointmentForm({ ...appointmentForm, location: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                     placeholder="Zoom, Office, Phone..."
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm text-gray-600 mb-1">Assign To</label>
+                  <label className="block text-sm text-[var(--color-text-secondary)] mb-1">Assign To</label>
                   <select
                     value={appointmentForm.assignedTo}
                     onChange={(e) => setAppointmentForm({ ...appointmentForm, assignedTo: e.target.value as Owner })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   >
                     <option value="alex">Alex</option>
                     <option value="mikail">Mikail</option>
@@ -589,7 +589,7 @@ export function OpportunitySidebar({
                 <button
                   type="submit"
                   disabled={savingAppointment}
-                  className="w-full py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm disabled:opacity-50"
+                  className="w-full py-2 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 transition text-sm disabled:opacity-50"
                 >
                   {savingAppointment ? 'Scheduling...' : 'Schedule Appointment'}
                 </button>
@@ -598,13 +598,13 @@ export function OpportunitySidebar({
           )}
 
           {/* Opportunity Details */}
-          <div className="p-4 border-b border-gray-200">
+          <div className="p-4 border-b border-[var(--color-border)]">
             <div className="flex items-center justify-between mb-3">
-              <h3 className="font-medium text-gray-900">Opportunity Details</h3>
+              <h3 className="font-medium text-[var(--color-text)]">Opportunity Details</h3>
               {!isEditingOpp && (
                 <button
                   onClick={() => setIsEditingOpp(true)}
-                  className="text-sm text-blue-600 hover:text-blue-700"
+                  className="text-sm text-[var(--color-primary)]" style={{ color: 'var(--color-primary)' }}
                 >
                   Edit
                 </button>
@@ -614,11 +614,11 @@ export function OpportunitySidebar({
             {isEditingOpp ? (
               <div className="space-y-3">
                 <div>
-                  <label className="block text-sm text-gray-600 mb-1">Pipeline</label>
+                  <label className="block text-sm text-[var(--color-text-secondary)] mb-1">Pipeline</label>
                   <select
                     value={selectedPipelineId}
                     onChange={(e) => handlePipelineChange(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   >
                     {pipelines.length > 0 ? (
                       pipelines.map((pipeline) => (
@@ -632,11 +632,11 @@ export function OpportunitySidebar({
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm text-gray-600 mb-1">Stage</label>
+                  <label className="block text-sm text-[var(--color-text-secondary)] mb-1">Stage</label>
                   <select
                     value={selectedStage}
                     onChange={(e) => setSelectedStage(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   >
                     {availableStages.length > 0 ? (
                       availableStages.map((stage) => (
@@ -650,25 +650,25 @@ export function OpportunitySidebar({
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm text-gray-600 mb-1">Value</label>
+                  <label className="block text-sm text-[var(--color-text-secondary)] mb-1">Value</label>
                   <div className="relative">
-                    <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                    <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" />
                     <input
                       type="number"
                       value={oppValue}
                       onChange={(e) => setOppValue(e.target.value)}
-                      className="w-full pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                      className="w-full pl-8 pr-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                       placeholder="0"
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm text-gray-600 mb-1">Next Follow-up</label>
+                  <label className="block text-sm text-[var(--color-text-secondary)] mb-1">Next Follow-up</label>
                   <input
                     type="date"
                     value={followUpDate}
                     onChange={(e) => setFollowUpDate(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   />
                 </div>
                 <div className="flex gap-2">
@@ -678,14 +678,14 @@ export function OpportunitySidebar({
                       setSelectedPipelineId(opportunity.pipeline_id)
                       setSelectedStage(opportunity.stage)
                     }}
-                    className="flex-1 px-3 py-1.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition text-sm"
+                    className="flex-1 px-3 py-1.5 border border-[var(--color-border-strong)] text-[var(--color-text)] rounded-lg hover:bg-stone-50 transition text-sm"
                   >
                     Cancel
                   </button>
                   <button
                     onClick={handleSaveOpp}
                     disabled={savingOpp}
-                    className="flex-1 px-3 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm disabled:opacity-50"
+                    className="flex-1 px-3 py-1.5 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 transition text-sm disabled:opacity-50"
                   >
                     {savingOpp ? 'Saving...' : 'Save'}
                   </button>
@@ -694,16 +694,16 @@ export function OpportunitySidebar({
             ) : (
               <div className="space-y-2 text-sm">
                 <div className="flex items-center gap-2">
-                  <DollarSign className="w-4 h-4 text-gray-400" />
-                  <span className="text-gray-600">
+                  <DollarSign className="w-4 h-4 text-[var(--color-text-muted)]" />
+                  <span className="text-[var(--color-text-secondary)]">
                     Value: {opportunity.opportunity_value
                       ? `$${Number(opportunity.opportunity_value).toLocaleString('en-US')}`
                       : 'Not set'}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Calendar className="w-4 h-4 text-gray-400" />
-                  <span className={`text-gray-600 ${
+                  <Calendar className="w-4 h-4 text-[var(--color-text-muted)]" />
+                  <span className={`text-[var(--color-text-secondary)] ${
                     opportunity.next_follow_up_date &&
                     new Date(opportunity.next_follow_up_date) < new Date()
                       ? 'text-red-600 font-medium'
@@ -721,10 +721,10 @@ export function OpportunitySidebar({
           {/* Activity Section */}
           <div className="p-4">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-medium text-gray-900">Activity Log</h3>
+              <h3 className="font-medium text-[var(--color-text)]">Activity Log</h3>
               <button
                 onClick={() => setShowAddActivity(!showAddActivity)}
-                className="flex items-center gap-1 px-3 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm"
+                className="flex items-center gap-1 px-3 py-1.5 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 transition text-sm"
               >
                 <Plus className="w-4 h-4" />
                 Add Activity
@@ -733,13 +733,13 @@ export function OpportunitySidebar({
 
             {/* Add Activity Form */}
             {showAddActivity && (
-              <form onSubmit={handleSubmitActivity} className="mb-4 p-3 bg-gray-50 rounded-lg space-y-3">
+              <form onSubmit={handleSubmitActivity} className="mb-4 p-3 bg-stone-50 rounded-lg space-y-3">
                 <div>
-                  <label className="block text-sm text-gray-600 mb-1">Outcome</label>
+                  <label className="block text-sm text-[var(--color-text-secondary)] mb-1">Outcome</label>
                   <select
                     value={activityForm.outcome}
                     onChange={(e) => setActivityForm({ ...activityForm, outcome: e.target.value as ActivityOutcome })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-sm"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none text-sm"
                   >
                     {OUTCOMES.map((o) => (
                       <option key={o} value={o}>{o}</option>
@@ -748,7 +748,7 @@ export function OpportunitySidebar({
                 </div>
 
                 <div>
-                  <label className="block text-sm text-gray-600 mb-1">Channel</label>
+                  <label className="block text-sm text-[var(--color-text-secondary)] mb-1">Channel</label>
                   <div className="flex gap-2">
                     {CHANNELS.map((c) => (
                       <button
@@ -757,8 +757,8 @@ export function OpportunitySidebar({
                         onClick={() => setActivityForm({ ...activityForm, channel: c })}
                         className={`flex-1 px-2 py-1.5 rounded-lg border text-sm transition ${
                           activityForm.channel === c
-                            ? 'bg-blue-50 border-blue-500 text-blue-700'
-                            : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+                            ? 'bg-amber-50 border-[var(--color-primary)] text-amber-700'
+                            : 'border-[var(--color-border-strong)] text-[var(--color-text)] hover:bg-stone-50'
                         }`}
                       >
                         {c}
@@ -768,32 +768,32 @@ export function OpportunitySidebar({
                 </div>
 
                 <div>
-                  <label className="block text-sm text-gray-600 mb-1">Notes</label>
+                  <label className="block text-sm text-[var(--color-text-secondary)] mb-1">Notes</label>
                   <textarea
                     value={activityForm.notes}
                     onChange={(e) => setActivityForm({ ...activityForm, notes: e.target.value })}
                     rows={2}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-sm resize-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none text-sm resize-none"
                     placeholder="Add notes..."
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm text-gray-600 mb-1">Next Follow-up</label>
+                  <label className="block text-sm text-[var(--color-text-secondary)] mb-1">Next Follow-up</label>
                   <input
                     type="date"
                     value={activityForm.nextFollowUp}
                     onChange={(e) => setActivityForm({ ...activityForm, nextFollowUp: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-sm"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none text-sm"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm text-gray-600 mb-1">Logged By</label>
+                  <label className="block text-sm text-[var(--color-text-secondary)] mb-1">Logged By</label>
                   <select
                     value={activityForm.loggedBy}
                     onChange={(e) => setActivityForm({ ...activityForm, loggedBy: e.target.value as Owner })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-sm"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none text-sm"
                   >
                     <option value="alex">Alex</option>
                     <option value="mikail">Mikail</option>
@@ -804,14 +804,14 @@ export function OpportunitySidebar({
                   <button
                     type="button"
                     onClick={() => setShowAddActivity(false)}
-                    className="flex-1 px-3 py-1.5 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition text-sm"
+                    className="flex-1 px-3 py-1.5 border border-[var(--color-border-strong)] text-[var(--color-text)] rounded-lg hover:bg-stone-50 transition text-sm"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={savingActivity}
-                    className="flex-1 px-3 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm disabled:opacity-50"
+                    className="flex-1 px-3 py-1.5 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 transition text-sm disabled:opacity-50"
                   >
                     {savingActivity ? 'Logging...' : 'Log Activity'}
                   </button>
@@ -821,10 +821,10 @@ export function OpportunitySidebar({
 
             {/* Activity List */}
             {loadingActivities ? (
-              <div className="text-center py-4 text-gray-500 text-sm">Loading activities...</div>
+              <div className="text-center py-4 text-[var(--color-text-secondary)] text-sm">Loading activities...</div>
             ) : activities.length === 0 ? (
-              <div className="text-center py-8 text-gray-500">
-                <MessageSquare className="w-8 h-8 mx-auto mb-2 text-gray-300" />
+              <div className="text-center py-8 text-[var(--color-text-secondary)]">
+                <MessageSquare className="w-8 h-8 mx-auto mb-2 text-[var(--color-text-muted)]" />
                 <p className="text-sm">No activities yet</p>
               </div>
             ) : (
@@ -832,22 +832,22 @@ export function OpportunitySidebar({
                 {activities.map((activity) => (
                   <div
                     key={activity.id}
-                    className="border-l-2 border-gray-200 pl-3 py-2"
+                    className="border-l-2 border-[var(--color-border)] pl-3 py-2"
                   >
                     <div className="flex items-center gap-2 mb-1">
                       <span className={`inline-flex px-2 py-0.5 rounded-full text-xs font-medium ${getOutcomeColor(activity.outcome)}`}>
                         {activity.outcome}
                       </span>
-                      <span className="text-xs text-gray-500">{activity.channel}</span>
-                      <span className="text-xs text-gray-400">
+                      <span className="text-xs text-[var(--color-text-secondary)]">{activity.channel}</span>
+                      <span className="text-xs text-[var(--color-text-muted)]">
                         {format(new Date(activity.logged_at), 'MMM d, h:mm a')}
                       </span>
                     </div>
                     {activity.notes && (
-                      <p className="text-sm text-gray-600 mt-1">{activity.notes}</p>
+                      <p className="text-sm text-[var(--color-text-secondary)] mt-1">{activity.notes}</p>
                     )}
                     {activity.next_action && (
-                      <p className="text-xs text-blue-600 mt-1">Next: {activity.next_action}</p>
+                      <p className="text-xs mt-1" style={{ color: 'var(--color-primary)' }}>Next: {activity.next_action}</p>
                     )}
                   </div>
                 ))}

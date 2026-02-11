@@ -37,8 +37,8 @@ const projectTypeLabels: Record<ProjectType, string> = {
 }
 
 const statusConfig: Record<ProjectStatus, { label: string; color: string; icon: React.ElementType }> = {
-  pending: { label: 'Pending', color: 'bg-gray-100 text-gray-700', icon: Clock },
-  in_progress: { label: 'In Progress', color: 'bg-blue-100 text-blue-700', icon: AlertCircle },
+  pending: { label: 'Pending', color: 'bg-stone-100 text-stone-700', icon: Clock },
+  in_progress: { label: 'In Progress', color: 'bg-amber-50 text-amber-700', icon: AlertCircle },
   review: { label: 'In Review', color: 'bg-yellow-100 text-yellow-700', icon: AlertCircle },
   completed: { label: 'Completed', color: 'bg-green-100 text-green-700', icon: CheckCircle2 },
   on_hold: { label: 'On Hold', color: 'bg-orange-100 text-orange-700', icon: PauseCircle },
@@ -46,8 +46,8 @@ const statusConfig: Record<ProjectStatus, { label: string; color: string; icon: 
 }
 
 const priorityColors: Record<string, string> = {
-  low: 'bg-gray-100 text-gray-600',
-  medium: 'bg-blue-100 text-blue-600',
+  low: 'bg-stone-100 text-stone-600',
+  medium: 'bg-amber-50 text-amber-700',
   high: 'bg-orange-100 text-orange-600',
   urgent: 'bg-red-100 text-red-600',
 }
@@ -145,12 +145,12 @@ export function ProjectsManager({ projects, clients }: ProjectsManagerProps) {
     <div className="p-8">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Projects</h1>
-          <p className="text-gray-500 mt-1">Manage client website builds, campaigns, and design work</p>
+          <h1 className="text-2xl font-bold text-[var(--color-text)]">Projects</h1>
+          <p className="text-[var(--color-text-secondary)] mt-1">Manage client website builds, campaigns, and design work</p>
         </div>
         <button
           onClick={() => setShowCreateModal(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+          className="flex items-center gap-2 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-[var(--color-primary-hover)] transition"
         >
           <Plus className="w-4 h-4" />
           New Project
@@ -159,36 +159,36 @@ export function ProjectsManager({ projects, clients }: ProjectsManagerProps) {
 
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
+        <div className="bg-white rounded-xl p-4 shadow-sm border border-[var(--color-border)]">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-blue-100 rounded-lg">
-              <FolderKanban className="w-5 h-5 text-blue-600" />
+            <div className="p-2 bg-amber-50 rounded-lg">
+              <FolderKanban className="w-5 h-5 text-amber-700" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">In Progress</p>
-              <p className="text-xl font-bold text-gray-900">{inProgressCount}</p>
+              <p className="text-sm text-[var(--color-text-secondary)]">In Progress</p>
+              <p className="text-xl font-bold text-[var(--color-text)]">{inProgressCount}</p>
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
+        <div className="bg-white rounded-xl p-4 shadow-sm border border-[var(--color-border)]">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-gray-100 rounded-lg">
-              <Clock className="w-5 h-5 text-gray-600" />
+            <div className="p-2 bg-stone-100 rounded-lg">
+              <Clock className="w-5 h-5 text-stone-600" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Pending</p>
-              <p className="text-xl font-bold text-gray-900">{pendingCount}</p>
+              <p className="text-sm text-[var(--color-text-secondary)]">Pending</p>
+              <p className="text-xl font-bold text-[var(--color-text)]">{pendingCount}</p>
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
+        <div className="bg-white rounded-xl p-4 shadow-sm border border-[var(--color-border)]">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-red-100 rounded-lg">
               <AlertCircle className="w-5 h-5 text-red-600" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Overdue</p>
-              <p className="text-xl font-bold text-gray-900">{overdueCount}</p>
+              <p className="text-sm text-[var(--color-text-secondary)]">Overdue</p>
+              <p className="text-xl font-bold text-[var(--color-text)]">{overdueCount}</p>
             </div>
           </div>
         </div>
@@ -197,19 +197,19 @@ export function ProjectsManager({ projects, clients }: ProjectsManagerProps) {
       {/* Filters */}
       <div className="flex flex-wrap gap-4 mb-6">
         <div className="relative flex-1 min-w-[200px]">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" />
           <input
             type="text"
             placeholder="Search projects..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+            className="w-full pl-10 pr-4 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
           />
         </div>
         <select
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value as ProjectStatus | 'all')}
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+          className="px-4 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
         >
           <option value="all">All Statuses</option>
           <option value="pending">Pending</option>
@@ -222,7 +222,7 @@ export function ProjectsManager({ projects, clients }: ProjectsManagerProps) {
         <select
           value={filterClient}
           onChange={(e) => setFilterClient(e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+          className="px-4 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
         >
           <option value="all">All Clients</option>
           {clients.map(client => (
@@ -235,33 +235,33 @@ export function ProjectsManager({ projects, clients }: ProjectsManagerProps) {
 
       {/* Projects List */}
       {filteredProjects.length === 0 ? (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
-          <FolderKanban className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">No projects found</h3>
-          <p className="text-gray-500 mb-4">Create a new project to get started</p>
+        <div className="bg-white rounded-xl shadow-sm border border-[var(--color-border)] p-12 text-center">
+          <FolderKanban className="w-12 h-12 text-[var(--color-text-muted)] mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-[var(--color-text)] mb-2">No projects found</h3>
+          <p className="text-[var(--color-text-secondary)] mb-4">Create a new project to get started</p>
           <button
             onClick={() => setShowCreateModal(true)}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-[var(--color-primary-hover)] transition"
           >
             <Plus className="w-4 h-4" />
             New Project
           </button>
         </div>
       ) : (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+        <div className="bg-white rounded-xl shadow-sm border border-[var(--color-border)] overflow-hidden">
           <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-200">
+            <thead className="bg-stone-50 border-b border-[var(--color-border)]">
               <tr>
-                <th className="text-left px-4 py-3 text-sm font-medium text-gray-500">Project</th>
-                <th className="text-left px-4 py-3 text-sm font-medium text-gray-500">Client</th>
-                <th className="text-left px-4 py-3 text-sm font-medium text-gray-500">Type</th>
-                <th className="text-left px-4 py-3 text-sm font-medium text-gray-500">Status</th>
-                <th className="text-left px-4 py-3 text-sm font-medium text-gray-500">Due Date</th>
-                <th className="text-left px-4 py-3 text-sm font-medium text-gray-500">Assigned</th>
+                <th className="text-left px-4 py-3 text-sm font-medium text-[var(--color-text-secondary)]">Project</th>
+                <th className="text-left px-4 py-3 text-sm font-medium text-[var(--color-text-secondary)]">Client</th>
+                <th className="text-left px-4 py-3 text-sm font-medium text-[var(--color-text-secondary)]">Type</th>
+                <th className="text-left px-4 py-3 text-sm font-medium text-[var(--color-text-secondary)]">Status</th>
+                <th className="text-left px-4 py-3 text-sm font-medium text-[var(--color-text-secondary)]">Due Date</th>
+                <th className="text-left px-4 py-3 text-sm font-medium text-[var(--color-text-secondary)]">Assigned</th>
                 <th className="w-10"></th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-[var(--color-border)]">
               {filteredProjects.map((project) => {
                 const status = statusConfig[project.status]
                 const isOverdue = project.due_date &&
@@ -272,13 +272,13 @@ export function ProjectsManager({ projects, clients }: ProjectsManagerProps) {
                 return (
                   <tr
                     key={project.id}
-                    className="hover:bg-gray-50 cursor-pointer"
+                    className="hover:bg-stone-50 cursor-pointer"
                     onClick={() => router.push(`/projects/${project.id}`)}
                   >
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
                         <div>
-                          <p className="font-medium text-gray-900">{project.name}</p>
+                          <p className="font-medium text-[var(--color-text)]">{project.name}</p>
                           <span className={`inline-flex px-2 py-0.5 rounded text-xs font-medium ${priorityColors[project.priority]}`}>
                             {project.priority}
                           </span>
@@ -305,7 +305,7 @@ export function ProjectsManager({ projects, clients }: ProjectsManagerProps) {
                           {isOverdue && <AlertCircle className="w-4 h-4 text-red-500" />}
                         </div>
                       ) : (
-                        <span className="text-gray-400">No due date</span>
+                        <span className="text-[var(--color-text-muted)]">No due date</span>
                       )}
                     </td>
                     <td className="px-4 py-3 text-sm text-gray-600 capitalize">
@@ -318,21 +318,21 @@ export function ProjectsManager({ projects, clients }: ProjectsManagerProps) {
                             e.stopPropagation()
                             setMenuOpen(menuOpen === project.id ? null : project.id)
                           }}
-                          className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition"
+                          className="p-1.5 text-[var(--color-text-muted)] hover:text-gray-600 hover:bg-stone-100 rounded-lg transition"
                         >
                           <MoreVertical className="w-4 h-4" />
                         </button>
                         {menuOpen === project.id && (
                           <>
                             <div className="fixed inset-0 z-10" onClick={(e) => { e.stopPropagation(); setMenuOpen(null) }} />
-                            <div className="absolute right-0 mt-1 w-44 bg-white rounded-lg shadow-lg border border-gray-200 z-20 py-1">
+                            <div className="absolute right-0 mt-1 w-44 bg-white rounded-lg shadow-lg border border-[var(--color-border)] z-20 py-1">
                               <button
                                 onClick={(e) => {
                                   e.stopPropagation()
                                   router.push(`/projects/${project.id}`)
                                   setMenuOpen(null)
                                 }}
-                                className="w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                                className="w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-stone-50 flex items-center gap-2"
                               >
                                 <Pencil className="w-4 h-4" />
                                 Edit
@@ -344,7 +344,7 @@ export function ProjectsManager({ projects, clients }: ProjectsManagerProps) {
                                     e.stopPropagation()
                                     handleStatusChange(project.id, 'in_progress')
                                   }}
-                                  className="w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-gray-50"
+                                  className="w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-stone-50"
                                 >
                                   Mark In Progress
                                 </button>
@@ -355,7 +355,7 @@ export function ProjectsManager({ projects, clients }: ProjectsManagerProps) {
                                     e.stopPropagation()
                                     handleStatusChange(project.id, 'completed')
                                   }}
-                                  className="w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-gray-50"
+                                  className="w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-stone-50"
                                 >
                                   Mark Completed
                                 </button>
@@ -388,11 +388,11 @@ export function ProjectsManager({ projects, clients }: ProjectsManagerProps) {
       {showCreateModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl shadow-xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between p-4 border-b border-gray-200">
-              <h2 className="text-lg font-semibold text-gray-900">Create New Project</h2>
+            <div className="flex items-center justify-between p-4 border-b border-[var(--color-border)]">
+              <h2 className="text-lg font-semibold text-[var(--color-text)]">Create New Project</h2>
               <button
                 onClick={() => setShowCreateModal(false)}
-                className="p-2 text-gray-400 hover:text-gray-600 rounded-lg transition"
+                className="p-2 text-[var(--color-text-muted)] hover:text-gray-600 rounded-lg transition"
               >
                 ✕
               </button>
@@ -404,7 +404,7 @@ export function ProjectsManager({ projects, clients }: ProjectsManagerProps) {
                   type="text"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   placeholder="New Website Build"
                 />
               </div>
@@ -413,7 +413,7 @@ export function ProjectsManager({ projects, clients }: ProjectsManagerProps) {
                 <select
                   value={formData.client_id}
                   onChange={(e) => setFormData({ ...formData, client_id: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                 >
                   <option value="">Select a client</option>
                   {clients.map(client => (
@@ -429,7 +429,7 @@ export function ProjectsManager({ projects, clients }: ProjectsManagerProps) {
                   <select
                     value={formData.project_type}
                     onChange={(e) => setFormData({ ...formData, project_type: e.target.value as ProjectType })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   >
                     {Object.entries(projectTypeLabels).map(([value, label]) => (
                       <option key={value} value={value}>{label}</option>
@@ -441,7 +441,7 @@ export function ProjectsManager({ projects, clients }: ProjectsManagerProps) {
                   <select
                     value={formData.priority}
                     onChange={(e) => setFormData({ ...formData, priority: e.target.value as any })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   >
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
@@ -455,7 +455,7 @@ export function ProjectsManager({ projects, clients }: ProjectsManagerProps) {
                 <textarea
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   rows={3}
                   placeholder="Project details..."
                 />
@@ -467,7 +467,7 @@ export function ProjectsManager({ projects, clients }: ProjectsManagerProps) {
                     type="date"
                     value={formData.due_date}
                     onChange={(e) => setFormData({ ...formData, due_date: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   />
                 </div>
                 <div>
@@ -476,7 +476,7 @@ export function ProjectsManager({ projects, clients }: ProjectsManagerProps) {
                     type="number"
                     value={formData.budget}
                     onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                     placeholder="5000"
                   />
                 </div>
@@ -486,24 +486,24 @@ export function ProjectsManager({ projects, clients }: ProjectsManagerProps) {
                 <select
                   value={formData.assigned_to}
                   onChange={(e) => setFormData({ ...formData, assigned_to: e.target.value as Owner })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                 >
                   <option value="alex">Alex</option>
                   <option value="mikail">Mikail</option>
                 </select>
               </div>
             </div>
-            <div className="flex gap-3 p-4 border-t border-gray-200">
+            <div className="flex gap-3 p-4 border-t border-[var(--color-border)]">
               <button
                 onClick={() => setShowCreateModal(false)}
-                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition"
+                className="flex-1 px-4 py-2 border border-[var(--color-border-strong)] text-gray-700 rounded-lg hover:bg-stone-50 transition"
               >
                 Cancel
               </button>
               <button
                 onClick={handleCreate}
                 disabled={creating || !formData.name.trim() || !formData.client_id}
-                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+                className="flex-1 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-[var(--color-primary-hover)] transition disabled:opacity-50"
               >
                 {creating ? 'Creating...' : 'Create Project'}
               </button>

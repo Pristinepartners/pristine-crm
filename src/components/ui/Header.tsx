@@ -73,19 +73,19 @@ export function Header({ currentUser }: HeaderProps) {
   const getNotificationIcon = (type: string) => {
     switch (type) {
       case 'follow_up':
-        return 'bg-blue-100 text-blue-600'
+        return 'bg-amber-50 text-amber-600'
       case 'reminder':
-        return 'bg-orange-100 text-orange-600'
+        return 'bg-orange-50 text-orange-600'
       default:
-        return 'bg-gray-100 text-gray-600'
+        return 'bg-stone-100 text-stone-600'
     }
   }
 
   return (
-    <header className="h-14 bg-white border-b border-gray-200 flex items-center justify-end px-6 gap-2">
+    <header className="h-14 bg-white border-b border-[var(--color-border)] flex items-center justify-end px-6 gap-2">
       <Link
         href="/settings"
-        className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition"
+        className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-stone-100 rounded-lg transition"
         title="Settings"
       >
         <Settings className="w-5 h-5" />
@@ -93,24 +93,24 @@ export function Header({ currentUser }: HeaderProps) {
       <div className="relative" ref={dropdownRef}>
         <button
           onClick={() => setShowDropdown(!showDropdown)}
-          className="relative p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition"
+          className="relative p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-stone-100 rounded-lg transition"
         >
           <Bell className="w-5 h-5" />
           {unreadCount > 0 && (
-            <span className="absolute top-1 right-1 w-4 h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
+            <span className="absolute top-1 right-1 w-4 h-4 text-white text-xs rounded-full flex items-center justify-center" style={{ backgroundColor: 'var(--color-primary)' }}>
               {unreadCount > 9 ? '9+' : unreadCount}
             </span>
           )}
         </button>
 
         {showDropdown && (
-          <div className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-lg border border-gray-200 z-50 overflow-hidden">
-            <div className="flex items-center justify-between p-3 border-b border-gray-200">
-              <h3 className="font-semibold text-gray-900">Notifications</h3>
+          <div className="absolute right-0 mt-2 w-80 bg-white rounded-xl shadow-lg border border-[var(--color-border)] z-50 overflow-hidden">
+            <div className="flex items-center justify-between p-3 border-b border-[var(--color-border)]">
+              <h3 className="font-semibold text-[var(--color-text)]">Notifications</h3>
               {unreadCount > 0 && (
                 <button
                   onClick={markAllAsRead}
-                  className="text-sm text-blue-600 hover:text-blue-700"
+                  className="text-sm font-medium hover:opacity-80" style={{ color: 'var(--color-primary)' }}
                 >
                   Mark all read
                 </button>
@@ -119,20 +119,20 @@ export function Header({ currentUser }: HeaderProps) {
 
             <div className="max-h-80 overflow-y-auto">
               {loading ? (
-                <div className="p-4 text-center text-gray-500 text-sm">
+                <div className="p-4 text-center text-[var(--color-text-muted)] text-sm">
                   Loading...
                 </div>
               ) : notifications.length === 0 ? (
-                <div className="p-8 text-center text-gray-500">
-                  <Bell className="w-8 h-8 mx-auto mb-2 text-gray-300" />
+                <div className="p-8 text-center text-[var(--color-text-muted)]">
+                  <Bell className="w-8 h-8 mx-auto mb-2 opacity-30" />
                   <p className="text-sm">No notifications yet</p>
                 </div>
               ) : (
                 notifications.map((notification) => (
                   <div
                     key={notification.id}
-                    className={`p-3 border-b border-gray-100 hover:bg-gray-50 transition ${
-                      !notification.read ? 'bg-blue-50/50' : ''
+                    className={`p-3 border-b border-[var(--color-border)] hover:bg-stone-50 transition ${
+                      !notification.read ? 'bg-amber-50/30' : ''
                     }`}
                   >
                     <div className="flex items-start gap-3">
@@ -140,20 +140,20 @@ export function Header({ currentUser }: HeaderProps) {
                         <Bell className="w-4 h-4" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-900">
+                        <p className="text-sm font-medium text-[var(--color-text)]">
                           {notification.title}
                         </p>
-                        <p className="text-sm text-gray-600 mt-0.5">
+                        <p className="text-sm text-[var(--color-text-secondary)] mt-0.5">
                           {notification.message}
                         </p>
-                        <p className="text-xs text-gray-400 mt-1">
+                        <p className="text-xs text-[var(--color-text-muted)] mt-1">
                           {format(new Date(notification.created_at), 'MMM d, h:mm a')}
                         </p>
                       </div>
                       {!notification.read && (
                         <button
                           onClick={() => markAsRead(notification.id)}
-                          className="p-1 text-gray-400 hover:text-gray-600 rounded"
+                          className="p-1 text-[var(--color-text-muted)] hover:text-[var(--color-text)] rounded"
                           title="Mark as read"
                         >
                           <Check className="w-4 h-4" />
@@ -163,7 +163,8 @@ export function Header({ currentUser }: HeaderProps) {
                     {notification.link && (
                       <Link
                         href={notification.link}
-                        className="block mt-2 text-sm text-blue-600 hover:text-blue-700"
+                        className="block mt-2 text-sm font-medium hover:opacity-80"
+                        style={{ color: 'var(--color-primary)' }}
                         onClick={() => {
                           markAsRead(notification.id)
                           setShowDropdown(false)
@@ -177,10 +178,10 @@ export function Header({ currentUser }: HeaderProps) {
               )}
             </div>
 
-            <div className="p-2 border-t border-gray-200">
+            <div className="p-2 border-t border-[var(--color-border)]">
               <Link
                 href="/settings"
-                className="block text-center text-sm text-gray-600 hover:text-gray-900 py-2"
+                className="block text-center text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text)] py-2"
                 onClick={() => setShowDropdown(false)}
               >
                 Notification Settings

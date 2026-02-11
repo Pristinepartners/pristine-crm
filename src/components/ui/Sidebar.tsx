@@ -108,12 +108,12 @@ export function Sidebar({ userEmail }: SidebarProps) {
     },
   ]
 
-  const sidebarColor = branding?.secondary_color || '#151617'
-  const primaryColor = branding?.primary_color || '#2563EB'
+  const sidebarColor = branding?.secondary_color || '#0a0a0a'
+  const primaryColor = branding?.primary_color || '#c9a96e'
 
   return (
     <aside className="w-64 flex flex-col" style={{ backgroundColor: sidebarColor }}>
-      <div className="p-6 border-b border-gray-700">
+      <div className="p-6 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
         {branding?.logo_url ? (
           <img
             src={branding.logo_url}
@@ -121,19 +121,26 @@ export function Sidebar({ userEmail }: SidebarProps) {
             className="h-12 object-contain"
           />
         ) : (
-          <h1 className="text-xl font-bold text-white">{branding?.company_name || 'Pristine Partners'}</h1>
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-full flex items-center justify-center" style={{ border: `1px solid ${primaryColor}` }}>
+              <span className="text-sm font-medium" style={{ color: primaryColor, fontFamily: 'var(--font-playfair), Playfair Display, Georgia, serif' }}>P</span>
+            </div>
+            <span className="text-lg font-light tracking-wide" style={{ color: '#f5f0eb', fontFamily: 'var(--font-playfair), Playfair Display, Georgia, serif' }}>
+              {branding?.company_name || 'Pristine Partners'}
+            </span>
+          </div>
         )}
       </div>
 
-      <nav className="flex-1 p-4 space-y-6 overflow-y-auto">
+      <nav className="flex-1 p-4 space-y-5 overflow-y-auto">
         {navSections.map((section, sectionIndex) => (
           <div key={sectionIndex}>
             {section.title && (
-              <p className="px-3 mb-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">
+              <p className="px-3 mb-2 text-[10px] font-medium uppercase tracking-[0.2em]" style={{ color: '#5a5550' }}>
                 {section.title}
               </p>
             )}
-            <div className="space-y-1">
+            <div className="space-y-0.5">
               {section.items.map((item) => {
                 const isActive = pathname === item.href ||
                   (item.href !== '/' && pathname.startsWith(item.href))
@@ -141,14 +148,27 @@ export function Sidebar({ userEmail }: SidebarProps) {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`flex items-center gap-3 px-3 py-2 rounded-lg transition ${
-                      isActive
-                        ? 'text-white'
-                        : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-                    }`}
-                    style={isActive ? { backgroundColor: primaryColor } : undefined}
+                    className="flex items-center gap-3 px-3 py-2 rounded-lg transition text-sm"
+                    style={isActive ? {
+                      backgroundColor: `${primaryColor}15`,
+                      color: primaryColor,
+                    } : {
+                      color: '#8a8580',
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.color = '#f5f0eb'
+                        e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.04)'
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.color = '#8a8580'
+                        e.currentTarget.style.backgroundColor = 'transparent'
+                      }
+                    }}
                   >
-                    <item.icon className="w-5 h-5" />
+                    <item.icon className="w-[18px] h-[18px]" />
                     <span className="font-medium">{item.label}</span>
                   </Link>
                 )
@@ -158,30 +178,40 @@ export function Sidebar({ userEmail }: SidebarProps) {
         ))}
       </nav>
 
-      <div className="p-4 border-t border-gray-700">
+      <div className="p-4" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <Link
           href="/settings"
-          className={`flex items-center gap-3 px-3 py-2 rounded-lg transition mb-3 ${
-            pathname === '/settings'
-              ? 'text-white'
-              : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-          }`}
-          style={pathname === '/settings' ? { backgroundColor: primaryColor } : undefined}
+          className="flex items-center gap-3 px-3 py-2 rounded-lg transition mb-3 text-sm"
+          style={pathname === '/settings' ? {
+            backgroundColor: `${primaryColor}15`,
+            color: primaryColor,
+          } : {
+            color: '#8a8580',
+          }}
         >
-          <Settings className="w-5 h-5" />
+          <Settings className="w-[18px] h-[18px]" />
           <span className="font-medium">Settings</span>
         </Link>
         <div className="flex items-center justify-between">
           <div>
-            <p className="font-medium text-white">{displayName}</p>
-            <p className="text-sm text-gray-400 truncate max-w-[140px]">{userEmail}</p>
+            <p className="font-medium text-sm" style={{ color: '#f5f0eb' }}>{displayName}</p>
+            <p className="text-xs truncate max-w-[140px]" style={{ color: '#5a5550' }}>{userEmail}</p>
           </div>
           <button
             onClick={handleSignOut}
-            className="p-2 text-gray-400 hover:text-white hover:bg-gray-700 rounded-lg transition"
+            className="p-2 rounded-lg transition"
+            style={{ color: '#5a5550' }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = '#f5f0eb'
+              e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.04)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = '#5a5550'
+              e.currentTarget.style.backgroundColor = 'transparent'
+            }}
             title="Sign out"
           >
-            <LogOut className="w-5 h-5" />
+            <LogOut className="w-[18px] h-[18px]" />
           </button>
         </div>
       </div>

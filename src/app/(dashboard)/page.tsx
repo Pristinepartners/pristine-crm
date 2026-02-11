@@ -56,60 +56,60 @@ export default async function DashboardPage() {
   return (
     <div className="p-8">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-        <p className="text-gray-500 mt-1">Welcome back! Here's your agency overview</p>
+        <h1 className="text-2xl font-bold text-[var(--color-text)]">Dashboard</h1>
+        <p className="text-[var(--color-text-secondary)] mt-1">Welcome back! Here's your agency overview</p>
       </div>
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+        <div className="bg-white rounded-xl p-6 shadow-sm border border-[var(--color-border)]">
           <div className="flex items-center gap-4">
-            <div className="p-3 bg-blue-500 rounded-lg">
+            <div className="p-3 bg-[var(--color-primary)] rounded-lg">
               <Building2 className="w-6 h-6 text-white" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Active Clients</p>
-              <p className="text-2xl font-bold text-gray-900">{activeClients.length}</p>
-              <p className="text-xs text-gray-400">{clients.length} total</p>
+              <p className="text-sm text-[var(--color-text-secondary)]">Active Clients</p>
+              <p className="text-2xl font-bold text-[var(--color-text)]">{activeClients.length}</p>
+              <p className="text-xs text-[var(--color-text-muted)]">{clients.length} total</p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+        <div className="bg-white rounded-xl p-6 shadow-sm border border-[var(--color-border)]">
           <div className="flex items-center gap-4">
             <div className="p-3 bg-green-500 rounded-lg">
               <DollarSign className="w-6 h-6 text-white" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Monthly Recurring</p>
-              <p className="text-2xl font-bold text-gray-900">${mrr.toLocaleString('en-US')}</p>
-              <p className="text-xs text-gray-400">from {activeClients.length} clients</p>
+              <p className="text-sm text-[var(--color-text-secondary)]">Monthly Recurring</p>
+              <p className="text-2xl font-bold text-[var(--color-text)]">${mrr.toLocaleString('en-US')}</p>
+              <p className="text-xs text-[var(--color-text-muted)]">from {activeClients.length} clients</p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+        <div className="bg-white rounded-xl p-6 shadow-sm border border-[var(--color-border)]">
           <div className="flex items-center gap-4">
             <div className="p-3 bg-purple-500 rounded-lg">
               <FolderKanban className="w-6 h-6 text-white" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Active Projects</p>
-              <p className="text-2xl font-bold text-gray-900">{projectsInProgress.length}</p>
-              <p className="text-xs text-gray-400">{projectsPending.length} pending</p>
+              <p className="text-sm text-[var(--color-text-secondary)]">Active Projects</p>
+              <p className="text-2xl font-bold text-[var(--color-text)]">{projectsInProgress.length}</p>
+              <p className="text-xs text-[var(--color-text-muted)]">{projectsPending.length} pending</p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+        <div className="bg-white rounded-xl p-6 shadow-sm border border-[var(--color-border)]">
           <div className="flex items-center gap-4">
             <div className="p-3 bg-amber-500 rounded-lg">
               <Home className="w-6 h-6 text-white" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Active Listings</p>
-              <p className="text-2xl font-bold text-gray-900">{activeListings.length}</p>
-              <p className="text-xs text-gray-400">{properties.length} total</p>
+              <p className="text-sm text-[var(--color-text-secondary)]">Active Listings</p>
+              <p className="text-2xl font-bold text-[var(--color-text)]">{activeListings.length}</p>
+              <p className="text-xs text-[var(--color-text-muted)]">{properties.length} total</p>
             </div>
           </div>
         </div>
@@ -157,39 +157,39 @@ export default async function DashboardPage() {
       {/* Main Content Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recent Clients */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100">
-          <div className="flex items-center justify-between p-4 border-b border-gray-100">
-            <h2 className="font-semibold text-gray-900">Recent Clients</h2>
-            <Link href="/clients" className="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1">
+        <div className="bg-white rounded-xl shadow-sm border border-[var(--color-border)]">
+          <div className="flex items-center justify-between p-4 border-b border-[var(--color-border)]">
+            <h2 className="font-semibold text-[var(--color-text)]">Recent Clients</h2>
+            <Link href="/clients" className="text-sm font-medium flex items-center gap-1" style={{ color: 'var(--color-primary)' }}>
               View all <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
           {recentClients.length === 0 ? (
             <div className="p-8 text-center">
-              <Building2 className="w-10 h-10 text-gray-300 mx-auto mb-3" />
-              <p className="text-gray-500">No clients yet</p>
-              <Link href="/clients" className="text-sm text-blue-600 hover:text-blue-700 font-medium mt-2 inline-block">
+              <Building2 className="w-10 h-10 text-[var(--color-text-muted)] mx-auto mb-3" />
+              <p className="text-[var(--color-text-secondary)]">No clients yet</p>
+              <Link href="/clients" className="text-sm font-medium mt-2 inline-block" style={{ color: 'var(--color-primary)' }}>
                 Add your first client
               </Link>
             </div>
           ) : (
-            <div className="divide-y divide-gray-100">
+            <div className="divide-y divide-[var(--color-border)]">
               {recentClients.map((client) => (
                 <Link
                   key={client.id}
                   href={`/clients/${client.id}`}
-                  className="flex items-center gap-3 p-4 hover:bg-gray-50 transition"
+                  className="flex items-center gap-3 p-4 hover:bg-[var(--color-bg-hover)] transition"
                 >
                   <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
                     {client.logo_url ? (
                       <img src={client.logo_url} alt="" className="w-10 h-10 rounded-lg object-cover" />
                     ) : (
-                      <Building2 className="w-5 h-5 text-gray-500" />
+                      <Building2 className="w-5 h-5 text-[var(--color-text-secondary)]" />
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-medium text-gray-900 truncate">{client.name}</p>
-                    <p className="text-sm text-gray-500 truncate">{client.company_name || 'No company'}</p>
+                    <p className="font-medium text-[var(--color-text)] truncate">{client.name}</p>
+                    <p className="text-sm text-[var(--color-text-secondary)] truncate">{client.company_name || 'No company'}</p>
                   </div>
                   <div className="text-right">
                     <span className={`inline-flex px-2 py-0.5 rounded-full text-xs font-medium ${
@@ -200,7 +200,7 @@ export default async function DashboardPage() {
                       {client.subscription_status}
                     </span>
                     {client.monthly_fee && (
-                      <p className="text-sm text-gray-500 mt-1">${client.monthly_fee.toLocaleString('en-US')}/mo</p>
+                      <p className="text-sm text-[var(--color-text-secondary)] mt-1">${client.monthly_fee.toLocaleString('en-US')}/mo</p>
                     )}
                   </div>
                 </Link>
@@ -210,23 +210,23 @@ export default async function DashboardPage() {
         </div>
 
         {/* Recent Projects */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100">
-          <div className="flex items-center justify-between p-4 border-b border-gray-100">
-            <h2 className="font-semibold text-gray-900">Recent Projects</h2>
-            <Link href="/projects" className="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1">
+        <div className="bg-white rounded-xl shadow-sm border border-[var(--color-border)]">
+          <div className="flex items-center justify-between p-4 border-b border-[var(--color-border)]">
+            <h2 className="font-semibold text-[var(--color-text)]">Recent Projects</h2>
+            <Link href="/projects" className="text-sm font-medium flex items-center gap-1" style={{ color: 'var(--color-primary)' }}>
               View all <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
           {recentProjects.length === 0 ? (
             <div className="p-8 text-center">
-              <FolderKanban className="w-10 h-10 text-gray-300 mx-auto mb-3" />
-              <p className="text-gray-500">No projects yet</p>
-              <Link href="/projects" className="text-sm text-blue-600 hover:text-blue-700 font-medium mt-2 inline-block">
+              <FolderKanban className="w-10 h-10 text-[var(--color-text-muted)] mx-auto mb-3" />
+              <p className="text-[var(--color-text-secondary)]">No projects yet</p>
+              <Link href="/projects" className="text-sm font-medium mt-2 inline-block" style={{ color: 'var(--color-primary)' }}>
                 Create your first project
               </Link>
             </div>
           ) : (
-            <div className="divide-y divide-gray-100">
+            <div className="divide-y divide-[var(--color-border)]">
               {recentProjects.map((project) => {
                 const client = clients.find(c => c.id === project.client_id)
                 const isOverdue = project.due_date &&
@@ -238,7 +238,7 @@ export default async function DashboardPage() {
                   <Link
                     key={project.id}
                     href={`/projects/${project.id}`}
-                    className="flex items-center gap-3 p-4 hover:bg-gray-50 transition"
+                    className="flex items-center gap-3 p-4 hover:bg-[var(--color-bg-hover)] transition"
                   >
                     <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
                       project.status === 'completed' ? 'bg-green-100' :
@@ -252,13 +252,13 @@ export default async function DashboardPage() {
                         <AlertCircle className="w-5 h-5 text-red-600" />
                       ) : (
                         <FolderKanban className={`w-5 h-5 ${
-                          project.status === 'in_progress' ? 'text-blue-600' : 'text-gray-500'
+                          project.status === 'in_progress' ? 'text-blue-600' : 'text-[var(--color-text-secondary)]'
                         }`} />
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium text-gray-900 truncate">{project.name}</p>
-                      <p className="text-sm text-gray-500 truncate">
+                      <p className="font-medium text-[var(--color-text)] truncate">{project.name}</p>
+                      <p className="text-sm text-[var(--color-text-secondary)] truncate">
                         {client?.company_name || client?.name || 'Unknown client'}
                       </p>
                     </div>
@@ -272,7 +272,7 @@ export default async function DashboardPage() {
                         {isOverdue ? 'Overdue' : project.status.replace('_', ' ')}
                       </span>
                       {project.due_date && (
-                        <p className={`text-sm mt-1 ${isOverdue ? 'text-red-500' : 'text-gray-500'}`}>
+                        <p className={`text-sm mt-1 ${isOverdue ? 'text-red-500' : 'text-[var(--color-text-secondary)]'}`}>
                           Due {new Date(project.due_date).toLocaleDateString()}
                         </p>
                       )}
@@ -287,21 +287,21 @@ export default async function DashboardPage() {
 
       {/* Quick Stats Row */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
-        <div className="bg-gray-50 rounded-xl p-4 text-center">
-          <p className="text-3xl font-bold text-gray-900">{projects.filter(p => p.status === 'completed').length}</p>
-          <p className="text-sm text-gray-500">Completed Projects</p>
+        <div className="bg-white rounded-xl p-4 text-center border border-[var(--color-border)]">
+          <p className="text-3xl font-bold text-[var(--color-text)]">{projects.filter(p => p.status === 'completed').length}</p>
+          <p className="text-sm text-[var(--color-text-secondary)]">Completed Projects</p>
         </div>
-        <div className="bg-gray-50 rounded-xl p-4 text-center">
-          <p className="text-3xl font-bold text-gray-900">{properties.filter(p => p.listing_status === 'sold').length}</p>
-          <p className="text-sm text-gray-500">Properties Sold</p>
+        <div className="bg-white rounded-xl p-4 text-center border border-[var(--color-border)]">
+          <p className="text-3xl font-bold text-[var(--color-text)]">{properties.filter(p => p.listing_status === 'sold').length}</p>
+          <p className="text-sm text-[var(--color-text-secondary)]">Properties Sold</p>
         </div>
-        <div className="bg-gray-50 rounded-xl p-4 text-center">
-          <p className="text-3xl font-bold text-gray-900">${(invoices.filter(i => i.status === 'paid').reduce((sum, i) => sum + i.amount, 0) / 1000).toFixed(0)}k</p>
-          <p className="text-sm text-gray-500">Revenue (All Time)</p>
+        <div className="bg-white rounded-xl p-4 text-center border border-[var(--color-border)]">
+          <p className="text-3xl font-bold text-[var(--color-text)]">${(invoices.filter(i => i.status === 'paid').reduce((sum, i) => sum + i.amount, 0) / 1000).toFixed(0)}k</p>
+          <p className="text-sm text-[var(--color-text-secondary)]">Revenue (All Time)</p>
         </div>
-        <div className="bg-gray-50 rounded-xl p-4 text-center">
-          <p className="text-3xl font-bold text-gray-900">{clients.filter(c => c.company_type === 'brokerage').length}</p>
-          <p className="text-sm text-gray-500">Brokerage Clients</p>
+        <div className="bg-white rounded-xl p-4 text-center border border-[var(--color-border)]">
+          <p className="text-3xl font-bold text-[var(--color-text)]">{clients.filter(c => c.company_type === 'brokerage').length}</p>
+          <p className="text-sm text-[var(--color-text-secondary)]">Brokerage Clients</p>
         </div>
       </div>
     </div>

@@ -98,16 +98,16 @@ export function TagsManager() {
 
   return (
     <>
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-        <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+      <div className="bg-white rounded-xl shadow-sm border border-[var(--color-border)] overflow-hidden">
+        <div className="p-4 border-b border-[var(--color-border)] flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <TagIcon className="w-5 h-5 text-gray-500" />
-            <h2 className="font-semibold text-gray-900">Tags</h2>
+            <TagIcon className="w-5 h-5 text-[var(--color-text-secondary)]" />
+            <h2 className="font-semibold text-[var(--color-text)]">Tags</h2>
           </div>
           <button
             type="button"
             onClick={() => openModal()}
-            className="flex items-center gap-2 px-3 py-1.5 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            className="flex items-center gap-2 px-3 py-1.5 text-sm bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90"
           >
             <Plus className="w-4 h-4" />
             Add Tag
@@ -116,8 +116,8 @@ export function TagsManager() {
 
         <div className="p-4">
           {tags.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
-              <TagIcon className="w-10 h-10 mx-auto text-gray-300 mb-2" />
+            <div className="text-center py-8 text-[var(--color-text-secondary)]">
+              <TagIcon className="w-10 h-10 mx-auto text-[var(--color-text-muted)] mb-2" />
               <p>No tags yet</p>
               <p className="text-sm">Create tags to organize your contacts</p>
             </div>
@@ -160,13 +160,13 @@ export function TagsManager() {
       {showModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl shadow-xl w-full max-w-md">
-            <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+            <div className="p-4 border-b border-[var(--color-border)] flex items-center justify-between">
               <h2 className="text-lg font-semibold">
                 {editingTag ? 'Edit Tag' : 'New Tag'}
               </h2>
               <button
                 onClick={() => { setShowModal(false); setEditingTag(null); setTagForm({ name: '', color: '#3B82F6' }) }}
-                className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg"
+                className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:bg-stone-100 rounded-lg"
               >
                 ✕
               </button>
@@ -174,20 +174,20 @@ export function TagsManager() {
 
             <div className="p-4 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
                   Tag Name *
                 </label>
                 <input
                   type="text"
                   value={tagForm.name}
                   onChange={(e) => setTagForm({ ...tagForm, name: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   placeholder="e.g., VIP, Follow Up, New Lead..."
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-[var(--color-text)] mb-2">
                   Color
                 </label>
                 <div className="flex flex-wrap gap-2">
@@ -204,24 +204,24 @@ export function TagsManager() {
                   ))}
                 </div>
                 <div className="flex items-center gap-2 mt-3">
-                  <span className="text-sm text-gray-500">Custom:</span>
+                  <span className="text-sm text-[var(--color-text-secondary)]">Custom:</span>
                   <input
                     type="color"
                     value={tagForm.color}
                     onChange={(e) => setTagForm({ ...tagForm, color: e.target.value })}
-                    className="w-8 h-8 rounded border border-gray-300 cursor-pointer"
+                    className="w-8 h-8 rounded border border-[var(--color-border-strong)] cursor-pointer"
                   />
                   <input
                     type="text"
                     value={tagForm.color}
                     onChange={(e) => setTagForm({ ...tagForm, color: e.target.value })}
-                    className="flex-1 px-2 py-1 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="flex-1 px-2 py-1 border border-[var(--color-border-strong)] rounded text-sm focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   />
                 </div>
               </div>
 
               <div className="pt-2">
-                <p className="text-sm text-gray-500">Preview:</p>
+                <p className="text-sm text-[var(--color-text-secondary)]">Preview:</p>
                 <span
                   className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium mt-2"
                   style={{ backgroundColor: `${tagForm.color}20`, color: tagForm.color }}
@@ -235,17 +235,17 @@ export function TagsManager() {
               </div>
             </div>
 
-            <div className="p-4 border-t bg-gray-50 flex justify-end gap-3">
+            <div className="p-4 border-t bg-stone-50 flex justify-end gap-3">
               <button
                 onClick={() => { setShowModal(false); setEditingTag(null); setTagForm({ name: '', color: '#3B82F6' }) }}
-                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100"
+                className="px-4 py-2 border border-[var(--color-border-strong)] rounded-lg hover:bg-stone-100"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSave}
                 disabled={saving || !tagForm.name.trim()}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+                className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 disabled:opacity-50"
               >
                 {saving ? 'Saving...' : editingTag ? 'Save Changes' : 'Create Tag'}
               </button>

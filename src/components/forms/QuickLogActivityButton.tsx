@@ -98,22 +98,22 @@ export function QuickLogActivityButton({
           className={`p-1.5 rounded transition ${
             success
               ? 'bg-green-100 text-green-600'
-              : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100'
+              : 'text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:bg-stone-100'
           }`}
           title="Quick log activity"
         >
           {success ? (
             <Check className="w-4 h-4" />
           ) : loading ? (
-            <div className="w-4 h-4 border-2 border-gray-300 border-t-blue-500 rounded-full animate-spin" />
+            <div className="w-4 h-4 border-2 border-stone-300 border-t-[var(--color-primary)] rounded-full animate-spin" />
           ) : (
             <Phone className="w-4 h-4" />
           )}
         </button>
 
         {isOpen && (
-          <div className="absolute right-0 top-full mt-1 w-44 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-20">
-            <div className="px-3 py-1.5 text-xs font-medium text-gray-500 border-b border-gray-100">
+          <div className="absolute right-0 top-full mt-1 w-44 bg-white rounded-lg shadow-lg border border-[var(--color-border)] py-1 z-20">
+            <div className="px-3 py-1.5 text-xs font-medium text-[var(--color-text-muted)] border-b border-[var(--color-border)]">
               Quick Log
             </div>
             {QUICK_OUTCOMES.map(({ outcome, label, icon: Icon, color }) => (
@@ -123,7 +123,7 @@ export function QuickLogActivityButton({
                   e.stopPropagation()
                   handleQuickLog(outcome)
                 }}
-                className="w-full px-3 py-2 text-left text-sm hover:bg-gray-50 flex items-center gap-2"
+                className="w-full px-3 py-2 text-left text-sm hover:bg-stone-50 flex items-center gap-2"
               >
                 <Icon className={`w-4 h-4 ${color}`} />
                 {label}
@@ -146,7 +146,7 @@ export function QuickLogActivityButton({
         className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-lg transition ${
           success
             ? 'bg-green-100 text-green-700 border border-green-200'
-            : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200'
+            : 'bg-stone-100 text-[var(--color-text-secondary)] hover:bg-stone-200 border border-[var(--color-border)]'
         }`}
       >
         {success ? (
@@ -156,7 +156,7 @@ export function QuickLogActivityButton({
           </>
         ) : loading ? (
           <>
-            <div className="w-4 h-4 border-2 border-gray-300 border-t-blue-500 rounded-full animate-spin" />
+            <div className="w-4 h-4 border-2 border-stone-300 border-t-[var(--color-primary)] rounded-full animate-spin" />
             Logging...
           </>
         ) : (
@@ -169,8 +169,8 @@ export function QuickLogActivityButton({
       </button>
 
       {isOpen && (
-        <div className="absolute left-0 top-full mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-20">
-          <div className="px-3 py-1.5 text-xs font-medium text-gray-500 border-b border-gray-100">
+        <div className="absolute left-0 top-full mt-1 w-48 bg-white rounded-lg shadow-lg border border-[var(--color-border)] py-1 z-20">
+          <div className="px-3 py-1.5 text-xs font-medium text-[var(--color-text-muted)] border-b border-[var(--color-border)]">
             Quick Log Activity
           </div>
           {QUICK_OUTCOMES.map(({ outcome, label, icon: Icon, color }) => (
@@ -180,7 +180,7 @@ export function QuickLogActivityButton({
                 e.stopPropagation()
                 handleQuickLog(outcome)
               }}
-              className="w-full px-3 py-2 text-left text-sm hover:bg-gray-50 flex items-center gap-2"
+              className="w-full px-3 py-2 text-left text-sm hover:bg-stone-50 flex items-center gap-2"
             >
               <Icon className={`w-4 h-4 ${color}`} />
               {label}

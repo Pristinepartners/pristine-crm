@@ -148,27 +148,27 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
     <>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Contacts</h1>
-          <p className="text-gray-500 mt-1">{contacts.length} total contacts</p>
+          <h1 className="text-2xl font-bold text-[var(--color-text)]">Contacts</h1>
+          <p className="text-[var(--color-text-secondary)] mt-1">{contacts.length} total contacts</p>
         </div>
         <div className="flex items-center gap-2">
           <button
             onClick={() => setShowImportModal(true)}
-            className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition"
+            className="flex items-center gap-2 px-4 py-2 border border-[var(--color-border-strong)] text-[var(--color-text)] rounded-lg hover:bg-stone-50 transition"
           >
             <Upload className="w-4 h-4" />
             Import CSV
           </button>
           <button
             onClick={handleExportCSV}
-            className="flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition"
+            className="flex items-center gap-2 px-4 py-2 border border-[var(--color-border-strong)] text-[var(--color-text)] rounded-lg hover:bg-stone-50 transition"
           >
             <Download className="w-4 h-4" />
             Export CSV
           </button>
           <button
             onClick={() => setShowAddModal(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+            className="flex items-center gap-2 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 transition"
           >
             <Plus className="w-4 h-4" />
             Add Contact
@@ -178,21 +178,21 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
 
       {/* Bulk Actions Bar */}
       {selectedContacts.size > 0 && (
-        <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg flex items-center justify-between">
-          <span className="text-sm text-blue-700">
+        <div className="mb-4 p-3 bg-amber-50/50 border border-[var(--color-primary)] rounded-lg flex items-center justify-between">
+          <span className="text-sm text-[var(--color-primary)]">
             {selectedContacts.size} contact{selectedContacts.size !== 1 ? 's' : ''} selected
           </span>
           <div className="flex items-center gap-2">
             <button
               onClick={() => setSelectedContacts(new Set())}
-              className="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900"
+              className="px-3 py-1.5 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
             >
               Clear selection
             </button>
             {pipelines.length > 0 && (
               <button
                 onClick={() => setShowBulkAddModal(true)}
-                className="flex items-center gap-2 px-3 py-1.5 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                className="flex items-center gap-2 px-3 py-1.5 text-sm bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 transition"
               >
                 <Users className="w-4 h-4" />
                 Add to Pipeline
@@ -204,19 +204,19 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
 
       <div className="flex flex-wrap gap-4 mb-4">
         <div className="relative flex-1 min-w-[200px]">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--color-text-muted)]" />
           <input
             type="text"
             placeholder="Search contacts..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+            className="w-full pl-10 pr-4 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
           />
         </div>
         <select
           value={ownerFilter}
           onChange={(e) => setOwnerFilter(e.target.value)}
-          className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+          className="px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
         >
           <option value="">All owners</option>
           <option value="alex">Alex</option>
@@ -226,7 +226,7 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
           <select
             value={tagFilter}
             onChange={(e) => setTagFilter(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+            className="px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
           >
             <option value="">All tags</option>
             {allTags.map(tag => (
@@ -238,14 +238,14 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
           onClick={() => setShowFiltersPanel(!showFiltersPanel)}
           className={`flex items-center gap-2 px-4 py-2 border rounded-lg transition ${
             activeFilters.length > 0
-              ? 'bg-blue-50 border-blue-300 text-blue-700'
-              : 'border-gray-300 text-gray-700 hover:bg-gray-50'
+              ? 'bg-amber-50/50 border-[var(--color-primary)] text-[var(--color-primary)]'
+              : 'border-[var(--color-border-strong)] text-[var(--color-text)] hover:bg-stone-50'
           }`}
         >
           <Filter className="w-4 h-4" />
           Filters
           {activeFilters.length > 0 && (
-            <span className="bg-blue-600 text-white text-xs px-1.5 py-0.5 rounded-full">
+            <span className="bg-[var(--color-primary)] text-white text-xs px-1.5 py-0.5 rounded-full">
               {activeFilters.length}
             </span>
           )}
@@ -254,13 +254,13 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
 
       {/* Filters Panel */}
       {showFiltersPanel && (
-        <div className="mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+        <div className="mb-4 p-4 bg-stone-50 rounded-lg border border-[var(--color-border)]">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="font-medium text-gray-900">Filter by</h3>
+            <h3 className="font-medium text-[var(--color-text)]">Filter by</h3>
             {activeFilters.length > 0 && (
               <button
                 onClick={clearFilters}
-                className="text-sm text-blue-600 hover:text-blue-700"
+                className="text-sm text-[var(--color-primary)]" style={{ color: 'var(--color-primary)' }}
               >
                 Clear all
               </button>
@@ -276,8 +276,8 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
                   onClick={() => toggleFilter(option.id as FilterField)}
                   className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-sm transition ${
                     isActive
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
+                      ? 'bg-[var(--color-primary)] text-white'
+                      : 'bg-white border border-[var(--color-border-strong)] text-[var(--color-text)] hover:bg-stone-50'
                   }`}
                 >
                   <Icon className="w-3.5 h-3.5" />
@@ -293,14 +293,14 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
       {/* Active Filters Display */}
       {activeFilters.length > 0 && !showFiltersPanel && (
         <div className="mb-4 flex items-center gap-2 flex-wrap">
-          <span className="text-sm text-gray-500">Active filters:</span>
+          <span className="text-sm text-[var(--color-text-secondary)]">Active filters:</span>
           {activeFilters.map(filter => (
             <span
               key={filter}
-              className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs"
+              className="inline-flex items-center gap-1 px-2 py-1 bg-amber-50/50 text-[var(--color-primary)] rounded-full text-xs"
             >
               {filterOptions.find(f => f.id === filter)?.label}
-              <button onClick={() => toggleFilter(filter)} className="hover:text-blue-900">
+              <button onClick={() => toggleFilter(filter)} className="hover:opacity-80">
                 <X className="w-3 h-3" />
               </button>
             </span>
@@ -310,36 +310,36 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
 
       {/* Results count */}
       {(activeFilters.length > 0 || searchQuery || ownerFilter) && (
-        <p className="mb-4 text-sm text-gray-500">
+        <p className="mb-4 text-sm text-[var(--color-text-secondary)]">
           Showing {filteredContacts.length} of {contacts.length} contacts
         </p>
       )}
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+      <div className="bg-white rounded-xl shadow-sm border border-[var(--color-border)] overflow-hidden">
         <table className="w-full">
-          <thead className="bg-gray-50 border-b border-gray-200">
+          <thead className="bg-stone-50 border-b border-[var(--color-border)]">
             <tr>
               <th className="px-4 py-3 w-12">
                 <input
                   type="checkbox"
                   checked={selectedContacts.size === filteredContacts.length && filteredContacts.length > 0}
                   onChange={handleSelectAll}
-                  className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="w-4 h-4 rounded border-[var(--color-border-strong)] text-[var(--color-primary)] focus:ring-[var(--color-primary)]"
                 />
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-[var(--color-text-secondary)] uppercase tracking-wider">
                 Name
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-[var(--color-text-secondary)] uppercase tracking-wider">
                 Business
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-[var(--color-text-secondary)] uppercase tracking-wider">
                 Contact Info
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-[var(--color-text-secondary)] uppercase tracking-wider">
                 Owner
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-[var(--color-text-secondary)] uppercase tracking-wider">
                 Created
               </th>
               <th className="px-4 py-3 w-16">
@@ -347,11 +347,11 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
               </th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-200">
+          <tbody className="divide-y divide-[var(--color-border)]">
             {filteredContacts.map((contact) => (
               <tr
                 key={contact.id}
-                className="hover:bg-gray-50 cursor-pointer"
+                className="hover:bg-stone-50 cursor-pointer"
                 onClick={() => router.push(`/contacts/${contact.id}`)}
               >
                 <td className="px-4 py-4" onClick={(e) => e.stopPropagation()}>
@@ -359,16 +359,16 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
                     type="checkbox"
                     checked={selectedContacts.has(contact.id)}
                     onChange={() => handleSelectContact(contact.id)}
-                    className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    className="w-4 h-4 rounded border-[var(--color-border-strong)] text-[var(--color-primary)] focus:ring-[var(--color-primary)]"
                   />
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
-                      <User className="w-5 h-5 text-gray-400" />
+                    <div className="w-10 h-10 bg-stone-100 rounded-full flex items-center justify-center">
+                      <User className="w-5 h-5 text-[var(--color-text-muted)]" />
                     </div>
                     <div>
-                      <span className="font-medium text-gray-900">{contact.name}</span>
+                      <span className="font-medium text-[var(--color-text)]">{contact.name}</span>
                       {contact.contact_tags && contact.contact_tags.length > 0 && (
                         <div className="flex flex-wrap gap-1 mt-1">
                           {contact.contact_tags.slice(0, 3).map(ct => ct.tag && (
@@ -381,7 +381,7 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
                             </span>
                           ))}
                           {contact.contact_tags.length > 3 && (
-                            <span className="text-xs text-gray-400">+{contact.contact_tags.length - 3}</span>
+                            <span className="text-xs text-[var(--color-text-muted)]">+{contact.contact_tags.length - 3}</span>
                           )}
                         </div>
                       )}
@@ -390,7 +390,7 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
                 </td>
                 <td className="px-6 py-4">
                   {contact.business_name && (
-                    <div className="flex items-center gap-2 text-gray-600">
+                    <div className="flex items-center gap-2 text-[var(--color-text-secondary)]">
                       <Building className="w-4 h-4" />
                       {contact.business_name}
                     </div>
@@ -399,19 +399,19 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
                 <td className="px-6 py-4">
                   <div className="space-y-1">
                     {contact.email && (
-                      <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <div className="flex items-center gap-2 text-sm text-[var(--color-text-secondary)]">
                         <Mail className="w-4 h-4" />
                         {contact.email}
                       </div>
                     )}
                     {contact.phone && (
-                      <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <div className="flex items-center gap-2 text-sm text-[var(--color-text-secondary)]">
                         <Phone className="w-4 h-4" />
                         {contact.phone}
                       </div>
                     )}
                     {contact.linkedin_url && (
-                      <div className="flex items-center gap-2 text-sm text-blue-600">
+                      <div className="flex items-center gap-2 text-sm text-[var(--color-primary)]" style={{ color: 'var(--color-primary)' }}>
                         <Linkedin className="w-4 h-4" />
                         LinkedIn
                       </div>
@@ -429,7 +429,7 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
                     {contact.owner.charAt(0).toUpperCase() + contact.owner.slice(1)}
                   </span>
                 </td>
-                <td className="px-6 py-4 text-sm text-gray-500">
+                <td className="px-6 py-4 text-sm text-[var(--color-text-secondary)]">
                   {format(new Date(contact.created_at), 'MMM d, yyyy')}
                 </td>
                 <td className="px-4 py-4" onClick={(e) => e.stopPropagation()}>
@@ -446,7 +446,7 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
         </table>
 
         {filteredContacts.length === 0 && (
-          <div className="px-6 py-12 text-center text-gray-500">
+          <div className="px-6 py-12 text-center text-[var(--color-text-secondary)]">
             No contacts found
           </div>
         )}
@@ -535,11 +535,11 @@ function AddContactModal({
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-xl shadow-xl max-w-md w-full">
-        <div className="flex items-center justify-between p-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900">Add Contact</h2>
+        <div className="flex items-center justify-between p-4 border-b border-[var(--color-border)]">
+          <h2 className="text-lg font-semibold text-[var(--color-text)]">Add Contact</h2>
           <button
             onClick={onClose}
-            className="p-2 text-gray-400 hover:text-gray-600 rounded-lg transition"
+            className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] rounded-lg transition"
           >
             ✕
           </button>
@@ -547,75 +547,75 @@ function AddContactModal({
 
         <form onSubmit={handleSubmit} className="p-4 space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
               Name *
             </label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
               Email
             </label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
               Phone
             </label>
             <input
               type="tel"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
               Business Name
             </label>
             <input
               type="text"
               value={businessName}
               onChange={(e) => setBusinessName(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
               LinkedIn URL
             </label>
             <input
               type="url"
               value={linkedinUrl}
               onChange={(e) => setLinkedinUrl(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
               placeholder="https://linkedin.com/in/..."
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
               Owner *
             </label>
             <select
               value={owner}
               onChange={(e) => setOwner(e.target.value as Owner)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
               required
             >
               <option value="alex">Alex</option>
@@ -627,14 +627,14 @@ function AddContactModal({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition"
+              className="flex-1 px-4 py-2 border border-[var(--color-border-strong)] text-[var(--color-text)] rounded-lg hover:bg-stone-50 transition"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+              className="flex-1 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 transition disabled:opacity-50"
             >
               {loading ? 'Adding...' : 'Add Contact'}
             </button>
@@ -715,23 +715,23 @@ function BulkAddToPipelineModal({
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-xl shadow-xl max-w-md w-full">
-        <div className="flex items-center justify-between p-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900">Add to Pipeline</h2>
+        <div className="flex items-center justify-between p-4 border-b border-[var(--color-border)]">
+          <h2 className="text-lg font-semibold text-[var(--color-text)]">Add to Pipeline</h2>
           <button
             onClick={onClose}
-            className="p-2 text-gray-400 hover:text-gray-600 rounded-lg transition"
+            className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] rounded-lg transition"
           >
             ✕
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="p-4 space-y-4">
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-[var(--color-text-secondary)]">
             Adding {contactIds.length} contact{contactIds.length !== 1 ? 's' : ''} to pipeline
           </p>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
               Pipeline *
             </label>
             <select
@@ -740,7 +740,7 @@ function BulkAddToPipelineModal({
                 setSelectedPipeline(e.target.value)
                 setSelectedStage('')
               }}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
               required
             >
               {pipelines.map((pipeline) => (
@@ -752,13 +752,13 @@ function BulkAddToPipelineModal({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
               Stage *
             </label>
             <select
               value={selectedStage}
               onChange={(e) => setSelectedStage(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
               required
             >
               {stages.map((stage) => (
@@ -770,13 +770,13 @@ function BulkAddToPipelineModal({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
               Owner *
             </label>
             <select
               value={owner}
               onChange={(e) => setOwner(e.target.value as Owner)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
               required
             >
               <option value="alex">Alex</option>
@@ -788,14 +788,14 @@ function BulkAddToPipelineModal({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition"
+              className="flex-1 px-4 py-2 border border-[var(--color-border-strong)] text-[var(--color-text)] rounded-lg hover:bg-stone-50 transition"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading || !selectedStage}
-              className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+              className="flex-1 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 transition disabled:opacity-50"
             >
               {loading ? 'Adding...' : 'Add to Pipeline'}
             </button>
@@ -968,11 +968,11 @@ function CSVImportModal({
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col">
-        <div className="flex items-center justify-between p-4 border-b border-gray-200">
-          <h2 className="text-lg font-semibold text-gray-900">Import Contacts from CSV</h2>
+        <div className="flex items-center justify-between p-4 border-b border-[var(--color-border)]">
+          <h2 className="text-lg font-semibold text-[var(--color-text)]">Import Contacts from CSV</h2>
           <button
             onClick={onClose}
-            className="p-2 text-gray-400 hover:text-gray-600 rounded-lg transition"
+            className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] rounded-lg transition"
           >
             ✕
           </button>
@@ -981,9 +981,9 @@ function CSVImportModal({
         <div className="p-4 flex-1 overflow-y-auto">
           {step === 'upload' && (
             <div className="space-y-4">
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
-                <Upload className="w-12 h-12 mx-auto text-gray-400 mb-4" />
-                <p className="text-gray-600 mb-2">Select a CSV file to import</p>
+              <div className="border-2 border-dashed border-[var(--color-border-strong)] rounded-lg p-8 text-center">
+                <Upload className="w-12 h-12 mx-auto text-[var(--color-text-muted)] mb-4" />
+                <p className="text-[var(--color-text-secondary)] mb-2">Select a CSV file to import</p>
                 <input
                   type="file"
                   accept=".csv"
@@ -993,12 +993,12 @@ function CSVImportModal({
                 />
                 <label
                   htmlFor="csv-file"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition cursor-pointer"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 transition cursor-pointer"
                 >
                   Choose File
                 </label>
               </div>
-              <div className="text-sm text-gray-500">
+              <div className="text-sm text-[var(--color-text-secondary)]">
                 <p className="font-medium mb-1">Expected CSV format:</p>
                 <p>Name, Email, Phone, Business Name, Address, City, Postal Code, Website, LinkedIn URL, Source, Notes</p>
               </div>
@@ -1007,20 +1007,20 @@ function CSVImportModal({
 
           {step === 'map' && (
             <div className="space-y-4">
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-[var(--color-text-secondary)]">
                 Map your CSV columns to contact fields. The Name field is required.
               </p>
 
               <div className="space-y-3">
                 {headers.map((header, index) => (
                   <div key={index} className="flex items-center gap-4">
-                    <span className="w-40 text-sm font-medium text-gray-700 truncate" title={header}>
+                    <span className="w-40 text-sm font-medium text-[var(--color-text)] truncate" title={header}>
                       {header}
                     </span>
                     <select
                       value={columnMapping[index.toString()] || ''}
                       onChange={(e) => setColumnMapping({ ...columnMapping, [index.toString()]: e.target.value })}
-                      className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                      className="flex-1 px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                     >
                       {fieldOptions.map((opt) => (
                         <option key={opt.value} value={opt.value}>
@@ -1032,14 +1032,14 @@ function CSVImportModal({
                 ))}
               </div>
 
-              <div className="pt-4 border-t border-gray-200">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+              <div className="pt-4 border-t border-[var(--color-border)]">
+                <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
                   Default Owner for Imported Contacts
                 </label>
                 <select
                   value={defaultOwner}
                   onChange={(e) => setDefaultOwner(e.target.value as Owner)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                 >
                   <option value="alex">Alex</option>
                   <option value="mikail">Mikail</option>
@@ -1047,14 +1047,14 @@ function CSVImportModal({
               </div>
 
               {preview.length > 0 && (
-                <div className="pt-4 border-t border-gray-200">
-                  <p className="text-sm font-medium text-gray-700 mb-2">Preview (first {preview.length} rows):</p>
+                <div className="pt-4 border-t border-[var(--color-border)]">
+                  <p className="text-sm font-medium text-[var(--color-text)] mb-2">Preview (first {preview.length} rows):</p>
                   <div className="overflow-x-auto">
                     <table className="text-xs w-full">
                       <thead>
-                        <tr className="bg-gray-50">
+                        <tr className="bg-stone-50">
                           {headers.map((h, i) => (
-                            <th key={i} className="px-2 py-1 text-left font-medium text-gray-500 border">
+                            <th key={i} className="px-2 py-1 text-left font-medium text-[var(--color-text-secondary)] border">
                               {columnMapping[i.toString()] || '(skip)'}
                             </th>
                           ))}
@@ -1064,7 +1064,7 @@ function CSVImportModal({
                         {preview.map((row, rowIndex) => (
                           <tr key={rowIndex}>
                             {row.map((cell, cellIndex) => (
-                              <td key={cellIndex} className="px-2 py-1 border text-gray-600 truncate max-w-[150px]">
+                              <td key={cellIndex} className="px-2 py-1 border text-[var(--color-text-secondary)] truncate max-w-[150px]">
                                 {cell}
                               </td>
                             ))}
@@ -1079,11 +1079,11 @@ function CSVImportModal({
           )}
         </div>
 
-        <div className="flex gap-3 p-4 border-t border-gray-200">
+        <div className="flex gap-3 p-4 border-t border-[var(--color-border)]">
           <button
             type="button"
             onClick={onClose}
-            className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition"
+            className="flex-1 px-4 py-2 border border-[var(--color-border-strong)] text-[var(--color-text)] rounded-lg hover:bg-stone-50 transition"
           >
             Cancel
           </button>
@@ -1091,7 +1091,7 @@ function CSVImportModal({
             <button
               onClick={handleImport}
               disabled={loading || !Object.values(columnMapping).includes('name')}
-              className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+              className="flex-1 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 transition disabled:opacity-50"
             >
               {loading ? 'Importing...' : 'Import Contacts'}
             </button>

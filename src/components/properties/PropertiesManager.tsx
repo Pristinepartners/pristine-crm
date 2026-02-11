@@ -37,8 +37,8 @@ const propertyTypeLabels: Record<string, string> = {
 const statusColors: Record<string, string> = {
   active: 'bg-green-100 text-green-700',
   pending: 'bg-yellow-100 text-yellow-700',
-  sold: 'bg-blue-100 text-blue-700',
-  expired: 'bg-gray-100 text-gray-700',
+  sold: 'bg-amber-50 text-amber-700',
+  expired: 'bg-stone-100 text-[var(--color-text)]',
   withdrawn: 'bg-red-100 text-red-700',
 }
 
@@ -150,12 +150,12 @@ export function PropertiesManager({ properties, clients }: PropertiesManagerProp
     <div className="p-8">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Properties</h1>
-          <p className="text-gray-500 mt-1">Manage client property listings</p>
+          <h1 className="text-2xl font-bold text-[var(--color-text)]">Properties</h1>
+          <p className="text-[var(--color-text-secondary)] mt-1">Manage client property listings</p>
         </div>
         <button
           onClick={() => setShowCreateModal(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+          className="flex items-center gap-2 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 transition"
         >
           <Plus className="w-4 h-4" />
           Add Property
@@ -164,47 +164,47 @@ export function PropertiesManager({ properties, clients }: PropertiesManagerProp
 
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-6">
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
+        <div className="bg-white rounded-xl p-4 shadow-sm border border-[var(--color-border)]">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-green-100 rounded-lg">
               <Home className="w-5 h-5 text-green-600" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Active Listings</p>
-              <p className="text-xl font-bold text-gray-900">{activeCount}</p>
+              <p className="text-sm text-[var(--color-text-secondary)]">Active Listings</p>
+              <p className="text-xl font-bold text-[var(--color-text)]">{activeCount}</p>
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
+        <div className="bg-white rounded-xl p-4 shadow-sm border border-[var(--color-border)]">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-yellow-100 rounded-lg">
               <Home className="w-5 h-5 text-yellow-600" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Pending</p>
-              <p className="text-xl font-bold text-gray-900">{pendingCount}</p>
+              <p className="text-sm text-[var(--color-text-secondary)]">Pending</p>
+              <p className="text-xl font-bold text-[var(--color-text)]">{pendingCount}</p>
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
+        <div className="bg-white rounded-xl p-4 shadow-sm border border-[var(--color-border)]">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-blue-100 rounded-lg">
-              <Home className="w-5 h-5 text-blue-600" />
+            <div className="p-2 bg-amber-50 rounded-lg">
+              <Home className="w-5 h-5 text-[var(--color-primary)]" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Sold</p>
-              <p className="text-xl font-bold text-gray-900">{soldCount}</p>
+              <p className="text-sm text-[var(--color-text-secondary)]">Sold</p>
+              <p className="text-xl font-bold text-[var(--color-text)]">{soldCount}</p>
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
+        <div className="bg-white rounded-xl p-4 shadow-sm border border-[var(--color-border)]">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-purple-100 rounded-lg">
               <DollarSign className="w-5 h-5 text-purple-600" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Active Value</p>
-              <p className="text-xl font-bold text-gray-900">${(totalValue / 1000000).toFixed(1)}M</p>
+              <p className="text-sm text-[var(--color-text-secondary)]">Active Value</p>
+              <p className="text-xl font-bold text-[var(--color-text)]">${(totalValue / 1000000).toFixed(1)}M</p>
             </div>
           </div>
         </div>
@@ -213,19 +213,19 @@ export function PropertiesManager({ properties, clients }: PropertiesManagerProp
       {/* Filters */}
       <div className="flex flex-wrap gap-4 mb-6">
         <div className="relative flex-1 min-w-[200px]">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[var(--color-text-muted)]" />
           <input
             type="text"
             placeholder="Search properties..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+            className="w-full pl-10 pr-4 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
           />
         </div>
         <select
           value={filterClient}
           onChange={(e) => setFilterClient(e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+          className="px-4 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
         >
           <option value="all">All Clients</option>
           {clients.map(client => (
@@ -237,7 +237,7 @@ export function PropertiesManager({ properties, clients }: PropertiesManagerProp
         <select
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+          className="px-4 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
         >
           <option value="all">All Statuses</option>
           <option value="active">Active</option>
@@ -250,13 +250,13 @@ export function PropertiesManager({ properties, clients }: PropertiesManagerProp
 
       {/* Properties Grid */}
       {filteredProperties.length === 0 ? (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
-          <Home className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-lg font-medium text-gray-900 mb-2">No properties found</h3>
-          <p className="text-gray-500 mb-4">Add a property listing to get started</p>
+        <div className="bg-white rounded-xl shadow-sm border border-[var(--color-border)] p-12 text-center">
+          <Home className="w-12 h-12 text-[var(--color-text-muted)] mx-auto mb-4" />
+          <h3 className="text-lg font-medium text-[var(--color-text)] mb-2">No properties found</h3>
+          <p className="text-[var(--color-text-secondary)] mb-4">Add a property listing to get started</p>
           <button
             onClick={() => setShowCreateModal(true)}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 transition"
           >
             <Plus className="w-4 h-4" />
             Add Property
@@ -267,10 +267,10 @@ export function PropertiesManager({ properties, clients }: PropertiesManagerProp
           {filteredProperties.map((property) => (
             <div
               key={property.id}
-              className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition"
+              className="bg-white rounded-xl shadow-sm border border-[var(--color-border)] overflow-hidden hover:shadow-md transition"
             >
               {/* Image */}
-              <div className="aspect-video bg-gray-100 relative">
+              <div className="aspect-video bg-stone-100 relative">
                 {property.featured_image_url ? (
                   <img
                     src={property.featured_image_url}
@@ -279,7 +279,7 @@ export function PropertiesManager({ properties, clients }: PropertiesManagerProp
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
-                    <Image className="w-12 h-12 text-gray-300" />
+                    <Image className="w-12 h-12 text-[var(--color-text-muted)]" />
                   </div>
                 )}
                 <span className={`absolute top-2 left-2 px-2 py-1 rounded text-xs font-medium ${statusColors[property.listing_status]}`}>
@@ -297,16 +297,16 @@ export function PropertiesManager({ properties, clients }: PropertiesManagerProp
                 <div className="flex items-start justify-between mb-2">
                   <div>
                     {property.price && (
-                      <p className="text-xl font-bold text-gray-900">
+                      <p className="text-xl font-bold text-[var(--color-text)]">
                         ${property.price.toLocaleString('en-US')}
                       </p>
                     )}
-                    <div className="flex items-center gap-1 text-sm text-gray-500 mt-1">
+                    <div className="flex items-center gap-1 text-sm text-[var(--color-text-secondary)] mt-1">
                       <MapPin className="w-4 h-4" />
                       <span>{property.address}</span>
                     </div>
                     {(property.city || property.state) && (
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-[var(--color-text-secondary)]">
                         {[property.city, property.state].filter(Boolean).join(', ')}
                       </p>
                     )}
@@ -314,20 +314,20 @@ export function PropertiesManager({ properties, clients }: PropertiesManagerProp
                   <div className="relative">
                     <button
                       onClick={() => setMenuOpen(menuOpen === property.id ? null : property.id)}
-                      className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition"
+                      className="p-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:bg-stone-100 rounded-lg transition"
                     >
                       <MoreVertical className="w-4 h-4" />
                     </button>
                     {menuOpen === property.id && (
                       <>
                         <div className="fixed inset-0 z-10" onClick={() => setMenuOpen(null)} />
-                        <div className="absolute right-0 mt-1 w-36 bg-white rounded-lg shadow-lg border border-gray-200 z-20 py-1">
+                        <div className="absolute right-0 mt-1 w-36 bg-white rounded-lg shadow-lg border border-[var(--color-border)] z-20 py-1">
                           <button
                             onClick={() => {
                               router.push(`/properties/${property.id}`)
                               setMenuOpen(null)
                             }}
-                            className="w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                            className="w-full px-3 py-2 text-left text-sm text-[var(--color-text)] hover:bg-stone-50 flex items-center gap-2"
                           >
                             <Pencil className="w-4 h-4" />
                             Edit
@@ -338,7 +338,7 @@ export function PropertiesManager({ properties, clients }: PropertiesManagerProp
                                 window.open(property.virtual_tour_url!, '_blank')
                                 setMenuOpen(null)
                               }}
-                              className="w-full px-3 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                              className="w-full px-3 py-2 text-left text-sm text-[var(--color-text)] hover:bg-stone-50 flex items-center gap-2"
                             >
                               <ExternalLink className="w-4 h-4" />
                               Virtual Tour
@@ -359,7 +359,7 @@ export function PropertiesManager({ properties, clients }: PropertiesManagerProp
                 </div>
 
                 {/* Property details */}
-                <div className="flex items-center gap-4 text-sm text-gray-600 mt-3">
+                <div className="flex items-center gap-4 text-sm text-[var(--color-text-secondary)] mt-3">
                   {property.bedrooms && (
                     <div className="flex items-center gap-1">
                       <Bed className="w-4 h-4" />
@@ -381,12 +381,12 @@ export function PropertiesManager({ properties, clients }: PropertiesManagerProp
                 </div>
 
                 {/* Client & Type */}
-                <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-100">
-                  <span className="text-sm text-gray-500">
+                <div className="flex items-center justify-between mt-3 pt-3 border-t border-[var(--color-border)]">
+                  <span className="text-sm text-[var(--color-text-secondary)]">
                     {getClientName(property.client_id)}
                   </span>
                   {property.property_type && (
-                    <span className="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded">
+                    <span className="text-xs text-[var(--color-text-secondary)] bg-stone-100 px-2 py-0.5 rounded">
                       {propertyTypeLabels[property.property_type]}
                     </span>
                   )}
@@ -401,22 +401,22 @@ export function PropertiesManager({ properties, clients }: PropertiesManagerProp
       {showCreateModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl shadow-xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between p-4 border-b border-gray-200">
-              <h2 className="text-lg font-semibold text-gray-900">Add Property</h2>
+            <div className="flex items-center justify-between p-4 border-b border-[var(--color-border)]">
+              <h2 className="text-lg font-semibold text-[var(--color-text)]">Add Property</h2>
               <button
                 onClick={() => setShowCreateModal(false)}
-                className="p-2 text-gray-400 hover:text-gray-600 rounded-lg transition"
+                className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] rounded-lg transition"
               >
                 ✕
               </button>
             </div>
             <div className="p-4 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Client *</label>
+                <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Client *</label>
                 <select
                   value={formData.client_id}
                   onChange={(e) => setFormData({ ...formData, client_id: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                 >
                   <option value="">Select a client</option>
                   {clients.map(client => (
@@ -428,43 +428,43 @@ export function PropertiesManager({ properties, clients }: PropertiesManagerProp
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Address *</label>
+                  <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Address *</label>
                   <input
                     type="text"
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                     placeholder="123 Main St"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">City</label>
+                  <label className="block text-sm font-medium text-[var(--color-text)] mb-1">City</label>
                   <input
                     type="text"
                     value={formData.city}
                     onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                     placeholder="Miami"
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">State</label>
+                    <label className="block text-sm font-medium text-[var(--color-text)] mb-1">State</label>
                     <input
                       type="text"
                       value={formData.state}
                       onChange={(e) => setFormData({ ...formData, state: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                      className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                       placeholder="FL"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">ZIP</label>
+                    <label className="block text-sm font-medium text-[var(--color-text)] mb-1">ZIP</label>
                     <input
                       type="text"
                       value={formData.zip_code}
                       onChange={(e) => setFormData({ ...formData, zip_code: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                      className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                       placeholder="33101"
                     />
                   </div>
@@ -472,21 +472,21 @@ export function PropertiesManager({ properties, clients }: PropertiesManagerProp
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">MLS #</label>
+                  <label className="block text-sm font-medium text-[var(--color-text)] mb-1">MLS #</label>
                   <input
                     type="text"
                     value={formData.mls_number}
                     onChange={(e) => setFormData({ ...formData, mls_number: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                     placeholder="A12345678"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Property Type</label>
+                  <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Property Type</label>
                   <select
                     value={formData.property_type}
                     onChange={(e) => setFormData({ ...formData, property_type: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   >
                     {Object.entries(propertyTypeLabels).map(([value, label]) => (
                       <option key={value} value={value}>{label}</option>
@@ -496,89 +496,89 @@ export function PropertiesManager({ properties, clients }: PropertiesManagerProp
               </div>
               <div className="grid grid-cols-4 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Price ($)</label>
+                  <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Price ($)</label>
                   <input
                     type="number"
                     value={formData.price}
                     onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                     placeholder="500000"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Beds</label>
+                  <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Beds</label>
                   <input
                     type="number"
                     value={formData.bedrooms}
                     onChange={(e) => setFormData({ ...formData, bedrooms: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                     placeholder="3"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Baths</label>
+                  <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Baths</label>
                   <input
                     type="number"
                     step="0.5"
                     value={formData.bathrooms}
                     onChange={(e) => setFormData({ ...formData, bathrooms: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                     placeholder="2"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Sq Ft</label>
+                  <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Sq Ft</label>
                   <input
                     type="number"
                     value={formData.square_feet}
                     onChange={(e) => setFormData({ ...formData, square_feet: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                     placeholder="2000"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Description</label>
                 <textarea
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   rows={3}
                   placeholder="Property description..."
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Featured Image URL</label>
+                <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Featured Image URL</label>
                 <input
                   type="url"
                   value={formData.featured_image_url}
                   onChange={(e) => setFormData({ ...formData, featured_image_url: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   placeholder="https://..."
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Virtual Tour URL</label>
+                <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Virtual Tour URL</label>
                 <input
                   type="url"
                   value={formData.virtual_tour_url}
                   onChange={(e) => setFormData({ ...formData, virtual_tour_url: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   placeholder="https://..."
                 />
               </div>
             </div>
-            <div className="flex gap-3 p-4 border-t border-gray-200">
+            <div className="flex gap-3 p-4 border-t border-[var(--color-border)]">
               <button
                 onClick={() => setShowCreateModal(false)}
-                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition"
+                className="flex-1 px-4 py-2 border border-[var(--color-border-strong)] text-[var(--color-text)] rounded-lg hover:bg-stone-50 transition"
               >
                 Cancel
               </button>
               <button
                 onClick={handleCreate}
                 disabled={creating || !formData.address.trim() || !formData.client_id}
-                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+                className="flex-1 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 transition disabled:opacity-50"
               >
                 {creating ? 'Creating...' : 'Add Property'}
               </button>

@@ -222,12 +222,12 @@ export function MeetingsManager({ meetings: initialMeetings, appointments }: Mee
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Meetings</h1>
-          <p className="text-gray-600">Manage your meetings and join calls</p>
+          <h1 className="text-2xl font-bold text-[var(--color-text)]">Meetings</h1>
+          <p className="text-[var(--color-text-secondary)]">Manage your meetings and join calls</p>
         </div>
         <button
           onClick={() => openModal()}
-          className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+          className="flex items-center gap-2 bg-[var(--color-primary)] text-white px-4 py-2 rounded-lg hover:opacity-90"
         >
           <Plus className="w-5 h-5" />
           New Meeting
@@ -235,11 +235,11 @@ export function MeetingsManager({ meetings: initialMeetings, appointments }: Mee
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 bg-gray-100 rounded-lg p-1 mb-6 w-fit">
+      <div className="flex gap-1 bg-stone-100 rounded-lg p-1 mb-6 w-fit">
         <button
           onClick={() => setActiveTab('upcoming')}
           className={`px-4 py-2 rounded-md text-sm font-medium transition ${
-            activeTab === 'upcoming' ? 'bg-white shadow text-gray-900' : 'text-gray-600 hover:text-gray-900'
+            activeTab === 'upcoming' ? 'bg-white shadow text-[var(--color-text)]' : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text)]'
           }`}
         >
           Upcoming
@@ -247,7 +247,7 @@ export function MeetingsManager({ meetings: initialMeetings, appointments }: Mee
         <button
           onClick={() => setActiveTab('recurring')}
           className={`px-4 py-2 rounded-md text-sm font-medium transition ${
-            activeTab === 'recurring' ? 'bg-white shadow text-gray-900' : 'text-gray-600 hover:text-gray-900'
+            activeTab === 'recurring' ? 'bg-white shadow text-[var(--color-text)]' : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text)]'
           }`}
         >
           <Repeat className="w-4 h-4 inline mr-1" />
@@ -256,7 +256,7 @@ export function MeetingsManager({ meetings: initialMeetings, appointments }: Mee
         <button
           onClick={() => setActiveTab('calendar')}
           className={`px-4 py-2 rounded-md text-sm font-medium transition ${
-            activeTab === 'calendar' ? 'bg-white shadow text-gray-900' : 'text-gray-600 hover:text-gray-900'
+            activeTab === 'calendar' ? 'bg-white shadow text-[var(--color-text)]' : 'text-[var(--color-text-secondary)] hover:text-[var(--color-text)]'
           }`}
         >
           <Calendar className="w-4 h-4 inline mr-1" />
@@ -270,29 +270,29 @@ export function MeetingsManager({ meetings: initialMeetings, appointments }: Mee
           {/* Today's Appointments */}
           {appointments.filter(a => isToday(new Date(a.datetime))).length > 0 && (
             <div className="mb-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-3">Today's Appointments</h2>
+              <h2 className="text-lg font-semibold text-[var(--color-text)] mb-3">Today's Appointments</h2>
               <div className="grid gap-3">
                 {appointments
                   .filter(a => isToday(new Date(a.datetime)))
                   .map(apt => (
-                    <div key={apt.id} className="bg-blue-50 border border-blue-200 rounded-lg p-4 flex items-center justify-between">
+                    <div key={apt.id} className="bg-amber-50 border border-[var(--color-border)] rounded-lg p-4 flex items-center justify-between">
                       <div className="flex items-center gap-4">
                         <div className="text-center">
-                          <div className="text-xl font-bold text-blue-600">
+                          <div className="text-xl font-bold text-[var(--color-primary)]">
                             {format(new Date(apt.datetime), 'HH:mm')}
                           </div>
                         </div>
                         <div>
-                          <h3 className="font-medium text-gray-900">{apt.title}</h3>
+                          <h3 className="font-medium text-[var(--color-text)]">{apt.title}</h3>
                           <Link
                             href={`/contacts/${apt.contact.id}`}
-                            className="text-sm text-blue-600 hover:text-blue-700 flex items-center gap-1"
+                            className="text-sm text-[var(--color-primary)] hover:opacity-80 flex items-center gap-1"
                           >
                             <User className="w-3 h-3" />
                             {apt.contact.name}
                           </Link>
                           {apt.location && (
-                            <div className="text-sm text-gray-500 flex items-center gap-1 mt-1">
+                            <div className="text-sm text-[var(--color-text-secondary)] flex items-center gap-1 mt-1">
                               <MapPin className="w-3 h-3" />
                               {apt.location}
                             </div>
@@ -304,7 +304,7 @@ export function MeetingsManager({ meetings: initialMeetings, appointments }: Mee
                           href={apt.location.startsWith('http') ? apt.location : `https://${apt.location}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                          className="flex items-center gap-2 bg-[var(--color-primary)] text-white px-4 py-2 rounded-lg hover:opacity-90"
                         >
                           <Video className="w-4 h-4" />
                           Join
@@ -317,14 +317,14 @@ export function MeetingsManager({ meetings: initialMeetings, appointments }: Mee
           )}
 
           {/* Upcoming Meetings */}
-          <h2 className="text-lg font-semibold text-gray-900 mb-3">Scheduled Meetings</h2>
+          <h2 className="text-lg font-semibold text-[var(--color-text)] mb-3">Scheduled Meetings</h2>
           {upcomingMeetings.length === 0 ? (
-            <div className="bg-white rounded-lg border border-gray-200 p-12 text-center">
-              <Calendar className="w-12 h-12 mx-auto text-gray-300 mb-4" />
-              <p className="text-gray-500">No upcoming meetings</p>
+            <div className="bg-white rounded-lg border border-[var(--color-border)] p-12 text-center">
+              <Calendar className="w-12 h-12 mx-auto text-[var(--color-text-muted)] mb-4" />
+              <p className="text-[var(--color-text-secondary)]">No upcoming meetings</p>
               <button
                 onClick={() => openModal()}
-                className="mt-4 text-blue-600 hover:text-blue-700 font-medium"
+                className="mt-4 text-[var(--color-primary)] hover:opacity-80 font-medium"
               >
                 Schedule a meeting
               </button>
@@ -349,12 +349,12 @@ export function MeetingsManager({ meetings: initialMeetings, appointments }: Mee
       {activeTab === 'recurring' && (
         <div>
           {recurringMeetings.length === 0 ? (
-            <div className="bg-white rounded-lg border border-gray-200 p-12 text-center">
-              <Repeat className="w-12 h-12 mx-auto text-gray-300 mb-4" />
-              <p className="text-gray-500">No recurring meetings</p>
+            <div className="bg-white rounded-lg border border-[var(--color-border)] p-12 text-center">
+              <Repeat className="w-12 h-12 mx-auto text-[var(--color-text-muted)] mb-4" />
+              <p className="text-[var(--color-text-secondary)]">No recurring meetings</p>
               <button
                 onClick={() => openModal()}
-                className="mt-4 text-blue-600 hover:text-blue-700 font-medium"
+                className="mt-4 text-[var(--color-primary)] hover:opacity-80 font-medium"
               >
                 Create a recurring meeting
               </button>
@@ -377,21 +377,21 @@ export function MeetingsManager({ meetings: initialMeetings, appointments }: Mee
 
       {/* Calendar Tab */}
       {activeTab === 'calendar' && (
-        <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+        <div className="bg-white rounded-lg border border-[var(--color-border)] overflow-hidden">
           {/* Week Navigation */}
           <div className="flex items-center justify-between p-4 border-b">
             <button
               onClick={() => setCurrentWeekStart(addDays(currentWeekStart, -7))}
-              className="p-2 hover:bg-gray-100 rounded-lg"
+              className="p-2 hover:bg-stone-100 rounded-lg"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
-            <h2 className="font-semibold text-gray-900">
+            <h2 className="font-semibold text-[var(--color-text)]">
               Week of {format(currentWeekStart, 'MMM d, yyyy')}
             </h2>
             <button
               onClick={() => setCurrentWeekStart(addDays(currentWeekStart, 7))}
-              className="p-2 hover:bg-gray-100 rounded-lg"
+              className="p-2 hover:bg-stone-100 rounded-lg"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -401,16 +401,16 @@ export function MeetingsManager({ meetings: initialMeetings, appointments }: Mee
           <div className="overflow-x-auto">
             <div className="grid grid-cols-8 min-w-[800px]">
               {/* Header */}
-              <div className="p-2 border-b bg-gray-50" />
+              <div className="p-2 border-b bg-stone-50" />
               {weekDays.map((day, i) => (
                 <div
                   key={i}
-                  className={`p-2 text-center border-b border-l bg-gray-50 ${
-                    isToday(day) ? 'bg-blue-50' : ''
+                  className={`p-2 text-center border-b border-l bg-stone-50 ${
+                    isToday(day) ? 'bg-amber-50' : ''
                   }`}
                 >
-                  <div className="text-sm text-gray-500">{DAYS_OF_WEEK[day.getDay()]}</div>
-                  <div className={`text-lg font-semibold ${isToday(day) ? 'text-blue-600' : 'text-gray-900'}`}>
+                  <div className="text-sm text-[var(--color-text-secondary)]">{DAYS_OF_WEEK[day.getDay()]}</div>
+                  <div className={`text-lg font-semibold ${isToday(day) ? 'text-[var(--color-primary)]' : 'text-[var(--color-text)]'}`}>
                     {format(day, 'd')}
                   </div>
                 </div>
@@ -419,7 +419,7 @@ export function MeetingsManager({ meetings: initialMeetings, appointments }: Mee
               {/* Time Grid */}
               {WORK_HOURS.map(hour => (
                 <>
-                  <div key={`hour-${hour}`} className="p-2 text-right text-sm text-gray-500 border-b">
+                  <div key={`hour-${hour}`} className="p-2 text-right text-sm text-[var(--color-text-secondary)] border-b">
                     {format(new Date().setHours(hour, 0), 'h a')}
                   </div>
                   {weekDays.map((day, dayIndex) => {
@@ -430,7 +430,7 @@ export function MeetingsManager({ meetings: initialMeetings, appointments }: Mee
                       <div
                         key={`${hour}-${dayIndex}`}
                         className={`min-h-[60px] border-b border-l p-1 ${
-                          isToday(day) ? 'bg-blue-50/30' : ''
+                          isToday(day) ? 'bg-amber-50/30' : ''
                         }`}
                       >
                         {hourMeetings.map(m => (
@@ -445,7 +445,7 @@ export function MeetingsManager({ meetings: initialMeetings, appointments }: Mee
                         {hourAppointments.map(a => (
                           <div
                             key={a.id}
-                            className="text-xs bg-blue-100 text-blue-700 p-1 rounded mb-1 truncate"
+                            className="text-xs bg-amber-50 text-amber-700 p-1 rounded mb-1 truncate"
                           >
                             {format(new Date(a.datetime), 'HH:mm')} {a.contact.name}
                           </div>
@@ -468,107 +468,107 @@ export function MeetingsManager({ meetings: initialMeetings, appointments }: Mee
               <h2 className="text-lg font-semibold">
                 {editingMeeting ? 'Edit Meeting' : 'New Meeting'}
               </h2>
-              <button onClick={() => { setShowModal(false); resetForm() }} className="p-2 hover:bg-gray-100 rounded-lg">
+              <button onClick={() => { setShowModal(false); resetForm() }} className="p-2 hover:bg-stone-100 rounded-lg">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             <div className="p-4 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Title *</label>
+                <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Title *</label>
                 <input
                   type="text"
                   value={form.title}
                   onChange={(e) => setForm({ ...form, title: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent"
                   placeholder="Team Standup, Client Call..."
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Description</label>
                 <textarea
                   value={form.description}
                   onChange={(e) => setForm({ ...form, description: e.target.value })}
                   rows={2}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                  className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent resize-none"
                   placeholder="Meeting agenda..."
                 />
               </div>
 
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Date *</label>
+                  <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Date *</label>
                   <input
                     type="date"
                     value={form.startDate}
                     onChange={(e) => setForm({ ...form, startDate: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Start Time *</label>
+                  <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Start Time *</label>
                   <input
                     type="time"
                     value={form.startTime}
                     onChange={(e) => setForm({ ...form, startTime: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">End Time</label>
+                  <label className="block text-sm font-medium text-[var(--color-text)] mb-1">End Time</label>
                   <input
                     type="time"
                     value={form.endTime}
                     onChange={(e) => setForm({ ...form, endTime: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Location</label>
                 <input
                   type="text"
                   value={form.location}
                   onChange={(e) => setForm({ ...form, location: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent"
                   placeholder="Conference Room A, Zoom, Google Meet..."
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Meeting Link</label>
+                <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Meeting Link</label>
                 <input
                   type="url"
                   value={form.meetingLink}
                   onChange={(e) => setForm({ ...form, meetingLink: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent"
                   placeholder="https://zoom.us/j/..."
                 />
               </div>
 
-              <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+              <div className="flex items-center gap-3 p-3 bg-stone-50 rounded-lg">
                 <input
                   type="checkbox"
                   id="recurring"
                   checked={form.isRecurring}
                   onChange={(e) => setForm({ ...form, isRecurring: e.target.checked })}
-                  className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                  className="w-4 h-4 text-[var(--color-primary)] border-[var(--color-border-strong)] rounded focus:ring-[var(--color-primary)]"
                 />
-                <label htmlFor="recurring" className="text-sm font-medium text-gray-700">
+                <label htmlFor="recurring" className="text-sm font-medium text-[var(--color-text)]">
                   Make this a recurring meeting
                 </label>
               </div>
 
               {form.isRecurring && (
-                <div className="grid grid-cols-2 gap-3 p-3 bg-gray-50 rounded-lg">
+                <div className="grid grid-cols-2 gap-3 p-3 bg-stone-50 rounded-lg">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Repeat</label>
+                    <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Repeat</label>
                     <select
                       value={form.recurrencePattern}
                       onChange={(e) => setForm({ ...form, recurrencePattern: e.target.value as any })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent"
                     >
                       <option value="daily">Daily</option>
                       <option value="weekly">Weekly</option>
@@ -577,40 +577,40 @@ export function MeetingsManager({ meetings: initialMeetings, appointments }: Mee
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Until</label>
+                    <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Until</label>
                     <input
                       type="date"
                       value={form.recurrenceEndDate}
                       onChange={(e) => setForm({ ...form, recurrenceEndDate: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent"
                     />
                   </div>
                 </div>
               )}
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Notes</label>
+                <label className="block text-sm font-medium text-[var(--color-text)] mb-1">Notes</label>
                 <textarea
                   value={form.notes}
                   onChange={(e) => setForm({ ...form, notes: e.target.value })}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                  className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent resize-none"
                   placeholder="Meeting notes..."
                 />
               </div>
             </div>
 
-            <div className="p-4 border-t bg-gray-50 flex justify-end gap-3">
+            <div className="p-4 border-t bg-stone-50 flex justify-end gap-3">
               <button
                 onClick={() => { setShowModal(false); resetForm() }}
-                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100"
+                className="px-4 py-2 border border-[var(--color-border-strong)] rounded-lg hover:bg-stone-100"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSave}
                 disabled={!form.title || !form.startDate || !form.startTime}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {editingMeeting ? 'Save Changes' : 'Create Meeting'}
               </button>
@@ -648,18 +648,18 @@ function MeetingCard({
   }
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-4">
+    <div className="bg-white rounded-lg border border-[var(--color-border)] p-4">
       <div className="flex items-start justify-between">
         <div className="flex items-start gap-4">
           <div className="text-center min-w-[60px]">
-            <div className="text-sm text-gray-500">{format(startDate, 'MMM d')}</div>
-            <div className="text-xl font-bold text-gray-900">{format(startDate, 'HH:mm')}</div>
+            <div className="text-sm text-[var(--color-text-secondary)]">{format(startDate, 'MMM d')}</div>
+            <div className="text-xl font-bold text-[var(--color-text)]">{format(startDate, 'HH:mm')}</div>
             {endDate && (
-              <div className="text-xs text-gray-500">to {format(endDate, 'HH:mm')}</div>
+              <div className="text-xs text-[var(--color-text-secondary)]">to {format(endDate, 'HH:mm')}</div>
             )}
           </div>
           <div>
-            <h3 className="font-semibold text-gray-900 flex items-center gap-2">
+            <h3 className="font-semibold text-[var(--color-text)] flex items-center gap-2">
               {meeting.title}
               {meeting.is_recurring && (
                 <span className="flex items-center gap-1 text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full">
@@ -669,10 +669,10 @@ function MeetingCard({
               )}
             </h3>
             {meeting.description && (
-              <p className="text-sm text-gray-600 mt-1">{meeting.description}</p>
+              <p className="text-sm text-[var(--color-text-secondary)] mt-1">{meeting.description}</p>
             )}
             {meeting.location && (
-              <div className="flex items-center gap-1 text-sm text-gray-500 mt-1">
+              <div className="flex items-center gap-1 text-sm text-[var(--color-text-secondary)] mt-1">
                 <MapPin className="w-3 h-3" />
                 {meeting.location}
               </div>
@@ -694,20 +694,20 @@ function MeetingCard({
           )}
           <button
             onClick={() => setShowNotes(!showNotes)}
-            className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg"
+            className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:bg-stone-100 rounded-lg"
             title="Notes"
           >
             <FileText className="w-4 h-4" />
           </button>
           <button
             onClick={onEdit}
-            className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg"
+            className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:bg-stone-100 rounded-lg"
           >
             <Edit2 className="w-4 h-4" />
           </button>
           <button
             onClick={onDelete}
-            className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg"
+            className="p-2 text-[var(--color-text-muted)] hover:text-red-600 hover:bg-red-50 rounded-lg"
           >
             <Trash2 className="w-4 h-4" />
           </button>
@@ -716,25 +716,25 @@ function MeetingCard({
 
       {showNotes && (
         <div className="mt-4 pt-4 border-t">
-          <label className="block text-sm font-medium text-gray-700 mb-2">Meeting Notes</label>
+          <label className="block text-sm font-medium text-[var(--color-text)] mb-2">Meeting Notes</label>
           <textarea
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             rows={4}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none text-sm"
+            className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent resize-none text-sm"
             placeholder="Add notes from this meeting..."
           />
           <div className="flex justify-end gap-2 mt-2">
             <button
               onClick={() => setShowNotes(false)}
-              className="px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900"
+              className="px-3 py-1.5 text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text)]"
             >
               Cancel
             </button>
             <button
               onClick={handleSaveNotes}
               disabled={saving}
-              className="px-3 py-1.5 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+              className="px-3 py-1.5 text-sm bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 disabled:opacity-50"
             >
               {saving ? 'Saving...' : 'Save Notes'}
             </button>

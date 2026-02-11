@@ -175,45 +175,45 @@ export function SettingsForm({ settings, pipelines, currentUser, isNew, branding
     <>
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Branding Section */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-          <div className="p-4 border-b border-gray-200 flex items-center gap-3">
-            <Building className="w-5 h-5 text-gray-500" />
-            <h2 className="font-semibold text-gray-900">Branding</h2>
+        <div className="bg-white rounded-xl shadow-sm border border-[var(--color-border)] overflow-hidden">
+          <div className="p-4 border-b border-[var(--color-border)] flex items-center gap-3">
+            <Building className="w-5 h-5 text-[var(--color-text-secondary)]" />
+            <h2 className="font-semibold text-[var(--color-text)]">Branding</h2>
           </div>
 
           <div className="p-4 space-y-4">
             {/* Company Name */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
                 Company Name
               </label>
               <input
                 type="text"
                 value={brandingForm.company_name}
                 onChange={(e) => setBrandingForm({ ...brandingForm, company_name: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                 placeholder="Your Company Name"
               />
             </div>
 
             {/* Logo URL */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
                 Logo URL
               </label>
               <input
                 type="text"
                 value={brandingForm.logo_url}
                 onChange={(e) => setBrandingForm({ ...brandingForm, logo_url: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                 placeholder="https://your-logo-url.com/logo.png"
               />
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-[var(--color-text-secondary)] mt-1">
                 Enter a URL to your logo image (recommended size: 200x50px)
               </p>
               {brandingForm.logo_url && (
-                <div className="mt-2 p-3 bg-gray-50 rounded-lg">
-                  <p className="text-xs text-gray-500 mb-2">Preview:</p>
+                <div className="mt-2 p-3 bg-stone-50 rounded-lg">
+                  <p className="text-xs text-[var(--color-text-secondary)] mb-2">Preview:</p>
                   <img
                     src={brandingForm.logo_url}
                     alt="Logo preview"
@@ -225,9 +225,9 @@ export function SettingsForm({ settings, pipelines, currentUser, isNew, branding
             </div>
 
             {/* Colors */}
-            <div className="grid grid-cols-3 gap-4 pt-4 border-t border-gray-200">
+            <div className="grid grid-cols-3 gap-4 pt-4 border-t border-[var(--color-border)]">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
                   Primary Color
                 </label>
                 <div className="flex gap-2">
@@ -235,20 +235,20 @@ export function SettingsForm({ settings, pipelines, currentUser, isNew, branding
                     type="color"
                     value={brandingForm.primary_color}
                     onChange={(e) => setBrandingForm({ ...brandingForm, primary_color: e.target.value })}
-                    className="w-10 h-10 rounded border border-gray-300 cursor-pointer"
+                    className="w-10 h-10 rounded border border-[var(--color-border-strong)] cursor-pointer"
                   />
                   <input
                     type="text"
                     value={brandingForm.primary_color}
                     onChange={(e) => setBrandingForm({ ...brandingForm, primary_color: e.target.value })}
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="flex-1 px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   />
                 </div>
-                <p className="text-xs text-gray-500 mt-1">Buttons, links</p>
+                <p className="text-xs text-[var(--color-text-secondary)] mt-1">Buttons, links</p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
                   Sidebar Color
                 </label>
                 <div className="flex gap-2">
@@ -256,20 +256,20 @@ export function SettingsForm({ settings, pipelines, currentUser, isNew, branding
                     type="color"
                     value={brandingForm.secondary_color}
                     onChange={(e) => setBrandingForm({ ...brandingForm, secondary_color: e.target.value })}
-                    className="w-10 h-10 rounded border border-gray-300 cursor-pointer"
+                    className="w-10 h-10 rounded border border-[var(--color-border-strong)] cursor-pointer"
                   />
                   <input
                     type="text"
                     value={brandingForm.secondary_color}
                     onChange={(e) => setBrandingForm({ ...brandingForm, secondary_color: e.target.value })}
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="flex-1 px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   />
                 </div>
-                <p className="text-xs text-gray-500 mt-1">Sidebar background</p>
+                <p className="text-xs text-[var(--color-text-secondary)] mt-1">Sidebar background</p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
                   Accent Color
                 </label>
                 <div className="flex gap-2">
@@ -277,32 +277,32 @@ export function SettingsForm({ settings, pipelines, currentUser, isNew, branding
                     type="color"
                     value={brandingForm.accent_color}
                     onChange={(e) => setBrandingForm({ ...brandingForm, accent_color: e.target.value })}
-                    className="w-10 h-10 rounded border border-gray-300 cursor-pointer"
+                    className="w-10 h-10 rounded border border-[var(--color-border-strong)] cursor-pointer"
                   />
                   <input
                     type="text"
                     value={brandingForm.accent_color}
                     onChange={(e) => setBrandingForm({ ...brandingForm, accent_color: e.target.value })}
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="flex-1 px-3 py-2 border border-[var(--color-border-strong)] rounded-lg text-sm focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   />
                 </div>
-                <p className="text-xs text-gray-500 mt-1">Success states</p>
+                <p className="text-xs text-[var(--color-text-secondary)] mt-1">Success states</p>
               </div>
             </div>
           </div>
         </div>
 
         {/* Call Scripts Section */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-          <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+        <div className="bg-white rounded-xl shadow-sm border border-[var(--color-border)] overflow-hidden">
+          <div className="p-4 border-b border-[var(--color-border)] flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <FileText className="w-5 h-5 text-gray-500" />
-              <h2 className="font-semibold text-gray-900">Call Scripts</h2>
+              <FileText className="w-5 h-5 text-[var(--color-text-secondary)]" />
+              <h2 className="font-semibold text-[var(--color-text)]">Call Scripts</h2>
             </div>
             <button
               type="button"
               onClick={() => openScriptModal()}
-              className="flex items-center gap-2 px-3 py-1.5 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+              className="flex items-center gap-2 px-3 py-1.5 text-sm bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90"
             >
               <Plus className="w-4 h-4" />
               Add Script
@@ -311,31 +311,31 @@ export function SettingsForm({ settings, pipelines, currentUser, isNew, branding
 
           <div className="p-4">
             {callScripts.length === 0 ? (
-              <div className="text-center py-8 text-gray-500">
-                <FileText className="w-10 h-10 mx-auto text-gray-300 mb-2" />
+              <div className="text-center py-8 text-[var(--color-text-secondary)]">
+                <FileText className="w-10 h-10 mx-auto text-[var(--color-text-muted)] mb-2" />
                 <p>No call scripts yet</p>
                 <p className="text-sm">Create scripts to use during sales calls</p>
               </div>
             ) : (
               <div className="space-y-3">
                 {callScripts.map(script => (
-                  <div key={script.id} className="flex items-start gap-4 p-3 bg-gray-50 rounded-lg">
+                  <div key={script.id} className="flex items-start gap-4 p-3 bg-stone-50 rounded-lg">
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-medium text-gray-900">{script.name}</h3>
-                      <p className="text-sm text-gray-600 line-clamp-2 mt-1">{script.content}</p>
+                      <h3 className="font-medium text-[var(--color-text)]">{script.name}</h3>
+                      <p className="text-sm text-[var(--color-text-secondary)] line-clamp-2 mt-1">{script.content}</p>
                     </div>
                     <div className="flex items-center gap-1">
                       <button
                         type="button"
                         onClick={() => openScriptModal(script)}
-                        className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-200 rounded-lg"
+                        className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:bg-gray-200 rounded-lg"
                       >
                         <Edit2 className="w-4 h-4" />
                       </button>
                       <button
                         type="button"
                         onClick={() => handleDeleteScript(script.id)}
-                        className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg"
+                        className="p-2 text-[var(--color-text-muted)] hover:text-red-600 hover:bg-red-50 rounded-lg"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -344,7 +344,7 @@ export function SettingsForm({ settings, pipelines, currentUser, isNew, branding
                 ))}
               </div>
             )}
-            <p className="text-xs text-gray-500 mt-4">
+            <p className="text-xs text-[var(--color-text-secondary)] mt-4">
               Tip: Use {'{{name}}'} and {'{{business}}'} as placeholders - they'll be replaced with actual contact info during calls.
             </p>
           </div>
@@ -357,18 +357,18 @@ export function SettingsForm({ settings, pipelines, currentUser, isNew, branding
         <EmailTemplatesManager />
 
         {/* Notifications Section */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-          <div className="p-4 border-b border-gray-200 flex items-center gap-3">
-            <Bell className="w-5 h-5 text-gray-500" />
-            <h2 className="font-semibold text-gray-900">Notifications</h2>
+        <div className="bg-white rounded-xl shadow-sm border border-[var(--color-border)] overflow-hidden">
+          <div className="p-4 border-b border-[var(--color-border)] flex items-center gap-3">
+            <Bell className="w-5 h-5 text-[var(--color-text-secondary)]" />
+            <h2 className="font-semibold text-[var(--color-text)]">Notifications</h2>
           </div>
 
           <div className="p-4 space-y-4">
             {/* Follow-up Reminder */}
             <div className="flex items-center justify-between">
               <div>
-                <p className="font-medium text-gray-900">Daily Follow-up Reminder</p>
-                <p className="text-sm text-gray-500">
+                <p className="font-medium text-[var(--color-text)]">Daily Follow-up Reminder</p>
+                <p className="text-sm text-[var(--color-text-secondary)]">
                   Get notified about contacts that need follow-up
                 </p>
               </div>
@@ -379,33 +379,33 @@ export function SettingsForm({ settings, pipelines, currentUser, isNew, branding
                   onChange={(e) => setForm({ ...form, follow_up_reminder_enabled: e.target.checked })}
                   className="sr-only peer"
                 />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[var(--color-primary-light)] rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-[var(--color-border-strong)] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[var(--color-primary)]"></div>
               </label>
             </div>
 
             {/* Reminder Time */}
             {form.follow_up_reminder_enabled && (
               <div className="ml-0 pl-0 border-l-0">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
                   Reminder Time
                 </label>
                 <input
                   type="time"
                   value={form.follow_up_reminder_time}
                   onChange={(e) => setForm({ ...form, follow_up_reminder_time: e.target.value })}
-                  className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className="px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                 />
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-[var(--color-text-secondary)] mt-1">
                   You&apos;ll receive a notification at this time with contacts due for follow-up
                 </p>
               </div>
             )}
 
             {/* Email Notifications */}
-            <div className="flex items-center justify-between pt-4 border-t border-gray-200">
+            <div className="flex items-center justify-between pt-4 border-t border-[var(--color-border)]">
               <div>
-                <p className="font-medium text-gray-900">Email Notifications</p>
-                <p className="text-sm text-gray-500">
+                <p className="font-medium text-[var(--color-text)]">Email Notifications</p>
+                <p className="text-sm text-[var(--color-text-secondary)]">
                   Receive notifications via email (in addition to in-app)
                 </p>
               </div>
@@ -416,21 +416,21 @@ export function SettingsForm({ settings, pipelines, currentUser, isNew, branding
                   onChange={(e) => setForm({ ...form, email_notifications: e.target.checked })}
                   className="sr-only peer"
                 />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[var(--color-primary-light)] rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-[var(--color-border-strong)] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[var(--color-primary)]"></div>
               </label>
             </div>
           </div>
         </div>
 
         {/* Appearance Section */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-          <div className="p-4 border-b border-gray-200 flex items-center gap-3">
-            <Palette className="w-5 h-5 text-gray-500" />
-            <h2 className="font-semibold text-gray-900">Appearance</h2>
+        <div className="bg-white rounded-xl shadow-sm border border-[var(--color-border)] overflow-hidden">
+          <div className="p-4 border-b border-[var(--color-border)] flex items-center gap-3">
+            <Palette className="w-5 h-5 text-[var(--color-text-secondary)]" />
+            <h2 className="font-semibold text-[var(--color-text)]">Appearance</h2>
           </div>
 
           <div className="p-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-[var(--color-text)] mb-2">
               Theme
             </label>
             <div className="flex gap-3">
@@ -441,8 +441,8 @@ export function SettingsForm({ settings, pipelines, currentUser, isNew, branding
                   onClick={() => setForm({ ...form, theme })}
                   className={`flex-1 px-4 py-3 rounded-lg border-2 transition ${
                     form.theme === theme
-                      ? 'border-blue-500 bg-blue-50 text-blue-700'
-                      : 'border-gray-200 hover:border-gray-300'
+                      ? 'border-[var(--color-primary)] bg-amber-50/50 text-[var(--color-primary)]'
+                      : 'border-[var(--color-border)] hover:border-[var(--color-border-strong)]'
                   }`}
                 >
                   <span className="font-medium capitalize">{theme}</span>
@@ -453,20 +453,20 @@ export function SettingsForm({ settings, pipelines, currentUser, isNew, branding
         </div>
 
         {/* Defaults Section */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-          <div className="p-4 border-b border-gray-200 flex items-center gap-3">
-            <Calendar className="w-5 h-5 text-gray-500" />
-            <h2 className="font-semibold text-gray-900">Defaults</h2>
+        <div className="bg-white rounded-xl shadow-sm border border-[var(--color-border)] overflow-hidden">
+          <div className="p-4 border-b border-[var(--color-border)] flex items-center gap-3">
+            <Calendar className="w-5 h-5 text-[var(--color-text-secondary)]" />
+            <h2 className="font-semibold text-[var(--color-text)]">Defaults</h2>
           </div>
 
           <div className="p-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
               Default Pipeline
             </label>
             <select
               value={form.default_pipeline_id}
               onChange={(e) => setForm({ ...form, default_pipeline_id: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
             >
               <option value="">No default</option>
               {pipelines.map((pipeline) => (
@@ -475,7 +475,7 @@ export function SettingsForm({ settings, pipelines, currentUser, isNew, branding
                 </option>
               ))}
             </select>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs text-[var(--color-text-secondary)] mt-1">
               This pipeline will be selected by default when adding new opportunities
             </p>
           </div>
@@ -486,7 +486,7 @@ export function SettingsForm({ settings, pipelines, currentUser, isNew, branding
           <button
             type="submit"
             disabled={saving}
-            className="flex items-center gap-2 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+            className="flex items-center gap-2 px-6 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 transition disabled:opacity-50"
           >
             <Save className="w-4 h-4" />
             {saving ? 'Saving...' : 'Save Settings'}
@@ -504,13 +504,13 @@ export function SettingsForm({ settings, pipelines, currentUser, isNew, branding
       {showScriptModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl shadow-xl w-full max-w-lg">
-            <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+            <div className="p-4 border-b border-[var(--color-border)] flex items-center justify-between">
               <h2 className="text-lg font-semibold">
                 {editingScript ? 'Edit Script' : 'New Call Script'}
               </h2>
               <button
                 onClick={() => { setShowScriptModal(false); setEditingScript(null); setScriptForm({ name: '', content: '' }) }}
-                className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg"
+                className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:bg-stone-100 rounded-lg"
               >
                 ✕
               </button>
@@ -518,27 +518,27 @@ export function SettingsForm({ settings, pipelines, currentUser, isNew, branding
 
             <div className="p-4 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
                   Script Name *
                 </label>
                 <input
                   type="text"
                   value={scriptForm.name}
                   onChange={(e) => setScriptForm({ ...scriptForm, name: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   placeholder="e.g., Cold Call Intro, Follow-up Script..."
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-[var(--color-text)] mb-1">
                   Script Content *
                 </label>
                 <textarea
                   value={scriptForm.content}
                   onChange={(e) => setScriptForm({ ...scriptForm, content: e.target.value })}
                   rows={10}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none resize-none"
+                  className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none resize-none"
                   placeholder={`Hi {name}! This is [Your Name] from [Company].
 
 I'm reaching out because...
@@ -547,23 +547,23 @@ I'm reaching out because...
 
 Use {name} and {business} as placeholders.`}
                 />
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-[var(--color-text-secondary)] mt-1">
                   Available placeholders: {'{{name}}'} - Contact name, {'{{business}}'} - Business name
                 </p>
               </div>
             </div>
 
-            <div className="p-4 border-t bg-gray-50 flex justify-end gap-3">
+            <div className="p-4 border-t bg-stone-50 flex justify-end gap-3">
               <button
                 onClick={() => { setShowScriptModal(false); setEditingScript(null); setScriptForm({ name: '', content: '' }) }}
-                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100"
+                className="px-4 py-2 border border-[var(--color-border-strong)] rounded-lg hover:bg-stone-100"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSaveScript}
                 disabled={savingScript || !scriptForm.name.trim() || !scriptForm.content.trim()}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+                className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 disabled:opacity-50"
               >
                 {savingScript ? 'Saving...' : editingScript ? 'Save Changes' : 'Create Script'}
               </button>

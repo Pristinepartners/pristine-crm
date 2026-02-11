@@ -21,7 +21,7 @@ const getScoreColor = (score: LeadScore | null) => {
     case 'cold':
       return 'bg-blue-100 text-blue-700 border-blue-200'
     default:
-      return 'bg-gray-100 text-gray-700 border-gray-200'
+      return 'bg-gray-100 text-[var(--color-text)] border-[var(--color-border)]'
   }
 }
 
@@ -117,48 +117,48 @@ export function LeadScoreBreakdown({
   ]
 
   return (
-    <div className="border border-gray-200 rounded-lg overflow-hidden">
+    <div className="border border-[var(--color-border)] rounded-lg overflow-hidden">
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full px-4 py-3 flex items-center justify-between hover:bg-gray-50 transition"
+        className="w-full px-4 py-3 flex items-center justify-between hover:bg-stone-50 transition"
       >
         <div className="flex items-center gap-3">
           <span className={`px-3 py-1 rounded-full text-sm font-semibold ${getScoreColor(leadScore)}`}>
             {leadScore ? leadScore.charAt(0).toUpperCase() + leadScore.slice(1) : 'Not Scored'}
           </span>
-          <span className="text-sm text-gray-500">
+          <span className="text-sm text-[var(--color-text-secondary)]">
             Score: {totalScore} pts
           </span>
         </div>
         {isExpanded ? (
-          <ChevronUp className="w-5 h-5 text-gray-400" />
+          <ChevronUp className="w-5 h-5 text-[var(--color-text-muted)]" />
         ) : (
-          <ChevronDown className="w-5 h-5 text-gray-400" />
+          <ChevronDown className="w-5 h-5 text-[var(--color-text-muted)]" />
         )}
       </button>
 
       {isExpanded && (
-        <div className="px-4 pb-4 border-t border-gray-100">
-          <div className="text-xs text-gray-500 mt-3 mb-2">
+        <div className="px-4 pb-4 border-t border-[var(--color-border)]">
+          <div className="text-xs text-[var(--color-text-secondary)] mt-3 mb-2">
             Score Breakdown (Hot: 60+, Warm: 30-59, Cold: &lt;30)
           </div>
           <div className="space-y-2">
             {scoreItems.map((item, index) => (
               <div key={index} className="flex items-center justify-between text-sm">
-                <div className="flex items-center gap-2 text-gray-600">
-                  <item.icon className="w-4 h-4 text-gray-400" />
+                <div className="flex items-center gap-2 text-[var(--color-text-secondary)]">
+                  <item.icon className="w-4 h-4 text-[var(--color-text-muted)]" />
                   <span>{item.label}</span>
-                  <span className="text-gray-400">({item.detail})</span>
+                  <span className="text-[var(--color-text-muted)]">({item.detail})</span>
                 </div>
-                <span className={`font-medium ${item.points > 0 ? 'text-green-600' : item.points < 0 ? 'text-red-600' : 'text-gray-400'}`}>
+                <span className={`font-medium ${item.points > 0 ? 'text-green-600' : item.points < 0 ? 'text-red-600' : 'text-[var(--color-text-muted)]'}`}>
                   {item.points > 0 ? '+' : ''}{item.points}/{item.max}
                 </span>
               </div>
             ))}
           </div>
-          <div className="mt-3 pt-3 border-t border-gray-100 flex items-center justify-between font-medium">
-            <span className="text-gray-700">Total Score</span>
-            <span className="text-gray-900">{totalScore} pts</span>
+          <div className="mt-3 pt-3 border-t border-[var(--color-border)] flex items-center justify-between font-medium">
+            <span className="text-[var(--color-text)]">Total Score</span>
+            <span className="text-[var(--color-text)]">{totalScore} pts</span>
           </div>
         </div>
       )}

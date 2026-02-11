@@ -19,7 +19,7 @@ export function StatsCards({ appointmentsBooked, showedUp, salesCount, totalReve
       label: 'Appointments Booked',
       value: appointmentsBooked.toString(),
       icon: Calendar,
-      color: 'bg-blue-500',
+      color: 'bg-[var(--color-primary)]',
     },
     {
       label: 'Show Up Rate',
@@ -45,16 +45,16 @@ export function StatsCards({ appointmentsBooked, showedUp, salesCount, totalReve
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {stats.map((stat) => (
-        <div key={stat.label} className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+        <div key={stat.label} className="bg-[var(--color-card)] rounded-xl p-6 shadow-sm border border-[var(--color-border)]">
           <div className="flex items-center gap-4">
             <div className={`${stat.color} p-3 rounded-lg`}>
               <stat.icon className="w-6 h-6 text-white" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">{stat.label}</p>
-              <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+              <p className="text-sm text-[var(--color-text-secondary)]">{stat.label}</p>
+              <p className="text-2xl font-bold text-[var(--color-text)]">{stat.value}</p>
               {'subValue' in stat && stat.subValue && (
-                <p className="text-xs text-gray-400">{stat.subValue}</p>
+                <p className="text-xs text-[var(--color-text-muted)]">{stat.subValue}</p>
               )}
             </div>
           </div>

@@ -40,8 +40,8 @@ const projectTypeLabels: Record<ProjectType, string> = {
 }
 
 const statusConfig: Record<ProjectStatus, { label: string; color: string }> = {
-  pending: { label: 'Pending', color: 'bg-gray-100 text-gray-700' },
-  in_progress: { label: 'In Progress', color: 'bg-blue-100 text-blue-700' },
+  pending: { label: 'Pending', color: 'bg-stone-100 text-stone-700' },
+  in_progress: { label: 'In Progress', color: 'bg-amber-50 text-amber-700' },
   review: { label: 'In Review', color: 'bg-yellow-100 text-yellow-700' },
   completed: { label: 'Completed', color: 'bg-green-100 text-green-700' },
   on_hold: { label: 'On Hold', color: 'bg-orange-100 text-orange-700' },
@@ -49,8 +49,8 @@ const statusConfig: Record<ProjectStatus, { label: string; color: string }> = {
 }
 
 const priorityColors: Record<string, string> = {
-  low: 'bg-gray-100 text-gray-600',
-  medium: 'bg-blue-100 text-blue-600',
+  low: 'bg-stone-100 text-stone-600',
+  medium: 'bg-amber-50 text-amber-700',
   high: 'bg-orange-100 text-orange-600',
   urgent: 'bg-red-100 text-red-600',
 }
@@ -165,14 +165,14 @@ export function ProjectDetail({ project, client, tasks: initialTasks, allClients
       <div className="flex items-center gap-4 mb-6">
         <button
           onClick={() => router.push('/projects')}
-          className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition"
+          className="p-2 text-[var(--color-text-muted)] hover:text-gray-600 hover:bg-stone-100 rounded-lg transition"
         >
           <ArrowLeft className="w-5 h-5" />
         </button>
         <div className="flex-1">
-          <h1 className="text-2xl font-bold text-gray-900">{project.name}</h1>
+          <h1 className="text-2xl font-bold text-[var(--color-text)]">{project.name}</h1>
           {client && (
-            <Link href={`/clients/${client.id}`} className="text-gray-500 hover:text-blue-600">
+            <Link href={`/clients/${client.id}`} className="text-[var(--color-text-secondary)] hover:text-[var(--color-primary)]">
               {client.company_name || client.name}
             </Link>
           )}
@@ -185,7 +185,7 @@ export function ProjectDetail({ project, client, tasks: initialTasks, allClients
         </span>
         <button
           onClick={() => setIsEditing(!isEditing)}
-          className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition"
+          className="flex items-center gap-2 px-4 py-2 border border-[var(--color-border-strong)] rounded-lg hover:bg-stone-50 transition"
         >
           <Pencil className="w-4 h-4" />
           {isEditing ? 'Cancel' : 'Edit'}
@@ -202,24 +202,24 @@ export function ProjectDetail({ project, client, tasks: initialTasks, allClients
         {/* Main Content */}
         <div className="lg:col-span-2 space-y-6">
           {/* Progress */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <div className="bg-white rounded-xl shadow-sm border border-[var(--color-border)] p-6">
             <div className="flex items-center justify-between mb-2">
-              <h2 className="font-semibold text-gray-900">Progress</h2>
-              <span className="text-sm text-gray-500">{completedTasks} of {tasks.length} tasks</span>
+              <h2 className="font-semibold text-[var(--color-text)]">Progress</h2>
+              <span className="text-sm text-[var(--color-text-secondary)]">{completedTasks} of {tasks.length} tasks</span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-3">
+            <div className="w-full bg-stone-200 rounded-full h-3">
               <div
-                className="bg-blue-600 h-3 rounded-full transition-all"
+                className="bg-[var(--color-primary)] h-3 rounded-full transition-all"
                 style={{ width: `${progress}%` }}
               />
             </div>
-            <p className="text-right text-sm text-gray-500 mt-1">{progress}% complete</p>
+            <p className="text-right text-sm text-[var(--color-text-secondary)] mt-1">{progress}% complete</p>
           </div>
 
           {/* Tasks */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-            <div className="flex items-center justify-between p-4 border-b border-gray-100">
-              <h2 className="font-semibold text-gray-900">Tasks</h2>
+          <div className="bg-white rounded-xl shadow-sm border border-[var(--color-border)]">
+            <div className="flex items-center justify-between p-4 border-b border-[var(--color-border)]">
+              <h2 className="font-semibold text-[var(--color-text)]">Tasks</h2>
             </div>
             <div className="p-4">
               {/* Add Task */}
@@ -229,13 +229,13 @@ export function ProjectDetail({ project, client, tasks: initialTasks, allClients
                   value={newTaskTitle}
                   onChange={(e) => setNewTaskTitle(e.target.value)}
                   placeholder="Add a new task..."
-                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                  className="flex-1 px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   onKeyDown={(e) => e.key === 'Enter' && handleAddTask()}
                 />
                 <button
                   onClick={handleAddTask}
                   disabled={addingTask || !newTaskTitle.trim()}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+                  className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-[var(--color-primary-hover)] transition disabled:opacity-50"
                 >
                   <Plus className="w-4 h-4" />
                 </button>
@@ -243,8 +243,8 @@ export function ProjectDetail({ project, client, tasks: initialTasks, allClients
 
               {/* Task List */}
               {tasks.length === 0 ? (
-                <div className="text-center py-8 text-gray-500">
-                  <CheckCircle2 className="w-8 h-8 mx-auto mb-2 text-gray-300" />
+                <div className="text-center py-8 text-[var(--color-text-secondary)]">
+                  <CheckCircle2 className="w-8 h-8 mx-auto mb-2 text-[var(--color-text-muted)]" />
                   No tasks yet. Add one above.
                 </div>
               ) : (
@@ -253,7 +253,7 @@ export function ProjectDetail({ project, client, tasks: initialTasks, allClients
                     <div
                       key={task.id}
                       className={`flex items-center gap-3 p-3 rounded-lg border ${
-                        task.status === 'completed' ? 'bg-gray-50 border-gray-200' : 'bg-white border-gray-200'
+                        task.status === 'completed' ? 'bg-stone-50 border-[var(--color-border)]' : 'bg-white border-[var(--color-border)]'
                       }`}
                     >
                       <button
@@ -261,17 +261,17 @@ export function ProjectDetail({ project, client, tasks: initialTasks, allClients
                         className={`flex-shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center transition ${
                           task.status === 'completed'
                             ? 'bg-green-500 border-green-500 text-white'
-                            : 'border-gray-300 hover:border-green-500'
+                            : 'border-[var(--color-border-strong)] hover:border-green-500'
                         }`}
                       >
                         {task.status === 'completed' && <CheckCircle2 className="w-3 h-3" />}
                       </button>
-                      <span className={`flex-1 ${task.status === 'completed' ? 'line-through text-gray-400' : 'text-gray-900'}`}>
+                      <span className={`flex-1 ${task.status === 'completed' ? 'line-through text-[var(--color-text-muted)]' : 'text-[var(--color-text)]'}`}>
                         {task.title}
                       </span>
                       <button
                         onClick={() => handleDeleteTask(task.id)}
-                        className="p-1 text-gray-400 hover:text-red-500 transition"
+                        className="p-1 text-[var(--color-text-muted)] hover:text-red-500 transition"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
@@ -284,8 +284,8 @@ export function ProjectDetail({ project, client, tasks: initialTasks, allClients
 
           {/* Description */}
           {project.description && !isEditing && (
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-              <h2 className="font-semibold text-gray-900 mb-3">Description</h2>
+            <div className="bg-white rounded-xl shadow-sm border border-[var(--color-border)] p-6">
+              <h2 className="font-semibold text-[var(--color-text)] mb-3">Description</h2>
               <p className="text-gray-600 whitespace-pre-wrap">{project.description}</p>
             </div>
           )}
@@ -294,8 +294,8 @@ export function ProjectDetail({ project, client, tasks: initialTasks, allClients
         {/* Sidebar */}
         <div className="space-y-6">
           {/* Project Info / Edit Form */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
-            <h2 className="font-semibold text-gray-900 mb-4">
+          <div className="bg-white rounded-xl shadow-sm border border-[var(--color-border)] p-4">
+            <h2 className="font-semibold text-[var(--color-text)] mb-4">
               {isEditing ? 'Edit Project' : 'Project Details'}
             </h2>
 
@@ -307,7 +307,7 @@ export function ProjectDetail({ project, client, tasks: initialTasks, allClients
                     type="text"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   />
                 </div>
                 <div>
@@ -315,7 +315,7 @@ export function ProjectDetail({ project, client, tasks: initialTasks, allClients
                   <select
                     value={formData.client_id}
                     onChange={(e) => setFormData({ ...formData, client_id: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   >
                     {allClients.map(c => (
                       <option key={c.id} value={c.id}>{c.company_name || c.name}</option>
@@ -327,7 +327,7 @@ export function ProjectDetail({ project, client, tasks: initialTasks, allClients
                   <select
                     value={formData.project_type}
                     onChange={(e) => setFormData({ ...formData, project_type: e.target.value as ProjectType })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   >
                     {Object.entries(projectTypeLabels).map(([value, label]) => (
                       <option key={value} value={value}>{label}</option>
@@ -340,7 +340,7 @@ export function ProjectDetail({ project, client, tasks: initialTasks, allClients
                     <select
                       value={formData.status}
                       onChange={(e) => setFormData({ ...formData, status: e.target.value as ProjectStatus })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                      className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                     >
                       {Object.entries(statusConfig).map(([value, config]) => (
                         <option key={value} value={value}>{config.label}</option>
@@ -352,7 +352,7 @@ export function ProjectDetail({ project, client, tasks: initialTasks, allClients
                     <select
                       value={formData.priority}
                       onChange={(e) => setFormData({ ...formData, priority: e.target.value as 'low' | 'medium' | 'high' | 'urgent' })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                      className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                     >
                       <option value="low">Low</option>
                       <option value="medium">Medium</option>
@@ -367,7 +367,7 @@ export function ProjectDetail({ project, client, tasks: initialTasks, allClients
                     type="date"
                     value={formData.due_date}
                     onChange={(e) => setFormData({ ...formData, due_date: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   />
                 </div>
                 <div>
@@ -376,7 +376,7 @@ export function ProjectDetail({ project, client, tasks: initialTasks, allClients
                     type="number"
                     value={formData.budget}
                     onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   />
                 </div>
                 <div>
@@ -384,7 +384,7 @@ export function ProjectDetail({ project, client, tasks: initialTasks, allClients
                   <select
                     value={formData.assigned_to}
                     onChange={(e) => setFormData({ ...formData, assigned_to: e.target.value as Owner })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                   >
                     <option value="alex">Alex</option>
                     <option value="mikail">Mikail</option>
@@ -395,14 +395,14 @@ export function ProjectDetail({ project, client, tasks: initialTasks, allClients
                   <textarea
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
                     rows={4}
                   />
                 </div>
                 <button
                   onClick={handleSave}
                   disabled={saving || !formData.name.trim()}
-                  className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+                  className="w-full px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:bg-[var(--color-primary-hover)] transition disabled:opacity-50"
                 >
                   {saving ? 'Saving...' : 'Save Changes'}
                 </button>
@@ -410,12 +410,12 @@ export function ProjectDetail({ project, client, tasks: initialTasks, allClients
             ) : (
               <div className="space-y-3">
                 <div className="flex items-center gap-3 text-sm">
-                  <FolderKanban className="w-4 h-4 text-gray-400" />
+                  <FolderKanban className="w-4 h-4 text-[var(--color-text-muted)]" />
                   <span className="text-gray-600">{projectTypeLabels[project.project_type]}</span>
                 </div>
                 {project.due_date && (
                   <div className="flex items-center gap-3 text-sm">
-                    <Calendar className={`w-4 h-4 ${isOverdue ? 'text-red-500' : 'text-gray-400'}`} />
+                    <Calendar className={`w-4 h-4 ${isOverdue ? 'text-red-500' : 'text-[var(--color-text-muted)]'}`} />
                     <span className={isOverdue ? 'text-red-600 font-medium' : 'text-gray-600'}>
                       Due {new Date(project.due_date).toLocaleDateString()}
                       {isOverdue && ' (Overdue)'}
@@ -424,19 +424,19 @@ export function ProjectDetail({ project, client, tasks: initialTasks, allClients
                 )}
                 {project.budget && (
                   <div className="flex items-center gap-3 text-sm">
-                    <DollarSign className="w-4 h-4 text-gray-400" />
+                    <DollarSign className="w-4 h-4 text-[var(--color-text-muted)]" />
                     <span className="text-gray-600">Budget: ${project.budget.toLocaleString('en-US')}</span>
                   </div>
                 )}
                 <div className="flex items-center gap-3 text-sm">
-                  <Clock className="w-4 h-4 text-gray-400" />
+                  <Clock className="w-4 h-4 text-[var(--color-text-muted)]" />
                   <span className="text-gray-600">
                     Created {new Date(project.created_at).toLocaleDateString()}
                   </span>
                 </div>
                 {project.assigned_to && (
                   <div className="flex items-center gap-3 text-sm">
-                    <Building2 className="w-4 h-4 text-gray-400" />
+                    <Building2 className="w-4 h-4 text-[var(--color-text-muted)]" />
                     <span className="text-gray-600 capitalize">Assigned to: {project.assigned_to}</span>
                   </div>
                 )}
@@ -448,17 +448,17 @@ export function ProjectDetail({ project, client, tasks: initialTasks, allClients
           {client && (
             <Link
               href={`/clients/${client.id}`}
-              className="block bg-white rounded-xl shadow-sm border border-gray-200 p-4 hover:shadow-md transition"
+              className="block bg-white rounded-xl shadow-sm border border-[var(--color-border)] p-4 hover:shadow-md transition"
             >
-              <h2 className="font-semibold text-gray-900 mb-3">Client</h2>
+              <h2 className="font-semibold text-[var(--color-text)] mb-3">Client</h2>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
-                  <Building2 className="w-5 h-5 text-gray-500" />
+                <div className="w-10 h-10 bg-stone-100 rounded-lg flex items-center justify-center">
+                  <Building2 className="w-5 h-5 text-[var(--color-text-secondary)]" />
                 </div>
                 <div>
-                  <p className="font-medium text-gray-900">{client.name}</p>
+                  <p className="font-medium text-[var(--color-text)]">{client.name}</p>
                   {client.company_name && (
-                    <p className="text-sm text-gray-500">{client.company_name}</p>
+                    <p className="text-sm text-[var(--color-text-secondary)]">{client.company_name}</p>
                   )}
                 </div>
               </div>

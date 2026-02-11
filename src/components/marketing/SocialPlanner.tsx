@@ -188,11 +188,11 @@ export function SocialPlanner({ posts: initialPosts }: SocialPlannerProps) {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'draft': return 'bg-gray-100 text-gray-700'
-      case 'scheduled': return 'bg-blue-100 text-blue-700'
+      case 'draft': return 'bg-stone-100 text-[var(--color-text)]'
+      case 'scheduled': return 'bg-amber-50 text-amber-700'
       case 'published': return 'bg-green-100 text-green-700'
       case 'failed': return 'bg-red-100 text-red-700'
-      default: return 'bg-gray-100 text-gray-700'
+      default: return 'bg-stone-100 text-[var(--color-text)]'
     }
   }
 
@@ -203,7 +203,7 @@ export function SocialPlanner({ posts: initialPosts }: SocialPlannerProps) {
 
     // Empty cells before first day
     for (let i = 0; i < firstDay; i++) {
-      days.push(<div key={`empty-${i}`} className="h-32 bg-gray-50 border border-gray-100" />)
+      days.push(<div key={`empty-${i}`} className="h-32 bg-stone-50 border border-[var(--color-border)]" />)
     }
 
     // Days of the month
@@ -217,11 +217,11 @@ export function SocialPlanner({ posts: initialPosts }: SocialPlannerProps) {
       days.push(
         <div
           key={day}
-          className={`h-32 border border-gray-100 p-1 overflow-hidden ${
-            isToday ? 'bg-blue-50' : 'bg-white'
+          className={`h-32 border border-[var(--color-border)] p-1 overflow-hidden ${
+            isToday ? 'bg-amber-50' : 'bg-white'
           }`}
         >
-          <div className={`text-sm font-medium mb-1 ${isToday ? 'text-blue-600' : 'text-gray-700'}`}>
+          <div className={`text-sm font-medium mb-1 ${isToday ? 'text-[var(--color-primary)]' : 'text-[var(--color-text)]'}`}>
             {day}
           </div>
           <div className="space-y-1">
@@ -229,14 +229,14 @@ export function SocialPlanner({ posts: initialPosts }: SocialPlannerProps) {
               <div
                 key={post.id}
                 onClick={() => openModal(post)}
-                className="flex items-center gap-1 p-1 rounded bg-gray-100 hover:bg-gray-200 cursor-pointer text-xs truncate"
+                className="flex items-center gap-1 p-1 rounded bg-stone-100 hover:bg-gray-200 cursor-pointer text-xs truncate"
               >
                 {getPlatformIcon(post.platform)}
                 <span className="truncate">{post.content.slice(0, 20)}...</span>
               </div>
             ))}
             {dayPosts.length > 3 && (
-              <div className="text-xs text-gray-500 text-center">
+              <div className="text-xs text-[var(--color-text-secondary)] text-center">
                 +{dayPosts.length - 3} more
               </div>
             )}
@@ -253,12 +253,12 @@ export function SocialPlanner({ posts: initialPosts }: SocialPlannerProps) {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Social Planner</h1>
-          <p className="text-gray-600">Schedule and manage your social media posts</p>
+          <h1 className="text-2xl font-bold text-[var(--color-text)]">Social Planner</h1>
+          <p className="text-[var(--color-text-secondary)]">Schedule and manage your social media posts</p>
         </div>
         <button
           onClick={() => openModal()}
-          className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+          className="flex items-center gap-2 bg-[var(--color-primary)] text-white px-4 py-2 rounded-lg hover:opacity-90"
         >
           <Plus className="w-5 h-5" />
           Create Post
@@ -275,19 +275,19 @@ export function SocialPlanner({ posts: initialPosts }: SocialPlannerProps) {
           return (
             <div
               key={platform.id}
-              className="bg-white rounded-lg border border-gray-200 p-4"
+              className="bg-white rounded-lg border border-[var(--color-border)] p-4"
             >
               <div className="flex items-center gap-3 mb-3">
                 <platform.icon className="w-6 h-6" style={{ color: platform.color }} />
-                <span className="font-medium text-gray-900">{platform.name}</span>
+                <span className="font-medium text-[var(--color-text)]">{platform.name}</span>
               </div>
               <div className="flex gap-4 text-sm">
                 <div>
-                  <span className="text-gray-500">Scheduled:</span>
+                  <span className="text-[var(--color-text-secondary)]">Scheduled:</span>
                   <span className="ml-1 font-medium">{scheduled}</span>
                 </div>
                 <div>
-                  <span className="text-gray-500">Published:</span>
+                  <span className="text-[var(--color-text-secondary)]">Published:</span>
                   <span className="ml-1 font-medium">{published}</span>
                 </div>
               </div>
@@ -298,11 +298,11 @@ export function SocialPlanner({ posts: initialPosts }: SocialPlannerProps) {
 
       {/* View Toggle */}
       <div className="flex items-center gap-4 mb-4">
-        <div className="flex bg-gray-100 rounded-lg p-1">
+        <div className="flex bg-stone-100 rounded-lg p-1">
           <button
             onClick={() => setView('calendar')}
             className={`px-4 py-2 rounded-md text-sm font-medium transition ${
-              view === 'calendar' ? 'bg-white shadow text-gray-900' : 'text-gray-600'
+              view === 'calendar' ? 'bg-white shadow text-[var(--color-text)]' : 'text-[var(--color-text-secondary)]'
             }`}
           >
             <Calendar className="w-4 h-4 inline mr-2" />
@@ -311,7 +311,7 @@ export function SocialPlanner({ posts: initialPosts }: SocialPlannerProps) {
           <button
             onClick={() => setView('list')}
             className={`px-4 py-2 rounded-md text-sm font-medium transition ${
-              view === 'list' ? 'bg-white shadow text-gray-900' : 'text-gray-600'
+              view === 'list' ? 'bg-white shadow text-[var(--color-text)]' : 'text-[var(--color-text-secondary)]'
             }`}
           >
             List
@@ -322,16 +322,16 @@ export function SocialPlanner({ posts: initialPosts }: SocialPlannerProps) {
           <div className="flex items-center gap-2">
             <button
               onClick={() => navigateMonth(-1)}
-              className="p-2 hover:bg-gray-100 rounded-lg"
+              className="p-2 hover:bg-stone-100 rounded-lg"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
-            <span className="font-medium text-gray-900 min-w-[150px] text-center">
+            <span className="font-medium text-[var(--color-text)] min-w-[150px] text-center">
               {MONTHS[currentDate.getMonth()]} {currentDate.getFullYear()}
             </span>
             <button
               onClick={() => navigateMonth(1)}
-              className="p-2 hover:bg-gray-100 rounded-lg"
+              className="p-2 hover:bg-stone-100 rounded-lg"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -341,10 +341,10 @@ export function SocialPlanner({ posts: initialPosts }: SocialPlannerProps) {
 
       {/* Calendar View */}
       {view === 'calendar' && (
-        <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+        <div className="bg-white rounded-lg border border-[var(--color-border)] overflow-hidden">
           <div className="grid grid-cols-7">
             {DAYS.map(day => (
-              <div key={day} className="p-2 text-center text-sm font-medium text-gray-600 bg-gray-50 border-b">
+              <div key={day} className="p-2 text-center text-sm font-medium text-[var(--color-text-secondary)] bg-stone-50 border-b">
                 {day}
               </div>
             ))}
@@ -357,9 +357,9 @@ export function SocialPlanner({ posts: initialPosts }: SocialPlannerProps) {
 
       {/* List View */}
       {view === 'list' && (
-        <div className="bg-white rounded-lg border border-gray-200">
+        <div className="bg-white rounded-lg border border-[var(--color-border)]">
           {posts.length === 0 ? (
-            <div className="p-8 text-center text-gray-500">
+            <div className="p-8 text-center text-[var(--color-text-secondary)]">
               No posts scheduled. Create your first post to get started.
             </div>
           ) : (
@@ -370,8 +370,8 @@ export function SocialPlanner({ posts: initialPosts }: SocialPlannerProps) {
                     {getPlatformIcon(post.platform)}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-gray-900 line-clamp-2">{post.content}</p>
-                    <div className="flex items-center gap-3 mt-2 text-sm text-gray-500">
+                    <p className="text-[var(--color-text)] line-clamp-2">{post.content}</p>
+                    <div className="flex items-center gap-3 mt-2 text-sm text-[var(--color-text-secondary)]">
                       <span className="flex items-center gap-1">
                         <Clock className="w-4 h-4" />
                         {new Date(post.scheduled_at).toLocaleString('en-US')}
@@ -391,13 +391,13 @@ export function SocialPlanner({ posts: initialPosts }: SocialPlannerProps) {
                   <div className="flex items-center gap-1">
                     <button
                       onClick={() => openModal(post)}
-                      className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg"
+                      className="p-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:bg-stone-100 rounded-lg"
                     >
                       <Edit2 className="w-4 h-4" />
                     </button>
                     <button
                       onClick={() => handleDelete(post.id)}
-                      className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg"
+                      className="p-2 text-[var(--color-text-muted)] hover:text-red-600 hover:bg-red-50 rounded-lg"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -419,7 +419,7 @@ export function SocialPlanner({ posts: initialPosts }: SocialPlannerProps) {
               </h2>
               <button
                 onClick={() => { setShowModal(false); resetForm() }}
-                className="p-2 hover:bg-gray-100 rounded-lg"
+                className="p-2 hover:bg-stone-100 rounded-lg"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -428,7 +428,7 @@ export function SocialPlanner({ posts: initialPosts }: SocialPlannerProps) {
             <div className="p-6 space-y-6">
               {/* Platform Selection */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-[var(--color-text)] mb-2">
                   Platforms
                 </label>
                 <div className="flex gap-3">
@@ -439,8 +439,8 @@ export function SocialPlanner({ posts: initialPosts }: SocialPlannerProps) {
                       disabled={!!editingPost}
                       className={`flex items-center gap-2 px-4 py-2 rounded-lg border-2 transition ${
                         selectedPlatforms.includes(platform.id)
-                          ? 'border-blue-500 bg-blue-50'
-                          : 'border-gray-200 hover:border-gray-300'
+                          ? 'border-[var(--color-primary)] bg-amber-50'
+                          : 'border-[var(--color-border)] hover:border-[var(--color-border-strong)]'
                       } ${editingPost ? 'opacity-50 cursor-not-allowed' : ''}`}
                     >
                       <platform.icon className="w-5 h-5" style={{ color: platform.color }} />
@@ -452,17 +452,17 @@ export function SocialPlanner({ posts: initialPosts }: SocialPlannerProps) {
 
               {/* Content */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-[var(--color-text)] mb-2">
                   Content
                 </label>
                 <textarea
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
                   rows={5}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                  className="w-full px-4 py-3 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent resize-none"
                   placeholder="What would you like to share?"
                 />
-                <div className="flex justify-between mt-1 text-sm text-gray-500">
+                <div className="flex justify-between mt-1 text-sm text-[var(--color-text-secondary)]">
                   <span>{content.length} characters</span>
                   {selectedPlatforms.includes('linkedin') && content.length > 3000 && (
                     <span className="text-orange-500">LinkedIn limit: 3000</span>
@@ -472,7 +472,7 @@ export function SocialPlanner({ posts: initialPosts }: SocialPlannerProps) {
 
               {/* Image URL */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-[var(--color-text)] mb-2">
                   Image URL (optional)
                 </label>
                 <div className="flex gap-2">
@@ -480,13 +480,13 @@ export function SocialPlanner({ posts: initialPosts }: SocialPlannerProps) {
                     type="url"
                     value={imageUrl}
                     onChange={(e) => setImageUrl(e.target.value)}
-                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="flex-1 px-4 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent"
                     placeholder="https://example.com/image.jpg"
                   />
                   {imageUrl && (
                     <button
                       onClick={() => setShowPreview(!showPreview)}
-                      className="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                      className="px-3 py-2 border border-[var(--color-border-strong)] rounded-lg hover:bg-stone-50"
                     >
                       <Eye className="w-5 h-5" />
                     </button>
@@ -504,47 +504,47 @@ export function SocialPlanner({ posts: initialPosts }: SocialPlannerProps) {
               {/* Schedule */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-[var(--color-text)] mb-2">
                     Date
                   </label>
                   <input
                     type="date"
                     value={scheduledDate}
                     onChange={(e) => setScheduledDate(e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-[var(--color-text)] mb-2">
                     Time
                   </label>
                   <input
                     type="time"
                     value={scheduledTime}
                     onChange={(e) => setScheduledTime(e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent"
                   />
                 </div>
               </div>
             </div>
 
-            <div className="p-6 border-t bg-gray-50 flex justify-end gap-3">
+            <div className="p-6 border-t bg-stone-50 flex justify-end gap-3">
               <button
                 onClick={() => { setShowModal(false); resetForm() }}
-                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100"
+                className="px-4 py-2 border border-[var(--color-border-strong)] rounded-lg hover:bg-stone-100"
               >
                 Cancel
               </button>
               <button
                 onClick={() => handleSave('draft')}
-                className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100"
+                className="px-4 py-2 border border-[var(--color-border-strong)] rounded-lg hover:bg-stone-100"
               >
                 Save as Draft
               </button>
               <button
                 onClick={() => handleSave('scheduled')}
                 disabled={!scheduledDate}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex items-center gap-2 px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Send className="w-4 h-4" />
                 Schedule

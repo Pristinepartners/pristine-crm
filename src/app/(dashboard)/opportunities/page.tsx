@@ -17,8 +17,8 @@ export default async function OpportunitiesPage() {
 
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold text-gray-900">Opportunities</h1>
-      <p className="text-gray-500 mt-2">No pipelines found. Create a pipeline to get started.</p>
+      <h1 className="text-2xl font-bold text-[var(--color-text)]">Opportunities</h1>
+      <p className="text-[var(--color-text-secondary)] mt-2">No pipelines found. Create a pipeline to get started.</p>
     </div>
   )
 }
