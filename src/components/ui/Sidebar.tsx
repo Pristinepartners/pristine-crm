@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import {
   LayoutDashboard,
   Users,
@@ -21,7 +21,10 @@ import {
   Settings,
   Receipt,
   Building2,
+  ChevronDown,
+  Eye,
 } from 'lucide-react'
+import { DEMO_ACCOUNTS, isAdminUser } from '@/lib/demo/data'
 
 interface BrandingSettings {
   logo_url?: string
@@ -40,6 +43,10 @@ export function Sidebar({ userEmail }: SidebarProps) {
   const router = useRouter()
   const supabase = createClient()
   const [branding, setBranding] = useState<BrandingSettings | null>(null)
+  const [showDemoDropdown, setShowDemoDropdown] = useState(false)
+  const demoDropdownRef = useRef<HTMLDivElement>(null)
+
+  const isAdmin = isAdminUser(userEmail)
 
   useEffect(() => {
     async function fetchBranding() {
@@ -51,6 +58,16 @@ export function Sidebar({ userEmail }: SidebarProps) {
     }
     fetchBranding()
   }, [supabase])
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (demoDropdownRef.current && !demoDropdownRef.current.contains(event.target as Node)) {
+        setShowDemoDropdown(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   const handleSignOut = async () => {
     await supabase.auth.signOut()
@@ -131,6 +148,82 @@ export function Sidebar({ userEmail }: SidebarProps) {
           </div>
         )}
       </div>
+
+      {/* Demo Accounts Dropdown - Only visible to Alex */}
+      {isAdmin && (
+        <div className="px-4 pt-4" ref={demoDropdownRef}>
+          <div className="relative">
+            <button
+              onClick={() => setShowDemoDropdown(!showDemoDropdown)}
+              className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg transition text-sm"
+              style={{
+                backgroundColor: 'rgba(255,255,255,0.04)',
+                border: '1px solid rgba(255,255,255,0.08)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.08)'
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.04)'
+              }}
+            >
+              <Eye className="w-4 h-4" style={{ color: primaryColor }} />
+              <span className="flex-1 text-left font-medium" style={{ color: '#f5f0eb' }}>
+                Demo Accounts
+              </span>
+              <ChevronDown
+                className="w-4 h-4 transition-transform"
+                style={{
+                  color: '#5a5550',
+                  transform: showDemoDropdown ? 'rotate(180deg)' : 'rotate(0deg)',
+                }}
+              />
+            </button>
+
+            {showDemoDropdown && (
+              <div
+                className="absolute top-full left-0 right-0 mt-1 rounded-lg shadow-xl z-50 overflow-hidden"
+                style={{ backgroundColor: '#1a1a1a', border: '1px solid rgba(255,255,255,0.1)' }}
+              >
+                <div className="px-3 py-2" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                  <p className="text-[10px] font-medium uppercase tracking-[0.2em]" style={{ color: '#5a5550' }}>
+                    Client Previews
+                  </p>
+                </div>
+                {DEMO_ACCOUNTS.map((account) => (
+                  <Link
+                    key={account.id}
+                    href={`/demo/${account.id}`}
+                    onClick={() => setShowDemoDropdown(false)}
+                    className="w-full flex items-center gap-3 px-3 py-2.5 transition block"
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.04)'
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'transparent'
+                    }}
+                  >
+                    <div
+                      className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0"
+                      style={{ border: `1px solid ${account.primaryColor}` }}
+                    >
+                      <span className="text-xs font-medium" style={{ color: account.primaryColor }}>
+                        {account.logoInitial}
+                      </span>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm truncate" style={{ color: '#f5f0eb' }}>
+                        {account.companyName}
+                      </p>
+                      <p className="text-xs" style={{ color: '#5a5550' }}>{account.industry}</p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       <nav className="flex-1 p-4 space-y-5 overflow-y-auto">
         {navSections.map((section, sectionIndex) => (
