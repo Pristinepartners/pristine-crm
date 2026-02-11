@@ -24,10 +24,24 @@ type FilterField = 'all' | 'has_phone' | 'has_email' | 'has_linkedin' | 'no_phon
 export function ContactsList({ contacts: initialContacts, pipelines = [], tags: initialTags = [], opportunities: initialOpportunities = [] }: ContactsListProps) {
   const [contacts, setContacts] = useState(initialContacts)
   const [allTags, setAllTags] = useState<Tag[]>(initialTags)
+  const [opportunities, setOpportunities] = useState(initialOpportunities)
   const [searchQuery, setSearchQuery] = useState('')
   const [ownerFilter, setOwnerFilter] = useState<string>('')
   const [tagFilter, setTagFilter] = useState<string>('')
   const [pipelineFilter, setPipelineFilter] = useState<string>('')
+
+  // Sync state with server data when props change (e.g. after router.refresh())
+  useEffect(() => {
+    setContacts(initialContacts)
+  }, [initialContacts])
+
+  useEffect(() => {
+    setOpportunities(initialOpportunities)
+  }, [initialOpportunities])
+
+  useEffect(() => {
+    setAllTags(initialTags)
+  }, [initialTags])
   const [activeFilters, setActiveFilters] = useState<FilterField[]>([])
   const [showFiltersPanel, setShowFiltersPanel] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
@@ -51,9 +65,9 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
     // Pipeline filter
     let matchesPipeline = true
     if (pipelineFilter === 'no_pipeline') {
-      matchesPipeline = !initialOpportunities.some(o => o.contact_id === contact.id)
+      matchesPipeline = !opportunities.some(o => o.contact_id === contact.id)
     } else if (pipelineFilter) {
-      matchesPipeline = initialOpportunities.some(o => o.contact_id === contact.id && o.pipeline_id === pipelineFilter)
+      matchesPipeline = opportunities.some(o => o.contact_id === contact.id && o.pipeline_id === pipelineFilter)
     }
 
     // Apply active filters
@@ -370,7 +384,7 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
       )}
 
       {/* Results count */}
-      {(activeFilters.length > 0 || searchQuery || ownerFilter || pipelineFilter) && (
+      {(activeFilters.length > 0 || searchQuery || ownerFilter || tagFilter || pipelineFilter) && (
         <p className="mb-4 text-sm text-[var(--color-text-secondary)]">
           Showing {filteredContacts.length} of {contacts.length} contacts
         </p>
@@ -554,7 +568,14 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
           contactIds={Array.from(selectedContacts)}
           pipelines={pipelines}
           onClose={() => setShowBulkAddModal(false)}
-          onSuccess={() => {
+          onSuccess={(pipelineId) => {
+            // Update local opportunities state immediately
+            const ids = Array.from(selectedContacts)
+            setOpportunities(prev => {
+              const filtered = prev.filter(o => !ids.includes(o.contact_id))
+              const newOpps = ids.map(id => ({ contact_id: id, pipeline_id: pipelineId }))
+              return [...filtered, ...newOpps]
+            })
             setShowBulkAddModal(false)
             setSelectedContacts(new Set())
             router.refresh()
@@ -741,7 +762,7 @@ function BulkAddToPipelineModal({
   contactIds: string[]
   pipelines: Pipeline[]
   onClose: () => void
-  onSuccess: () => void
+  onSuccess: (pipelineId: string) => void
 }) {
   const [selectedPipeline, setSelectedPipeline] = useState<string>(pipelines[0]?.id || '')
   const [selectedStage, setSelectedStage] = useState<string>('')
@@ -770,8 +791,6 @@ function BulkAddToPipelineModal({
       .select('id, contact_id, pipeline_id')
       .in('contact_id', contactIds)
 
-    const contactsInPipeline = new Set((existingOpportunities || []).map(o => o.contact_id))
-
     // Delete existing opportunities for contacts that will be moved
     if (existingOpportunities && existingOpportunities.length > 0) {
       const oppIds = existingOpportunities.map(o => o.id)
@@ -796,7 +815,7 @@ function BulkAddToPipelineModal({
       return
     }
 
-    onSuccess()
+    onSuccess(selectedPipeline)
   }
 
   return (
