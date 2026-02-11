@@ -9,13 +9,14 @@ interface ContactWithTags extends Contact {
 export default async function ContactsPage() {
   const supabase = await createClient()
 
-  const [{ data: contacts }, { data: pipelines }, { data: tags }] = await Promise.all([
+  const [{ data: contacts }, { data: pipelines }, { data: tags }, { data: opportunities }] = await Promise.all([
     supabase
       .from('contacts')
       .select('*, contact_tags(tag:tags(*))')
       .order('created_at', { ascending: false }),
     supabase.from('pipelines').select('*'),
     supabase.from('tags').select('*').order('name'),
+    supabase.from('opportunities').select('contact_id, pipeline_id'),
   ])
 
   return (
@@ -24,6 +25,7 @@ export default async function ContactsPage() {
         contacts={(contacts || []) as unknown as ContactWithTags[]}
         pipelines={(pipelines || []) as Pipeline[]}
         tags={(tags || []) as unknown as Tag[]}
+        opportunities={(opportunities || []) as { contact_id: string; pipeline_id: string }[]}
       />
     </div>
   )

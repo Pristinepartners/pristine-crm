@@ -16,16 +16,18 @@ interface ContactsListProps {
   contacts: ContactWithTags[]
   pipelines?: Pipeline[]
   tags?: Tag[]
+  opportunities?: { contact_id: string; pipeline_id: string }[]
 }
 
 type FilterField = 'all' | 'has_phone' | 'has_email' | 'has_linkedin' | 'no_phone' | 'no_email'
 
-export function ContactsList({ contacts: initialContacts, pipelines = [], tags: initialTags = [] }: ContactsListProps) {
+export function ContactsList({ contacts: initialContacts, pipelines = [], tags: initialTags = [], opportunities: initialOpportunities = [] }: ContactsListProps) {
   const [contacts, setContacts] = useState(initialContacts)
   const [allTags, setAllTags] = useState<Tag[]>(initialTags)
   const [searchQuery, setSearchQuery] = useState('')
   const [ownerFilter, setOwnerFilter] = useState<string>('')
   const [tagFilter, setTagFilter] = useState<string>('')
+  const [pipelineFilter, setPipelineFilter] = useState<string>('')
   const [activeFilters, setActiveFilters] = useState<FilterField[]>([])
   const [showFiltersPanel, setShowFiltersPanel] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
@@ -45,6 +47,14 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
 
     // Tag filter
     const matchesTag = !tagFilter || contact.contact_tags?.some(ct => ct.tag?.id === tagFilter)
+
+    // Pipeline filter
+    let matchesPipeline = true
+    if (pipelineFilter === 'no_pipeline') {
+      matchesPipeline = !initialOpportunities.some(o => o.contact_id === contact.id)
+    } else if (pipelineFilter) {
+      matchesPipeline = initialOpportunities.some(o => o.contact_id === contact.id && o.pipeline_id === pipelineFilter)
+    }
 
     // Apply active filters
     let matchesFilters = true
@@ -68,7 +78,7 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
       }
     }
 
-    return matchesSearch && matchesOwner && matchesTag && matchesFilters
+    return matchesSearch && matchesOwner && matchesTag && matchesPipeline && matchesFilters
   })
 
   const toggleFilter = (filter: FilterField) => {
@@ -90,6 +100,7 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
     setActiveFilters([])
     setOwnerFilter('')
     setTagFilter('')
+    setPipelineFilter('')
   }
 
   const handleSelectContact = (contactId: string) => {
@@ -271,6 +282,19 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
             ))}
           </select>
         )}
+        {pipelines.length > 0 && (
+          <select
+            value={pipelineFilter}
+            onChange={(e) => setPipelineFilter(e.target.value)}
+            className="px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
+          >
+            <option value="">All pipelines</option>
+            <option value="no_pipeline">Not in any pipeline</option>
+            {pipelines.map(pipeline => (
+              <option key={pipeline.id} value={pipeline.id}>{pipeline.name}</option>
+            ))}
+          </select>
+        )}
         <button
           onClick={() => setShowFiltersPanel(!showFiltersPanel)}
           className={`flex items-center gap-2 px-4 py-2 border rounded-lg transition ${
@@ -346,7 +370,7 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
       )}
 
       {/* Results count */}
-      {(activeFilters.length > 0 || searchQuery || ownerFilter) && (
+      {(activeFilters.length > 0 || searchQuery || ownerFilter || pipelineFilter) && (
         <p className="mb-4 text-sm text-[var(--color-text-secondary)]">
           Showing {filteredContacts.length} of {contacts.length} contacts
         </p>
