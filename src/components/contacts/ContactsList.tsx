@@ -21,9 +21,10 @@ interface ContactsListProps {
 
 type FilterField = 'all' | 'has_phone' | 'has_email' | 'has_linkedin' | 'no_phone' | 'no_email'
 
-export function ContactsList({ contacts: initialContacts, pipelines = [], tags: initialTags = [], opportunities: initialOpportunities = [] }: ContactsListProps) {
+export function ContactsList({ contacts: initialContacts, pipelines: initialPipelines = [], tags: initialTags = [], opportunities: initialOpportunities = [] }: ContactsListProps) {
   const [contacts, setContacts] = useState(initialContacts)
   const [allTags, setAllTags] = useState<Tag[]>(initialTags)
+  const [allPipelines, setAllPipelines] = useState<Pipeline[]>(initialPipelines)
   const [opportunities, setOpportunities] = useState(initialOpportunities)
   const [searchQuery, setSearchQuery] = useState('')
   const [ownerFilter, setOwnerFilter] = useState<string>('')
@@ -42,6 +43,29 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
   useEffect(() => {
     setAllTags(initialTags)
   }, [initialTags])
+
+  useEffect(() => {
+    if (initialPipelines.length > 0) {
+      setAllPipelines(initialPipelines)
+    }
+  }, [initialPipelines])
+
+  // Fetch pipelines and opportunities client-side to ensure they're always available
+  useEffect(() => {
+    const fetchData = async () => {
+      const [{ data: pipelinesData }, { data: oppsData }] = await Promise.all([
+        supabase.from('pipelines').select('*'),
+        supabase.from('opportunities').select('contact_id, pipeline_id'),
+      ])
+      if (pipelinesData && pipelinesData.length > 0) {
+        setAllPipelines(pipelinesData as Pipeline[])
+      }
+      if (oppsData) {
+        setOpportunities(oppsData as { contact_id: string; pipeline_id: string }[])
+      }
+    }
+    fetchData()
+  }, [])
   const [activeFilters, setActiveFilters] = useState<FilterField[]>([])
   const [showFiltersPanel, setShowFiltersPanel] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
@@ -301,7 +325,7 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
         >
           <option value="">All pipelines</option>
           <option value="no_pipeline">Not in any pipeline</option>
-          {pipelines.map(pipeline => (
+          {allPipelines.map(pipeline => (
             <option key={pipeline.id} value={pipeline.id}>{pipeline.name}</option>
           ))}
         </select>
@@ -562,7 +586,7 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
       {showBulkAddModal && (
         <BulkAddToPipelineModal
           contactIds={Array.from(selectedContacts)}
-          pipelines={pipelines}
+          pipelines={allPipelines}
           onClose={() => setShowBulkAddModal(false)}
           onSuccess={(pipelineId) => {
             // Update local opportunities state immediately
@@ -751,7 +775,7 @@ function AddContactModal({
 
 function BulkAddToPipelineModal({
   contactIds,
-  pipelines,
+  pipelines: initialPipelines,
   onClose,
   onSuccess,
 }: {
@@ -760,11 +784,27 @@ function BulkAddToPipelineModal({
   onClose: () => void
   onSuccess: (pipelineId: string) => void
 }) {
-  const [selectedPipeline, setSelectedPipeline] = useState<string>(pipelines[0]?.id || '')
+  const [pipelines, setPipelines] = useState<Pipeline[]>(initialPipelines)
+  const [selectedPipeline, setSelectedPipeline] = useState<string>(initialPipelines[0]?.id || '')
   const [selectedStage, setSelectedStage] = useState<string>('')
   const [owner, setOwner] = useState<Owner>('alex')
   const [loading, setLoading] = useState(false)
+  const [fetchingPipelines, setFetchingPipelines] = useState(initialPipelines.length === 0)
   const supabase = createClient()
+
+  // Fetch pipelines client-side if none were passed
+  useEffect(() => {
+    if (initialPipelines.length > 0) return
+    const fetch = async () => {
+      const { data } = await supabase.from('pipelines').select('*')
+      if (data && data.length > 0) {
+        setPipelines(data as Pipeline[])
+        setSelectedPipeline(data[0].id)
+      }
+      setFetchingPipelines(false)
+    }
+    fetch()
+  }, [])
 
   const currentPipeline = pipelines.find(p => p.id === selectedPipeline)
   const stages = currentPipeline?.stages || []
@@ -827,6 +867,22 @@ function BulkAddToPipelineModal({
           </button>
         </div>
 
+        {fetchingPipelines ? (
+          <div className="p-4 text-center text-sm text-[var(--color-text-secondary)]">Loading pipelines...</div>
+        ) : pipelines.length === 0 ? (
+          <div className="p-4 space-y-4">
+            <p className="text-sm text-[var(--color-text-secondary)]">
+              No pipelines found. Create a pipeline first from the Pipelines page.
+            </p>
+            <button
+              type="button"
+              onClick={onClose}
+              className="w-full px-4 py-2 border border-[var(--color-border-strong)] text-[var(--color-text)] rounded-lg hover:bg-stone-50 transition"
+            >
+              Close
+            </button>
+          </div>
+        ) : (
         <form onSubmit={handleSubmit} className="p-4 space-y-4">
           <p className="text-sm text-[var(--color-text-secondary)]">
             Adding {contactIds.length} contact{contactIds.length !== 1 ? 's' : ''} to pipeline
@@ -903,6 +959,7 @@ function BulkAddToPipelineModal({
             </button>
           </div>
         </form>
+        )}
       </div>
     </div>
   )
