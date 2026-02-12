@@ -251,15 +251,13 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
               <Trash2 className="w-4 h-4" />
               {deleting ? 'Deleting...' : `Delete (${selectedContacts.size})`}
             </button>
-            {pipelines.length > 0 && (
-              <button
-                onClick={() => setShowBulkAddModal(true)}
-                className="flex items-center gap-2 px-3 py-1.5 text-sm bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 transition"
-              >
-                <Users className="w-4 h-4" />
-                Add to Pipeline
-              </button>
-            )}
+            <button
+              onClick={() => setShowBulkAddModal(true)}
+              className="flex items-center gap-2 px-3 py-1.5 text-sm bg-[var(--color-primary)] text-white rounded-lg hover:opacity-90 transition"
+            >
+              <Users className="w-4 h-4" />
+              Add to Pipeline
+            </button>
           </div>
         </div>
       )}
@@ -296,19 +294,17 @@ export function ContactsList({ contacts: initialContacts, pipelines = [], tags: 
             ))}
           </select>
         )}
-        {pipelines.length > 0 && (
-          <select
-            value={pipelineFilter}
-            onChange={(e) => setPipelineFilter(e.target.value)}
-            className="px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
-          >
-            <option value="">All pipelines</option>
-            <option value="no_pipeline">Not in any pipeline</option>
-            {pipelines.map(pipeline => (
-              <option key={pipeline.id} value={pipeline.id}>{pipeline.name}</option>
-            ))}
-          </select>
-        )}
+        <select
+          value={pipelineFilter}
+          onChange={(e) => setPipelineFilter(e.target.value)}
+          className="px-3 py-2 border border-[var(--color-border-strong)] rounded-lg focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none"
+        >
+          <option value="">All pipelines</option>
+          <option value="no_pipeline">Not in any pipeline</option>
+          {pipelines.map(pipeline => (
+            <option key={pipeline.id} value={pipeline.id}>{pipeline.name}</option>
+          ))}
+        </select>
         <button
           onClick={() => setShowFiltersPanel(!showFiltersPanel)}
           className={`flex items-center gap-2 px-4 py-2 border rounded-lg transition ${
