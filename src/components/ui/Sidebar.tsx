@@ -123,6 +123,12 @@ export function Sidebar({ userEmail }: SidebarProps) {
         { href: '/reports', icon: BarChart3, label: 'Analytics' },
       ]
     },
+    ...(isAdmin ? [{
+      title: 'Agency',
+      items: [
+        { href: '/accounts', icon: Building2, label: 'Sub-Accounts' },
+      ]
+    }] : []),
   ]
 
   const sidebarColor = branding?.secondary_color || '#0a0a0a'
