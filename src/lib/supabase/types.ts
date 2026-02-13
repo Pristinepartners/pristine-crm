@@ -276,6 +276,156 @@ export interface UserSettings {
   updated_at: string
 }
 
+// Sub-Account Types
+export interface SubAccount {
+  id: string
+  name: string
+  company_name: string
+  industry: string
+  primary_color: string
+  secondary_color: string
+  logo_initial: string
+  logo_url: string | null
+  pipeline_stages: string[]
+  is_active: boolean
+  created_by: string
+  created_at: string
+  updated_at: string
+}
+
+export interface SubAccountContact {
+  id: string
+  sub_account_id: string
+  name: string
+  email: string | null
+  phone: string | null
+  business_name: string | null
+  city: string | null
+  address: string | null
+  linkedin_url: string | null
+  lead_score: LeadScore
+  source: string | null
+  engagement_score: number
+  last_contacted_at: string | null
+  notes: string | null
+  created_at: string
+  updated_at: string
+  tags?: SubAccountContactTag[]
+}
+
+export interface SubAccountContactTag {
+  id: string
+  contact_id: string
+  name: string
+  color: string
+  created_at: string
+}
+
+export interface SubAccountOpportunity {
+  id: string
+  sub_account_id: string
+  contact_id: string | null
+  contact_name: string
+  business_name: string | null
+  stage: string
+  value: number
+  next_follow_up: string | null
+  closed_at: string | null
+  closed_won: boolean | null
+  created_at: string
+  updated_at: string
+}
+
+export interface SubAccountAppointment {
+  id: string
+  sub_account_id: string
+  contact_id: string | null
+  title: string
+  contact_name: string
+  datetime: string
+  location: string | null
+  status: AppointmentStatus
+  notes: string | null
+  created_at: string
+}
+
+export interface SubAccountSocialPost {
+  id: string
+  sub_account_id: string
+  platform: 'facebook' | 'instagram' | 'linkedin'
+  content: string
+  image_url: string | null
+  scheduled_at: string
+  status: 'draft' | 'scheduled' | 'published'
+  published_at: string | null
+  created_at: string
+  updated_at: string
+}
+
+export interface SubAccountWebsiteVisit {
+  id: string
+  sub_account_id: string
+  contact_id: string | null
+  page_url: string
+  page_title: string | null
+  duration_seconds: number
+  visited_at: string
+}
+
+export interface SubAccountLeadEvent {
+  id: string
+  sub_account_id: string
+  contact_id: string | null
+  event_type: 'email_open' | 'link_click' | 'page_view' | 'form_submit' | 'call' | 'meeting' | 'social_interaction'
+  description: string | null
+  metadata: Record<string, unknown>
+  occurred_at: string
+}
+
+export interface SubAccountActivity {
+  id: string
+  sub_account_id: string
+  contact_id: string | null
+  opportunity_id: string | null
+  activity_type: 'call' | 'email' | 'meeting' | 'note' | 'task'
+  title: string
+  description: string | null
+  summary: { participants?: string[]; key_points?: string[]; action_items?: string[]; next_steps?: string[] } | null
+  logged_by: string
+  logged_at: string
+}
+
+export interface SubAccountStageHistory {
+  id: string
+  opportunity_id: string
+  from_stage: string | null
+  to_stage: string
+  changed_at: string
+}
+
+export interface SubAccountSignal {
+  id: string
+  sub_account_id: string
+  contact_id: string | null
+  signal_type: 'purchase_intent' | 'sale_intent' | 're_engagement' | 'deal_at_risk' | 'high_engagement'
+  confidence: number
+  title: string
+  description: string | null
+  dismissed: boolean
+  created_at: string
+}
+
+export interface SubAccountOutreachSuggestion {
+  id: string
+  sub_account_id: string
+  contact_id: string | null
+  suggestion_type: 'follow_up' | 'post_meeting' | 'negotiation_check' | 're_engagement' | 'introduction'
+  subject: string
+  message_template: string
+  sent: boolean
+  created_at: string
+}
+
 // Database type definition for Supabase client
 export type Database = {
   public: {
@@ -1282,6 +1432,450 @@ export type Database = {
           description?: string | null
           line_items?: unknown
           created_at?: string
+        }
+        Relationships: []
+      }
+      sub_accounts: {
+        Row: {
+          id: string
+          name: string
+          company_name: string
+          industry: string
+          primary_color: string
+          secondary_color: string
+          logo_initial: string
+          logo_url: string | null
+          pipeline_stages: string
+          is_active: boolean
+          created_by: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          company_name: string
+          industry?: string
+          primary_color?: string
+          secondary_color?: string
+          logo_initial?: string
+          logo_url?: string | null
+          pipeline_stages?: string
+          is_active?: boolean
+          created_by?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          company_name?: string
+          industry?: string
+          primary_color?: string
+          secondary_color?: string
+          logo_initial?: string
+          logo_url?: string | null
+          pipeline_stages?: string
+          is_active?: boolean
+          created_by?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      sub_account_contacts: {
+        Row: {
+          id: string
+          sub_account_id: string
+          name: string
+          email: string | null
+          phone: string | null
+          business_name: string | null
+          city: string | null
+          address: string | null
+          linkedin_url: string | null
+          lead_score: string
+          source: string | null
+          engagement_score: number
+          last_contacted_at: string | null
+          notes: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          sub_account_id: string
+          name: string
+          email?: string | null
+          phone?: string | null
+          business_name?: string | null
+          city?: string | null
+          address?: string | null
+          linkedin_url?: string | null
+          lead_score?: string
+          source?: string | null
+          engagement_score?: number
+          last_contacted_at?: string | null
+          notes?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          sub_account_id?: string
+          name?: string
+          email?: string | null
+          phone?: string | null
+          business_name?: string | null
+          city?: string | null
+          address?: string | null
+          linkedin_url?: string | null
+          lead_score?: string
+          source?: string | null
+          engagement_score?: number
+          last_contacted_at?: string | null
+          notes?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      sub_account_contact_tags: {
+        Row: {
+          id: string
+          contact_id: string
+          name: string
+          color: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          contact_id: string
+          name: string
+          color?: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          contact_id?: string
+          name?: string
+          color?: string
+          created_at?: string
+        }
+        Relationships: []
+      }
+      sub_account_opportunities: {
+        Row: {
+          id: string
+          sub_account_id: string
+          contact_id: string | null
+          contact_name: string
+          business_name: string | null
+          stage: string
+          value: number
+          next_follow_up: string | null
+          closed_at: string | null
+          closed_won: boolean | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          sub_account_id: string
+          contact_id?: string | null
+          contact_name: string
+          business_name?: string | null
+          stage: string
+          value?: number
+          next_follow_up?: string | null
+          closed_at?: string | null
+          closed_won?: boolean | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          sub_account_id?: string
+          contact_id?: string | null
+          contact_name?: string
+          business_name?: string | null
+          stage?: string
+          value?: number
+          next_follow_up?: string | null
+          closed_at?: string | null
+          closed_won?: boolean | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      sub_account_appointments: {
+        Row: {
+          id: string
+          sub_account_id: string
+          contact_id: string | null
+          title: string
+          contact_name: string
+          datetime: string
+          location: string | null
+          status: string
+          notes: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          sub_account_id: string
+          contact_id?: string | null
+          title: string
+          contact_name: string
+          datetime: string
+          location?: string | null
+          status?: string
+          notes?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          sub_account_id?: string
+          contact_id?: string | null
+          title?: string
+          contact_name?: string
+          datetime?: string
+          location?: string | null
+          status?: string
+          notes?: string | null
+          created_at?: string
+        }
+        Relationships: []
+      }
+      sub_account_social_posts: {
+        Row: {
+          id: string
+          sub_account_id: string
+          platform: string
+          content: string
+          image_url: string | null
+          scheduled_at: string
+          status: string
+          published_at: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          sub_account_id: string
+          platform: string
+          content: string
+          image_url?: string | null
+          scheduled_at: string
+          status?: string
+          published_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          sub_account_id?: string
+          platform?: string
+          content?: string
+          image_url?: string | null
+          scheduled_at?: string
+          status?: string
+          published_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      sub_account_lead_events: {
+        Row: {
+          id: string
+          sub_account_id: string
+          contact_id: string | null
+          event_type: string
+          description: string | null
+          metadata: unknown
+          occurred_at: string
+        }
+        Insert: {
+          id?: string
+          sub_account_id: string
+          contact_id?: string | null
+          event_type: string
+          description?: string | null
+          metadata?: unknown
+          occurred_at?: string
+        }
+        Update: {
+          id?: string
+          sub_account_id?: string
+          contact_id?: string | null
+          event_type?: string
+          description?: string | null
+          metadata?: unknown
+          occurred_at?: string
+        }
+        Relationships: []
+      }
+      sub_account_website_visits: {
+        Row: {
+          id: string
+          sub_account_id: string
+          contact_id: string | null
+          page_url: string
+          page_title: string | null
+          duration_seconds: number
+          visited_at: string
+        }
+        Insert: {
+          id?: string
+          sub_account_id: string
+          contact_id?: string | null
+          page_url: string
+          page_title?: string | null
+          duration_seconds?: number
+          visited_at?: string
+        }
+        Update: {
+          id?: string
+          sub_account_id?: string
+          contact_id?: string | null
+          page_url?: string
+          page_title?: string | null
+          duration_seconds?: number
+          visited_at?: string
+        }
+        Relationships: []
+      }
+      sub_account_signals: {
+        Row: {
+          id: string
+          sub_account_id: string
+          contact_id: string | null
+          signal_type: string
+          confidence: number
+          title: string
+          description: string | null
+          dismissed: boolean
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          sub_account_id: string
+          contact_id?: string | null
+          signal_type: string
+          confidence?: number
+          title: string
+          description?: string | null
+          dismissed?: boolean
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          sub_account_id?: string
+          contact_id?: string | null
+          signal_type?: string
+          confidence?: number
+          title?: string
+          description?: string | null
+          dismissed?: boolean
+          created_at?: string
+        }
+        Relationships: []
+      }
+      sub_account_outreach_suggestions: {
+        Row: {
+          id: string
+          sub_account_id: string
+          contact_id: string | null
+          suggestion_type: string
+          subject: string
+          message_template: string
+          sent: boolean
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          sub_account_id: string
+          contact_id?: string | null
+          suggestion_type: string
+          subject: string
+          message_template: string
+          sent?: boolean
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          sub_account_id?: string
+          contact_id?: string | null
+          suggestion_type?: string
+          subject?: string
+          message_template?: string
+          sent?: boolean
+          created_at?: string
+        }
+        Relationships: []
+      }
+      sub_account_activities: {
+        Row: {
+          id: string
+          sub_account_id: string
+          contact_id: string | null
+          opportunity_id: string | null
+          activity_type: string
+          title: string
+          description: string | null
+          summary: unknown | null
+          logged_by: string
+          logged_at: string
+        }
+        Insert: {
+          id?: string
+          sub_account_id: string
+          contact_id?: string | null
+          opportunity_id?: string | null
+          activity_type: string
+          title: string
+          description?: string | null
+          summary?: unknown | null
+          logged_by: string
+          logged_at?: string
+        }
+        Update: {
+          id?: string
+          sub_account_id?: string
+          contact_id?: string | null
+          opportunity_id?: string | null
+          activity_type?: string
+          title?: string
+          description?: string | null
+          summary?: unknown | null
+          logged_by?: string
+          logged_at?: string
+        }
+        Relationships: []
+      }
+      sub_account_opportunity_stage_history: {
+        Row: {
+          id: string
+          opportunity_id: string
+          from_stage: string | null
+          to_stage: string
+          changed_at: string
+        }
+        Insert: {
+          id?: string
+          opportunity_id: string
+          from_stage?: string | null
+          to_stage: string
+          changed_at?: string
+        }
+        Update: {
+          id?: string
+          opportunity_id?: string
+          from_stage?: string | null
+          to_stage?: string
+          changed_at?: string
         }
         Relationships: []
       }
